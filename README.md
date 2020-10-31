@@ -1,5 +1,5 @@
 # Eng1_Boolean_Bobcats
-A team based project
+A team based java game project
 
 ## About The Project
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas dui id ornare arcu. Viverra suspendisse potenti nullam ac tortor vitae purus
