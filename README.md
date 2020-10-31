@@ -11,5 +11,5 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 4. Dijung
 
 ## Deliverables
-1. [The link for repo](../master)
+1. [The link for repo](../blob/master)
 2. [The link for the assessment](https://github.com/muhidinmo/Eng1_Boolean_Bobcats/blob/master/deliverables/eng1-team-assessment.pdf)
