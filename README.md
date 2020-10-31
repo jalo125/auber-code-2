@@ -10,7 +10,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 3. Lewis
 4. Zijun
 5. Morgan
-6.Roan
+6. Roan
 
 ## Deliverables
 1. [The link for repo](https://github.com/muhidinmo/Eng1_Boolean_Bobcats)
