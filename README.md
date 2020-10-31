@@ -11,4 +11,4 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 4. Dijung
 
 ## Deliverables
-[The for the deliverables](../blob/master/deliverables)
+[The for the deliverables](../master/deliverables)
