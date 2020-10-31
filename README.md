@@ -14,4 +14,4 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Deliverables
 1. [The link for repo](https://github.com/muhidinmo/Eng1_Boolean_Bobcats)
-2. [The link for the assessment](https://github.com/muhidinmo/Eng1_Boolean_Bobcats/blob/master/deliverables/eng1-team-assessment.pdf)
+
