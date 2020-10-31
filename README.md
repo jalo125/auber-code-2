@@ -12,3 +12,4 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Deliverables
 [The for the deliverables](../master/deliverables)
+[The link for the assessment](https://github.com/muhidinmo/Eng1_Boolean_Bobcats/blob/master/deliverables/eng1-team-assessment.pdf)
