@@ -9,3 +9,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 2. Adam
 3. Lewis
 4. Dijung
+
+## Deliverables
+[The for the deliverables](../tree/master/deliverables)
