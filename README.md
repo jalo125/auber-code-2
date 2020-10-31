@@ -5,7 +5,7 @@ A team based java game project
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas dui id ornare arcu. Viverra suspendisse potenti nullam ac tortor vitae purus
 
 ## The Team
-1. Muhidin Muhidin
+1. Muhidin 
 2. Adam
 3. Lewis
 4. Zijun
