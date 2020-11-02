@@ -1,0 +1,13 @@
+
+textures.png
+size: 128,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+SpriteSheet
+  rotate: false
+  xy: 1, 1
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: -1
