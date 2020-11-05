@@ -86,7 +86,6 @@ public class PlayScreen implements Screen {
         FixtureDef fdef = new FixtureDef();
         Body body;
 
-//         This code didn't work, so I've commented it out, because I need to edit it
         for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
@@ -165,7 +164,10 @@ public class PlayScreen implements Screen {
 
     void checkInputs(float delta) {
         //Actual checking of inputs
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) && player.b2body.getLinearVelocity().y <= 2){
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && Gdx.input.isKeyPressed(Input.Keys.UP)){
+            yInput = false;
+            player.b2body.setLinearVelocity(player.b2body.getLinearVelocity().x, 0f);
+        }else if (Gdx.input.isKeyPressed(Input.Keys.UP) && player.b2body.getLinearVelocity().y <= 2){
             player.b2body.applyLinearImpulse(new Vector2(0, speed), player.b2body.getWorldCenter(), true);
             yInput = true;
         }else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.b2body.getLinearVelocity().y >= -2){
@@ -176,7 +178,10 @@ public class PlayScreen implements Screen {
             player.b2body.setLinearVelocity(player.b2body.getLinearVelocity().x, 0f);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2){
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            xInput = false;
+            player.b2body.setLinearVelocity(0f, player.b2body.getLinearVelocity().y);
+        }else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2){
             player.b2body.applyLinearImpulse(new Vector2(-speed, 0), player.b2body.getWorldCenter(), true);
             xInput = true;
             anim = 2;
