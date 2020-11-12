@@ -81,7 +81,8 @@ public class PlayScreen implements Screen {
 
         //NPCs
         graph = new NodeGraph();
-        npcTest = new NPC();
+        npcTest = new NPC(world, atlas, graph,
+                graph.getNode(0), new Vector2(graph.getNode(0).getX(), graph.getNode(0).getY()));
     }
 
     @Override

@@ -28,9 +28,6 @@ public class NPCSpawner {
         for (int i = 0; i < noNPCs; i++){
             Node startNode = pathfinder.getNode(i);
             Vector2 startPos = new Vector2(startNode.getX(), startNode.getY());
-            NPC newNPC = new NPC(world, atlas, pathfinder, startNode, startPos);
-
-            NPCList.add(newNPC);
         }
     }
 
