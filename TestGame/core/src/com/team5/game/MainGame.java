@@ -3,9 +3,14 @@ package com.team5.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.team5.game.Screens.PlayScreen;
+import com.team5.game.Screens.MainMenuScreen;
 
 public class MainGame extends Game {
+
+	/*
+	Main Game actually decides which screen will be shown at
+	any given time
+	 */
 
 	public SpriteBatch batch;
 	public TextureAtlas atlas;
@@ -14,7 +19,7 @@ public class MainGame extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		atlas = new TextureAtlas("textures.atlas");
-		this.setScreen(new PlayScreen(this));
+		this.setScreen(new MainMenuScreen(this));
 	}
 
 	@Override

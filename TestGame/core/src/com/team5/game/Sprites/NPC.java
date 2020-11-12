@@ -1,21 +1,19 @@
 package com.team5.game.Sprites;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.team5.game.Sprites.Pathfinding.Node;
+import com.team5.game.Sprites.Pathfinding.NodeGraph;
+import com.team5.game.Sprites.Pathfinding.Pathfinder;
 
-public class Player extends Sprite {
+import java.util.Random;
 
-    /*
-    Player contains all of the information regarding
-    the player as well as the methods used to control them,
-    also their animations and sprite
-     */
+public class NPC extends Sprite {
 
     public TextureAtlas atlas;
 
@@ -44,26 +42,46 @@ public class Player extends Sprite {
 
 
     //Movement
-    float speed = 2000000;
-    float maxSpeed = 20000000;
+    float speed = 1000000;
+    float maxSpeed = 10000000;
 
-    public float x = 500;
-    public float y = 320;
+    public float x = 640;
+    public float y = 120;
 
-    public Player(World world, TextureAtlas atlas){
+    //AI
+    Pathfinder pathfinder;
+
+    public Node currentNode;
+    public Node goalNode;
+
+    GraphPath<Node> path;
+
+    int currentIndex;
+
+    public NPC(World world, TextureAtlas atlas, NodeGraph graph, Node startNode, Vector2 position){
         this.world = world;
         this.atlas = atlas;
-        definePlayer();
+        this.pathfinder = pathfinder;
+        this.currentNode = startNode;
+        this.x = position.x;
+        this.y = position.y;
+
+        Random random = new Random();
+        goalNode = pathfinder.getNode(random.nextInt(pathfinder.noNodes()));
+
+        path = pathfinder.findPath(startNode, goalNode);
+
+        defineCharacter();
         setupAnimations();
     }
 
-    public void Update(float delta){
-        checkInputs(delta);
+    public void update(float delta){
+        AI();
         handleAnimations(direction);
         stateTime += delta;
     }
 
-    public void definePlayer(){
+    public void defineCharacter(){
         BodyDef bodDef = new BodyDef();
         bodDef.position.set(x, y);
         bodDef.type = BodyDef.BodyType.DynamicBody;
@@ -79,40 +97,35 @@ public class Player extends Sprite {
 
     public void setupAnimations(){
         //Setting initial values of animations
-        idleAnim = new Animation<TextureRegion>(frameDuration, atlas.findRegions("Player/Idle"));
-        runAnim = new Animation<TextureRegion>(frameDuration, atlas.findRegions("Player/Run"));
+        idleAnim = new Animation<TextureRegion>(frameDuration, atlas.findRegions("NPC/Idle"));
+        runAnim = new Animation<TextureRegion>(frameDuration, atlas.findRegions("NPC/Run"));
         currentAnim = idleAnim;
         facingRight = true;
         currentSprite = currentAnim.getKeyFrame(stateTime, true);
     }
 
-    void checkInputs(float delta) {
-        //Actual checking of inputs
+    void AI(){
+        if (x < goalNode.getX() + 8 && x > goalNode.getX() - 8 &&
+            y < goalNode.getY() + 8 && y > goalNode.getY() - 8){
+            currentIndex = 1;
 
-        xInput = 0;
-        yInput = 0;
+            Random random = new Random();
+            goalNode = pathfinder.getNode(random.nextInt(pathfinder.noNodes()));
 
-        if ((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W))
-                && b2body.getLinearVelocity().y <= maxSpeed){
-            yInput++;
+            path = pathfinder.findPath(currentNode, goalNode);
+
+            direction = new Vector2(path.get(currentIndex).getX() - x, path.get(currentIndex).getY() - y).nor();
+
+        } else if (x < path.get(currentIndex).getX() + 8 && x > path.get(currentIndex).getX() - 8 &&
+                y < path.get(currentIndex).getY() + 8 && y > path.get(currentIndex).getY() - 8){
+            currentIndex++;
+
+            Vector2 resultant = new Vector2(path.get(currentIndex).getX() - x,
+                    path.get(currentIndex).getY() - y).nor();
+
+            direction = new Vector2(resultant.x * speed, resultant.y * speed);
+
         }
-
-        if ((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S))
-                && b2body.getLinearVelocity().y >= -maxSpeed) {
-            yInput--;
-        }
-
-        if ((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))
-                && b2body.getLinearVelocity().x >= -maxSpeed){
-            xInput--;
-        }
-
-        if ((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D))
-                && b2body.getLinearVelocity().x <= maxSpeed){
-            xInput++;
-        }
-
-        direction = new Vector2(xInput * speed * delta, yInput * speed * delta);
     }
 
     void handleAnimations(Vector2 direction){
@@ -137,12 +150,6 @@ public class Player extends Sprite {
             currentSprite.flip(true, false);
             facingRight = true;
         }
-    }
-
-    public void updatePosition(Vector2 target){
-        b2body.setTransform(target, 0);
-        x = b2body.getPosition().x;
-        y = b2body.getPosition().y;
     }
 
 }

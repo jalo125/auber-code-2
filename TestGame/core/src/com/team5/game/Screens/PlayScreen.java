@@ -1,105 +1,87 @@
 package com.team5.game.Screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.team5.game.Sprites.NPC;
+import com.team5.game.Sprites.Pathfinding.NodeGraph;
+import com.team5.game.Sprites.Teleporter;
+import com.team5.game.Tools.Camera;
+import com.team5.game.Environment.Walls;
 import com.team5.game.MainGame;
 import com.team5.game.Sprites.Player;
+import com.team5.game.Tools.NPCSpawner;
 
 public class PlayScreen implements Screen {
 
+    /*
+    PlayScreen is the class that renders the main gameplay scene
+    of the game, taking all the components from other entities
+     */
+
+    //Game Reference
     private MainGame game;
 
-    float speed = 100000;
-
-    float x = 640;
-    float y = 120;
-
-    //anim controls what animation state the character is in
-    int anim = 0;
-    public static final float frameDuration = 0.2f;
-    Animation<TextureRegion>[] animations;
-    float stateTime;
-
-    private boolean yInput;
-    private boolean xInput;
-
-    private OrthographicCamera cam;
-    private Viewport port;
-
+    //Tilemaps
     private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private TextureAtlas atlas;
 
+    //Colliders
     private World world;
     private Box2DDebugRenderer b2dr;
 
-    private Player player;
+    //Teleporters
+    public Stage teleStage;
+
+    //References
+    public Player player;
+    private Walls walls;
+    private Camera camera;
+    private Teleporter teleporter;
+    private NodeGraph graph;
+    private NPC npcTest;
 
     public PlayScreen(MainGame game){
         this.game = game;
         atlas = game.atlas;
 
-        //Animations
-        animations = new Animation[4];
-
-        TextureRegion[][] spriteSheet = TextureRegion.split(new Texture("Test/SpriteSheet.png"), 32, 32);
-
-        animations[0] = new Animation(frameDuration, spriteSheet[0]);
-        animations[1] = new Animation(frameDuration/2, spriteSheet[1]);
-        animations[2] = new Animation(frameDuration/2, spriteSheet[2]);
-        animations[3] = new Animation(frameDuration, spriteSheet[3]);
-
-        //Camera
-        cam = new OrthographicCamera();
-        port = new FitViewport(480, 270, cam);
-
         //Tilemap
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Tilemap.tmx");
+        map = mapLoader.load("TileMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
 
         //Collisions
         world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
 
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
+        //Player setup
+        player = new Player(world, atlas);
 
-        for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+        //Camera setup
+        camera = new Camera(player);
 
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
+        //Teleporter setup
+        teleStage = new Stage(camera.port);
+        Gdx.input.setInputProcessor(teleStage);
 
-            body = world.createBody(bdef);
+        teleporter = new Teleporter(map, this, atlas);
 
-            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
+        //Collisions for TileMap
+        walls = new Walls(world, map);
 
-        player = new Player(world);
+        //NPCs
+        graph = new NodeGraph();
+        npcTest = new NPC();
     }
 
     @Override
@@ -114,19 +96,22 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
+        b2dr.render(world, new Matrix4(camera.cam.combined));
 
-        game.batch.setProjectionMatrix(cam.combined);
-
-        stateTime += delta;
+        game.batch.setProjectionMatrix(camera.cam.combined);
 
         game.batch.begin();
-        game.batch.draw(animations[anim].getKeyFrame(stateTime, true), x, y);
+        game.batch.draw(player.currentSprite, player.x, player.y);
+        game.batch.draw(npcTest.currentSprite, npcTest.x, npcTest.y);
         game.batch.end();
+
+        teleStage.act(delta);
+        teleStage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-        port.update(width, height);
+        camera.port.update(width, height);
     }
 
     @Override
@@ -146,7 +131,10 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        map.dispose();
+        renderer.dispose();
+        world.dispose();
+        b2dr.dispose();
     }
 
     //Past here is all the methods I made
@@ -155,61 +143,15 @@ public class PlayScreen implements Screen {
         world.step(1/60f, 6, 2);
 
         //Moves the camera to the player
-        cam.position.set(new Vector3(player.b2body.getPosition().x, player.b2body.getPosition().y, 0));
+        camera.update();
+        camera.follow(player);
 
-        checkInputs(Gdx.graphics.getDeltaTime());
-        cam.update();
-        renderer.setView(cam);
-    }
+        //Moves npc
+        npcTest.update(delta);
 
-    void checkInputs(float delta) {
-        //Actual checking of inputs
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && Gdx.input.isKeyPressed(Input.Keys.UP)){
-            yInput = false;
-            player.b2body.setLinearVelocity(player.b2body.getLinearVelocity().x, 0f);
-        }else if (Gdx.input.isKeyPressed(Input.Keys.UP) && player.b2body.getLinearVelocity().y <= 2){
-            player.b2body.applyLinearImpulse(new Vector2(0, speed), player.b2body.getWorldCenter(), true);
-            yInput = true;
-        }else if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && player.b2body.getLinearVelocity().y >= -2){
-            player.b2body.applyLinearImpulse(new Vector2(0, -speed), player.b2body.getWorldCenter(), true);
-            yInput = true;
-        }else if (!Gdx.input.isKeyPressed(Input.Keys.DOWN) && !Gdx.input.isKeyPressed(Input.Keys.UP)){
-            yInput = false;
-            player.b2body.setLinearVelocity(player.b2body.getLinearVelocity().x, 0f);
-        }
+        //Move player
+        player.Update(delta);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            xInput = false;
-            player.b2body.setLinearVelocity(0f, player.b2body.getLinearVelocity().y);
-        }else if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && player.b2body.getLinearVelocity().x >= -2){
-            player.b2body.applyLinearImpulse(new Vector2(-speed, 0), player.b2body.getWorldCenter(), true);
-            xInput = true;
-            anim = 2;
-        }else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && player.b2body.getLinearVelocity().x <= 2){
-            player.b2body.applyLinearImpulse(new Vector2(speed, 0), player.b2body.getWorldCenter(), true);
-            xInput = true;
-            anim = 1;
-        } else if (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            xInput = false;
-            player.b2body.setLinearVelocity(0f, player.b2body.getLinearVelocity().y);
-        }
-
-        //Working out the animations from the input
-        if (xInput == false && yInput == false){
-            if (anim == 1){
-                anim = 0;
-            } else if (anim == 2){
-                anim = 3;
-            }
-        } else if (yInput == true && xInput == false){
-            if (anim == 0){
-                anim = 1;
-            } else if (anim == 3){
-                anim = 2;
-            }
-        }
-
-        x = player.b2body.getPosition().x;
-        y = player.b2body.getPosition().y;
+        renderer.setView(camera.cam);
     }
 }

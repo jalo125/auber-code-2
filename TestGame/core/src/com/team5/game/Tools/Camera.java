@@ -8,6 +8,12 @@ import com.team5.game.Sprites.Player;
 
 public class Camera {
 
+    /*
+    Camera creates a camera for any given scene,
+    it can then either stay static or follow the player
+    using the follow function
+     */
+
     public OrthographicCamera cam;
     public Viewport port;
 
