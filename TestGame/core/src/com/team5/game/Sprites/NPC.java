@@ -1,5 +1,6 @@
 package com.team5.game.Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -35,21 +36,16 @@ public class NPC extends Sprite {
 
     boolean facingRight;
 
-    //Inputs
-    private int yInput;
-    private int xInput;
-    private Vector2 direction;
-
-
     //Movement
-    float speed = 1000000;
-    float maxSpeed = 10000000;
+    float speed = 50;
+
+    private Vector2 direction;
 
     public float x = 640;
     public float y = 120;
 
     //AI
-    Pathfinder pathfinder;
+    NodeGraph graph;
 
     public Node currentNode;
     public Node goalNode;
@@ -61,15 +57,21 @@ public class NPC extends Sprite {
     public NPC(World world, TextureAtlas atlas, NodeGraph graph, Node startNode, Vector2 position){
         this.world = world;
         this.atlas = atlas;
-        this.pathfinder = pathfinder;
+        this.graph = graph;
         this.currentNode = startNode;
         this.x = position.x;
         this.y = position.y;
 
         Random random = new Random();
-        goalNode = pathfinder.getNode(random.nextInt(pathfinder.noNodes()));
+        int goalIndex = random.nextInt(graph.getNodeCount()-1);
 
-        path = pathfinder.findPath(startNode, goalNode);
+        if (goalIndex >= graph.getIndex(currentNode)){
+            goalIndex++;
+        }
+
+        goalNode = graph.getNode(random.nextInt(goalIndex));
+
+        path = graph.findPath(startNode, goalNode);
 
         defineCharacter();
         setupAnimations();
@@ -93,6 +95,8 @@ public class NPC extends Sprite {
         shape.setPosition(new Vector2(size/2,size/2));
         fixDef.shape = shape;
         b2body.createFixture(fixDef);
+
+        fixDef.isSensor = true;
     }
 
     public void setupAnimations(){
@@ -107,25 +111,36 @@ public class NPC extends Sprite {
     void AI(){
         if (x < goalNode.getX() + 8 && x > goalNode.getX() - 8 &&
             y < goalNode.getY() + 8 && y > goalNode.getY() - 8){
+            currentNode = goalNode;
             currentIndex = 1;
 
             Random random = new Random();
-            goalNode = pathfinder.getNode(random.nextInt(pathfinder.noNodes()));
+            int goalIndex = random.nextInt(graph.getNodeCount()-1);
 
-            path = pathfinder.findPath(currentNode, goalNode);
+            if (goalIndex >= graph.getIndex(currentNode)){
+                goalIndex++;
+            }
 
-            direction = new Vector2(path.get(currentIndex).getX() - x, path.get(currentIndex).getY() - y).nor();
+            goalNode = graph.getNode(random.nextInt(goalIndex));
+
+            path = graph.findPath(currentNode, goalNode);
+
+            Gdx.app.log("Debug", "Goal: " + goalNode.getString());
+            Gdx.app.log("Debug", "Current: " + currentNode.getString());
+            Gdx.app.log("Debug", "Next: " + path.get(currentIndex).getString());
 
         } else if (x < path.get(currentIndex).getX() + 8 && x > path.get(currentIndex).getX() - 8 &&
                 y < path.get(currentIndex).getY() + 8 && y > path.get(currentIndex).getY() - 8){
+            currentNode = path.get(currentIndex);
             currentIndex++;
-
-            Vector2 resultant = new Vector2(path.get(currentIndex).getX() - x,
-                    path.get(currentIndex).getY() - y).nor();
-
-            direction = new Vector2(resultant.x * speed, resultant.y * speed);
-
+            Gdx.app.log("Debug", "Current: " + currentNode.getString());
+            Gdx.app.log("Debug", "Next: " + path.get(currentIndex).getString());
         }
+
+        Vector2 resultant = new Vector2(path.get(currentIndex).getX() - x,
+                path.get(currentIndex).getY() - y).nor();
+
+        direction = new Vector2(resultant.x * speed, resultant.y * speed);
     }
 
     void handleAnimations(Vector2 direction){
@@ -134,7 +149,7 @@ public class NPC extends Sprite {
             b2body.setLinearVelocity(0f, 0f);
             currentAnim = idleAnim;
         } else {
-            b2body.applyLinearImpulse(direction, b2body.getWorldCenter(), true);
+            b2body.setLinearVelocity(direction);
             currentAnim = runAnim;
         }
 

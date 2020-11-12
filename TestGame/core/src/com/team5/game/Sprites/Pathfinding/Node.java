@@ -1,8 +1,5 @@
 package com.team5.game.Sprites.Pathfinding;
 
-import com.badlogic.gdx.ai.pfa.Heuristic;
-import com.badlogic.gdx.math.Vector2;
-
 public class Node{
 
     float x;
@@ -27,5 +24,9 @@ public class Node{
 
     public float getY(){
         return y;
+    }
+
+    public String getString() {
+        return name;
     }
 }

@@ -73,29 +73,29 @@ public class NodeGraph implements IndexedGraph<Node> {
     }
 
     void buildNodeMap(){
-        Node lowerEngine = new Node(144, 320, "Lower Engine");
-        Node westWing = new Node(144, 640, "West Wing");
-        Node upperEngine = new Node(144, 800, "Upper Engine");
-        Node reactor = new Node(80, 640, "Reactor");
-        Node security = new Node(224, 640, "Security");
-        Node northWing = new Node(304, 800, "North Wing");
-        Node medical = new Node(304, 720, "Lower Engine");
-        Node upperCafe = new Node(480, 800, "Upper Cafeteria");
-        Node lowerCafe = new Node(480, 704, "Lower Cafeteria");
-        Node weapons = new Node(752, 704, "Weapons");
-        Node upperEastWing = new Node(752, 624, "Upper East Wing");
-        Node oxygen = new Node(656, 624, "Oxygen");
-        Node navigation = new Node(848, 528, "Navigation");
-        Node lowerEastWing = new Node(752, 528, "Lower East Wing");
-        Node shields = new Node(752, 352, "Lower Engine");
-        Node southEastWing = new Node(624, 352, "South East Wing");
-        Node communication = new Node(624, 272, "Communication");
-        Node upperStorage = new Node(480, 352, "Upper Storage");
-        Node lowerStorage = new Node(480, 320, "Lower Storage");
-        Node southWestWing = new Node(288, 320, "South West Wing");
-        Node electrical = new Node(288, 416, "Electrical");
-        Node centralWing = new Node(480, 528, "Central Wing");
-        Node admin = new Node(640, 528, "Admin");
+        Node lowerEngine = new Node(128, 304, "Lower Engine");
+        Node westWing = new Node(128, 624, "West Wing");
+        Node upperEngine = new Node(128, 784, "Upper Engine");
+        Node reactor = new Node(64, 624, "Reactor");
+        Node security = new Node(208, 624, "Security");
+        Node northWing = new Node(288, 784, "North Wing");
+        Node medical = new Node(288, 704, "Lower Engine");
+        Node upperCafe = new Node(464, 784, "Upper Cafeteria");
+        Node lowerCafe = new Node(464, 688, "Lower Cafeteria");
+        Node weapons = new Node(736, 688, "Weapons");
+        Node upperEastWing = new Node(736, 608, "Upper East Wing");
+        Node oxygen = new Node(640, 608, "Oxygen");
+        Node navigation = new Node(832, 512, "Navigation");
+        Node lowerEastWing = new Node(736, 512, "Lower East Wing");
+        Node shields = new Node(736, 336, "Lower Engine");
+        Node southEastWing = new Node(608, 336, "South East Wing");
+        Node communication = new Node(608, 256, "Communication");
+        Node upperStorage = new Node(464, 352, "Upper Storage");
+        Node lowerStorage = new Node(464, 304, "Lower Storage");
+        Node southWestWing = new Node(272, 304, "South West Wing");
+        Node electrical = new Node(272, 400, "Electrical");
+        Node centralWing = new Node(464, 512, "Central Wing");
+        Node admin = new Node(624, 512, "Admin");
 
         addNode(lowerEngine);
         addNode(westWing);

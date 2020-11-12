@@ -45,7 +45,7 @@ public class Player extends Sprite {
 
     //Movement
     float speed = 2000000;
-    float maxSpeed = 20000000;
+    float maxSpeed = 4000000;
 
     public float x = 500;
     public float y = 320;
@@ -112,7 +112,7 @@ public class Player extends Sprite {
             xInput++;
         }
 
-        direction = new Vector2(xInput * speed * delta, yInput * speed * delta);
+        direction = new Vector2(xInput * speed, yInput * speed);
     }
 
     void handleAnimations(Vector2 direction){
