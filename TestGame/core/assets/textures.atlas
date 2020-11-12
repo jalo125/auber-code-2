@@ -1,13 +1,76 @@
 
 textures.png
-size: 128,256
+size: 256,32
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-SpriteSheet
+NPC/Idle
   rotate: false
   xy: 1, 1
-  size: 64, 128
-  orig: 64, 128
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+NPC/Idle
+  rotate: false
+  xy: 35, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+NPC/Run
+  rotate: false
+  xy: 103, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+NPC/Run
+  rotate: false
+  xy: 137, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+Player/Idle
+  rotate: false
+  xy: 18, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+Player/Idle
+  rotate: false
+  xy: 52, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+Player/Run
+  rotate: false
+  xy: 120, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+Player/Run
+  rotate: false
+  xy: 154, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+Teleporter/Off
+  rotate: false
+  xy: 69, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+Teleporter/On
+  rotate: false
+  xy: 86, 1
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1

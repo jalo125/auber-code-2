@@ -6,6 +6,12 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.team5.game.MainGame;
 
 public class DesktopLauncher {
+
+	/*
+	Desktop Launcher is the class which actually launches
+	the game and contains all of the settings surrounding that
+	 */
+
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
@@ -18,8 +24,13 @@ public class DesktopLauncher {
 		sets.paddingX = 1;
 		sets.paddingY = 1;
 		sets.edgePadding = true;
-		TexturePacker.process(sets, "Test", "./", "textures");
+		TexturePacker.process(sets, "Sprites/TexturePack", "./", "textures");
 		// }
+
+		config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
+		config.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
+
+		config.fullscreen = true;
 
 		new LwjglApplication(new MainGame(), config);
 	}
