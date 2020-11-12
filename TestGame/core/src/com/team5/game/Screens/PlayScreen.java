@@ -74,7 +74,7 @@ public class PlayScreen implements Screen {
 
         //Tilemap
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("TileMapTest.tmx");
+        map = mapLoader.load("Tilemap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
 
         //Collisions

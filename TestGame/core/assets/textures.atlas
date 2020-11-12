@@ -1,12 +1,82 @@
 
 textures.png
-size: 128,256
+size: 512,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-SpriteSheet
+Menu/Play Button
+  rotate: false
+  xy: 1, 18
+  size: 96, 32
+  orig: 96, 32
+  offset: 0, 0
+  index: -1
+Menu/PlayButton
+  rotate: false
+  xy: 1, 18
+  size: 96, 32
+  orig: 96, 32
+  offset: 0, 0
+  index: -1
+Menu/Quit Button
+  rotate: false
+  xy: 258, 211
+  size: 96, 32
+  orig: 96, 32
+  offset: 0, 0
+  index: -1
+Menu/QuitButton
+  rotate: false
+  xy: 258, 211
+  size: 96, 32
+  orig: 96, 32
+  offset: 0, 0
+  index: -1
+Menu/Title
+  rotate: false
+  xy: 1, 51
+  size: 256, 192
+  orig: 256, 192
+  offset: 0, 0
+  index: -1
+Player/Idle
   rotate: false
   xy: 1, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+Player/Run
+  rotate: false
+  xy: 1, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+Player/Idle
+  rotate: false
+  xy: 98, 34
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+Player/Run
+  rotate: false
+  xy: 355, 227
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+Player/Run
+  rotate: false
+  xy: 258, 65
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 3
+SpriteSheet
+  rotate: false
+  xy: 258, 82
   size: 64, 128
   orig: 64, 128
   offset: 0, 0

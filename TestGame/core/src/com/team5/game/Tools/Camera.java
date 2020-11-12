@@ -1,4 +1,4 @@
-package com.team5.game.Tools.Cameras;
+package com.team5.game.Tools;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
