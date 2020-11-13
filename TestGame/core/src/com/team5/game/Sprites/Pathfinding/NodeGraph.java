@@ -1,5 +1,6 @@
 package com.team5.game.Sprites.Pathfinding;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
@@ -53,6 +54,16 @@ public class NodeGraph implements IndexedGraph<Node> {
         return nodes.get(index);
     }
 
+    public Node getRandom(Node exception){
+        Node node = exception;
+        while(node.equals(exception)){
+            node = nodes.random();
+        }
+        Gdx.app.log("Current", exception.getName());
+        Gdx.app.log("Goal", node.getName());
+        return node;
+    }
+
     @Override
     public int getIndex(Node node) {
         return node.index;
@@ -60,7 +71,7 @@ public class NodeGraph implements IndexedGraph<Node> {
 
     @Override
     public int getNodeCount() {
-        return nodeIndex;
+        return nodes.size;
     }
 
     @Override
@@ -72,6 +83,10 @@ public class NodeGraph implements IndexedGraph<Node> {
         return new Array<>();
     }
 
+    public Array<Node> getNodes(){
+        return nodes;
+    }
+
     void buildNodeMap(){
         Node lowerEngine = new Node(128, 304, "Lower Engine");
         Node westWing = new Node(128, 624, "West Wing");
@@ -79,7 +94,7 @@ public class NodeGraph implements IndexedGraph<Node> {
         Node reactor = new Node(64, 624, "Reactor");
         Node security = new Node(208, 624, "Security");
         Node northWing = new Node(288, 784, "North Wing");
-        Node medical = new Node(288, 704, "Lower Engine");
+        Node medical = new Node(288, 704, "Medical");
         Node upperCafe = new Node(464, 784, "Upper Cafeteria");
         Node lowerCafe = new Node(464, 688, "Lower Cafeteria");
         Node weapons = new Node(736, 688, "Weapons");
@@ -87,7 +102,7 @@ public class NodeGraph implements IndexedGraph<Node> {
         Node oxygen = new Node(640, 608, "Oxygen");
         Node navigation = new Node(832, 512, "Navigation");
         Node lowerEastWing = new Node(736, 512, "Lower East Wing");
-        Node shields = new Node(736, 336, "Lower Engine");
+        Node shields = new Node(736, 336, "Shields");
         Node southEastWing = new Node(608, 336, "South East Wing");
         Node communication = new Node(608, 256, "Communication");
         Node upperStorage = new Node(464, 352, "Upper Storage");
@@ -167,6 +182,7 @@ public class NodeGraph implements IndexedGraph<Node> {
         linkNodes(electrical, southWestWing);
         linkNodes(centralWing, upperStorage);
         linkNodes(centralWing, lowerCafe);
+        linkNodes(centralWing, admin);
         linkNodes(admin, centralWing);
     }
 }

@@ -26,7 +26,11 @@ public class Node{
         return y;
     }
 
-    public String getString() {
+    public String getName() {
         return name;
+    }
+
+    public boolean equals(Node otherNode){
+        return (name.equals(otherNode.getName()));
     }
 }
