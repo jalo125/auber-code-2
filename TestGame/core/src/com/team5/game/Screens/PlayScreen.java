@@ -19,7 +19,6 @@ import com.team5.game.Tools.Camera;
 import com.team5.game.Environment.Walls;
 import com.team5.game.MainGame;
 import com.team5.game.Sprites.Player;
-import com.team5.game.Tools.NPCSpawner;
 
 public class PlayScreen implements Screen {
 
@@ -85,9 +84,11 @@ public class PlayScreen implements Screen {
         graph = new NodeGraph();
         npcs = new Array<>();
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 100; i++) {
             NPC npc = new NPC(world, atlas, graph,
-                    graph.getNode(i), new Vector2(graph.getNode(i).getX(), graph.getNode(i).getY()));
+                    graph.getNode(i%graph.getNodeCount()),
+                    new Vector2(graph.getNode(i%graph.getNodeCount()).getX(),
+                            graph.getNode(i%graph.getNodeCount()).getY()));
             npcs.add(npc);
         }
     }

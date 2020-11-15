@@ -10,6 +10,10 @@ import com.team5.game.Sprites.Pathfinding.Pathfinder;
 
 public class NPCSpawner {
 
+    /*
+    NPCSpawner is obsolete at the moment
+     */
+
     public int noNPCs = 1;
     Array<NPC> NPCList = new Array<>();
 

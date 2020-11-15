@@ -5,6 +5,10 @@ import com.badlogic.gdx.ai.pfa.GraphPath;
 
 public class Pathfinder {
 
+    /*
+    Pathfinder is obsolete at the moment
+     */
+
     NodeGraph  nodeGraph;
     GraphPath<Node> nodePath;
 

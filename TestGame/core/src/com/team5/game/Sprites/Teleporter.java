@@ -10,7 +10,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.team5.game.Screens.PlayScreen;
 
@@ -35,6 +38,7 @@ public class Teleporter {
     ImageButton teleport;
     Image teleOn;
     Image teleOff;
+    Image outline;
 
     TextureAtlas atlas;
 
@@ -52,8 +56,8 @@ public class Teleporter {
         this.map = map;
         this.screen = screen;
 
-        teleOff = new Image(atlas.findRegion("Teleporter/Off"));
         teleOn = new Image(atlas.findRegion("Teleporter/On"));
+        outline = new Image(atlas.findRegion("Teleporter/Outline"));
         telePositions = new Array<>();
 
         findPositions();
@@ -63,13 +67,17 @@ public class Teleporter {
         for(MapObject object: map.getLayers().get(teleIndex).getObjects().getByType(RectangleMapObject.class)){
             rect = ((RectangleMapObject) object).getRectangle();
 
-            teleport = new ImageButton(teleOff.getDrawable());
+            teleport = new ImageButton(new Image(atlas.findRegion("Empty")).getDrawable());
+
+            teleOff = new Image(atlas.findRegion("Teleporter/Off"));
 
             //The 8s are to make the hitbox bigger
             teleport.setPosition(rect.getX() - 4, rect.getY() - 4);
             teleport.setSize(rect.getWidth() + 8, rect.getHeight() + 8);
 
-            teleport.getStyle().imageOver = teleOn.getDrawable();
+            teleOff.setPosition(rect.getX(), rect.getY());
+
+            teleport.getStyle().imageOver = outline.getDrawable();
 
             telePositions.add(new Vector2(rect.getX(), rect.getY()));
 
@@ -82,7 +90,7 @@ public class Teleporter {
                             telePositions.get(index).y + (16 * yOffset)));
                 }
             });
-
+            screen.teleStage.addActor(teleOff);
             screen.teleStage.addActor(teleport);
         }
     }

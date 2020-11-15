@@ -11,6 +11,12 @@ import com.badlogic.gdx.utils.ObjectMap;
 
 public class NodeGraph implements IndexedGraph<Node> {
 
+    /*
+    NodeGraph creates a graph of Nodes and Links and allows
+    an NPC to find a path using A* search from one point
+    in the map to another
+     */
+
     NodeHeuristic nodeHeuristic;
     Array<Node> nodes;
     Array<Link> links;

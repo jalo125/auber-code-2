@@ -1,6 +1,5 @@
 package com.team5.game.Sprites;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -8,38 +7,36 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Array;
+import com.team5.game.Sprites.Animation.Animator;
+import com.team5.game.Sprites.Collisions.CharacterCollider;
 import com.team5.game.Sprites.Pathfinding.Node;
 import com.team5.game.Sprites.Pathfinding.NodeGraph;
-import com.team5.game.Sprites.Pathfinding.Pathfinder;
 import com.team5.game.Tools.Constants;
 
 import java.util.Random;
 
 public class NPC extends Sprite {
 
-    public TextureAtlas atlas;
+    /*
+    NPC contains all of the information regarding an NPC
+    in the game with reference to the AI used for it's pathfinding
+     */
 
     //Collider
     public World world;
     public Body b2body;
     private int size = 16;
-    private Box2DDebugRenderer b2dr;
+    CharacterCollider charCollider = new CharacterCollider();
 
     //Animations
-    public static final float frameDuration = 0.2f;
-    float stateTime;
-
-    Animation<TextureRegion> currentAnim;
-    Animation<TextureRegion> idleAnim;
-    Animation<TextureRegion> runAnim;
+    Animator anim;
 
     public TextureRegion currentSprite;
 
     boolean facingRight;
 
     //Movement
-    float speed = 500;
+    float speed = 50;
 
     private Vector2 direction;
 
@@ -58,7 +55,6 @@ public class NPC extends Sprite {
 
     public NPC(World world, TextureAtlas atlas, NodeGraph graph, Node node, Vector2 position){
         this.world = world;
-        this.atlas = atlas;
         this.graph = graph;
         this.currentNode = node;
         this.x = position.x;
@@ -66,40 +62,23 @@ public class NPC extends Sprite {
 
         newTarget();
 
-        defineCharacter();
-        setupAnimations();
+        b2body = charCollider.defineCollider(world, position, size);
+        setupAnimations(atlas);
     }
 
     public void update(float delta){
         AI();
         handleAnimations(direction);
-        stateTime += delta;
     }
 
-    public void defineCharacter(){
-        BodyDef bodDef = new BodyDef();
-        bodDef.position.set(x, y);
-        bodDef.type = BodyDef.BodyType.DynamicBody;
-        b2body = world.createBody(bodDef);
-
-        FixtureDef fixDef = new FixtureDef();
-        CircleShape shape = new CircleShape();
-        shape.setRadius(7.5f);
-        shape.setPosition(new Vector2(size/2,size/2));
-        fixDef.shape = shape;
-
-        fixDef.filter.groupIndex = Constants.GROUP_PLAYER;
-
-        b2body.createFixture(fixDef);
-    }
-
-    public void setupAnimations(){
+    public void setupAnimations(TextureAtlas atlas){
         //Setting initial values of animations
-        idleAnim = new Animation<TextureRegion>(frameDuration, atlas.findRegions("NPC/Idle"));
-        runAnim = new Animation<TextureRegion>(frameDuration, atlas.findRegions("NPC/Run"));
-        currentAnim = idleAnim;
+        Random random = new Random();
+        int sprite = random.nextInt(6);
+        anim = new Animator(atlas, "idle", "NPC/" + String.valueOf(sprite+1) + "/Idle");
+        anim.add("run", "NPC/" + String.valueOf(sprite+1) + "/Run");
         facingRight = true;
-        currentSprite = currentAnim.getKeyFrame(stateTime, true);
+        currentSprite = anim.getSprite();
     }
 
     void newTarget(){
@@ -131,22 +110,22 @@ public class NPC extends Sprite {
         //Deciding which animation will be played each frame
         if (direction.isZero(0.01f)){
             b2body.setLinearVelocity(0f, 0f);
-            currentAnim = idleAnim;
+            anim.play("idle");
         } else {
             b2body.setLinearVelocity(direction);
-            currentAnim = runAnim;
+            anim.play("run");
         }
 
         x = b2body.getPosition().x;
         y = b2body.getPosition().y;
 
-        currentSprite = currentAnim.getKeyFrame(stateTime, true);
+        currentSprite = anim.getSprite();
 
-        if ((b2body.getLinearVelocity().x < 0 || !facingRight) && !currentSprite.isFlipX()){
-            currentSprite.flip(true, false);
+        if ((b2body.getLinearVelocity().x < 0 || !facingRight) && !anim.isFlipped()){
+            anim.flip();
             facingRight = false;
-        } else if ((b2body.getLinearVelocity().x > 0 || facingRight) && currentSprite.isFlipX()){
-            currentSprite.flip(true, false);
+        } else if ((b2body.getLinearVelocity().x > 0 || facingRight) && anim.isFlipped()){
+            anim.flip();
             facingRight = true;
         }
     }

@@ -2,14 +2,13 @@ package com.team5.game.Sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.team5.game.Sprites.Animation.Animator;
-import com.team5.game.Tools.Constants;
+import com.team5.game.Sprites.Collisions.CharacterCollider;
 
 public class Player extends Sprite {
 
@@ -22,8 +21,8 @@ public class Player extends Sprite {
     //Collider
     public World world;
     public Body b2body;
-    private int size = 16;
-    private Box2DDebugRenderer b2dr;
+    int size = 16;
+    CharacterCollider charCollider = new CharacterCollider();
 
     //Animations
     Animator anim;
@@ -47,30 +46,13 @@ public class Player extends Sprite {
     public Player(World world, TextureAtlas atlas){
         this.world = world;
 
-        definePlayer();
+        b2body = charCollider.defineCollider(world, new Vector2(x, y), size);
         setupAnimations(atlas);
     }
 
     public void update(){
         checkInputs();
         handleAnimations(direction);
-    }
-
-    public void definePlayer(){
-        BodyDef bodDef = new BodyDef();
-        bodDef.position.set(x, y);
-        bodDef.type = BodyDef.BodyType.DynamicBody;
-        b2body = world.createBody(bodDef);
-
-        FixtureDef fixDef = new FixtureDef();
-        CircleShape shape = new CircleShape();
-        shape.setRadius(7.5f);
-        shape.setPosition(new Vector2(size/2,size/2));
-        fixDef.shape = shape;
-
-        fixDef.filter.groupIndex = Constants.GROUP_PLAYER;
-
-        b2body.createFixture(fixDef);
     }
 
     public void setupAnimations(TextureAtlas atlas){
