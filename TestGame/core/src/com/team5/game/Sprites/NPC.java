@@ -8,9 +8,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import com.team5.game.Sprites.Pathfinding.Node;
 import com.team5.game.Sprites.Pathfinding.NodeGraph;
 import com.team5.game.Sprites.Pathfinding.Pathfinder;
+import com.team5.game.Tools.Constants;
 
 import java.util.Random;
 
@@ -37,7 +39,7 @@ public class NPC extends Sprite {
     boolean facingRight;
 
     //Movement
-    float speed = 50;
+    float speed = 500;
 
     private Vector2 direction;
 
@@ -54,24 +56,15 @@ public class NPC extends Sprite {
 
     int currentIndex;
 
-    public NPC(World world, TextureAtlas atlas, NodeGraph graph, Node startNode, Vector2 position){
+    public NPC(World world, TextureAtlas atlas, NodeGraph graph, Node node, Vector2 position){
         this.world = world;
         this.atlas = atlas;
         this.graph = graph;
-        this.currentNode = startNode;
+        this.currentNode = node;
         this.x = position.x;
         this.y = position.y;
 
-        Random random = new Random();
-        int goalIndex = random.nextInt(graph.getNodeCount()-1);
-
-        if (goalIndex >= graph.getIndex(currentNode)){
-            goalIndex++;
-        }
-
-        goalNode = graph.getNode(random.nextInt(goalIndex));
-
-        path = graph.findPath(startNode, goalNode);
+        newTarget();
 
         defineCharacter();
         setupAnimations();
@@ -94,9 +87,10 @@ public class NPC extends Sprite {
         shape.setRadius(7.5f);
         shape.setPosition(new Vector2(size/2,size/2));
         fixDef.shape = shape;
-        b2body.createFixture(fixDef);
 
-        fixDef.isSensor = true;
+        fixDef.filter.groupIndex = Constants.GROUP_PLAYER;
+
+        b2body.createFixture(fixDef);
     }
 
     public void setupAnimations(){
@@ -108,33 +102,23 @@ public class NPC extends Sprite {
         currentSprite = currentAnim.getKeyFrame(stateTime, true);
     }
 
+    void newTarget(){
+        goalNode = graph.getRandom(currentNode);
+        path = graph.findPath(currentNode, goalNode);
+    }
+
     void AI(){
         if (x < goalNode.getX() + 8 && x > goalNode.getX() - 8 &&
             y < goalNode.getY() + 8 && y > goalNode.getY() - 8){
             currentNode = goalNode;
             currentIndex = 1;
 
-            Random random = new Random();
-            int goalIndex = random.nextInt(graph.getNodeCount()-2);
-
-            if (goalIndex >= graph.getIndex(currentNode)){
-                goalIndex++;
-            }
-
-            goalNode = graph.getNode(random.nextInt(goalIndex));
-
-            path = graph.findPath(currentNode, goalNode);
-
-            Gdx.app.log("Debug", "Goal: " + goalNode.getString());
-            Gdx.app.log("Debug", "Current: " + currentNode.getString());
-            Gdx.app.log("Debug", "Next: " + path.get(currentIndex).getString());
+            newTarget();
 
         } else if (x < path.get(currentIndex).getX() + 8 && x > path.get(currentIndex).getX() - 8 &&
                 y < path.get(currentIndex).getY() + 8 && y > path.get(currentIndex).getY() - 8){
             currentNode = path.get(currentIndex);
             currentIndex++;
-            Gdx.app.log("Debug", "Current: " + currentNode.getString());
-            Gdx.app.log("Debug", "Next: " + path.get(currentIndex).getString());
         }
 
         Vector2 resultant = new Vector2(path.get(currentIndex).getX() - x,

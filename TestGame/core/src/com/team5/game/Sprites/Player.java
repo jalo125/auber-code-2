@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.team5.game.Sprites.Animation.Animator;
+import com.team5.game.Tools.Constants;
 
 public class Player extends Sprite {
 
@@ -17,8 +19,6 @@ public class Player extends Sprite {
     also their animations and sprite
      */
 
-    public TextureAtlas atlas;
-
     //Collider
     public World world;
     public Body b2body;
@@ -26,12 +26,7 @@ public class Player extends Sprite {
     private Box2DDebugRenderer b2dr;
 
     //Animations
-    public static final float frameDuration = 0.2f;
-    float stateTime;
-
-    Animation<TextureRegion> currentAnim;
-    Animation<TextureRegion> idleAnim;
-    Animation<TextureRegion> runAnim;
+    Animator anim;
 
     public TextureRegion currentSprite;
 
@@ -45,22 +40,20 @@ public class Player extends Sprite {
 
     //Movement
     float speed = 2000000;
-    float maxSpeed = 4000000;
 
     public float x = 500;
     public float y = 320;
 
     public Player(World world, TextureAtlas atlas){
         this.world = world;
-        this.atlas = atlas;
+
         definePlayer();
-        setupAnimations();
+        setupAnimations(atlas);
     }
 
-    public void Update(float delta){
-        checkInputs(delta);
+    public void update(){
+        checkInputs();
         handleAnimations(direction);
-        stateTime += delta;
     }
 
     public void definePlayer(){
@@ -74,41 +67,39 @@ public class Player extends Sprite {
         shape.setRadius(7.5f);
         shape.setPosition(new Vector2(size/2,size/2));
         fixDef.shape = shape;
+
+        fixDef.filter.groupIndex = Constants.GROUP_PLAYER;
+
         b2body.createFixture(fixDef);
     }
 
-    public void setupAnimations(){
+    public void setupAnimations(TextureAtlas atlas){
         //Setting initial values of animations
-        idleAnim = new Animation<TextureRegion>(frameDuration, atlas.findRegions("Player/Idle"));
-        runAnim = new Animation<TextureRegion>(frameDuration, atlas.findRegions("Player/Run"));
-        currentAnim = idleAnim;
+        anim = new Animator(atlas, "idle", "Player/Idle");
+        anim.add("run", "Player/Run");
         facingRight = true;
-        currentSprite = currentAnim.getKeyFrame(stateTime, true);
+        currentSprite = anim.getSprite();
     }
 
-    void checkInputs(float delta) {
+    void checkInputs() {
         //Actual checking of inputs
 
         xInput = 0;
         yInput = 0;
 
-        if ((Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W))
-                && b2body.getLinearVelocity().y <= maxSpeed){
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)){
             yInput++;
         }
 
-        if ((Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S))
-                && b2body.getLinearVelocity().y >= -maxSpeed) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)){
             yInput--;
         }
 
-        if ((Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A))
-                && b2body.getLinearVelocity().x >= -maxSpeed){
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)){
             xInput--;
         }
 
-        if ((Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D))
-                && b2body.getLinearVelocity().x <= maxSpeed){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)){
             xInput++;
         }
 
@@ -119,22 +110,22 @@ public class Player extends Sprite {
         //Deciding which animation will be played each frame
         if (direction.isZero(0.01f)){
             b2body.setLinearVelocity(0f, 0f);
-            currentAnim = idleAnim;
+            anim.play("idle");
         } else {
-            b2body.applyLinearImpulse(direction, b2body.getWorldCenter(), true);
-            currentAnim = runAnim;
+            b2body.setLinearVelocity(direction.x, direction.y);
+            anim.play("run");
         }
 
         x = b2body.getPosition().x;
         y = b2body.getPosition().y;
 
-        currentSprite = currentAnim.getKeyFrame(stateTime, true);
+        currentSprite = anim.getSprite();
 
-        if ((b2body.getLinearVelocity().x < 0 || !facingRight) && !currentSprite.isFlipX()){
-            currentSprite.flip(true, false);
+        if ((b2body.getLinearVelocity().x < 0 || !facingRight) && !anim.isFlipped()){
+            anim.flip();
             facingRight = false;
-        } else if ((b2body.getLinearVelocity().x > 0 || facingRight) && currentSprite.isFlipX()){
-            currentSprite.flip(true, false);
+        } else if ((b2body.getLinearVelocity().x > 0 || facingRight) && anim.isFlipped()){
+            anim.flip();
             facingRight = true;
         }
     }

@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 import com.team5.game.Sprites.NPC;
 import com.team5.game.Sprites.Pathfinding.NodeGraph;
 import com.team5.game.Sprites.Teleporter;
@@ -49,7 +50,8 @@ public class PlayScreen implements Screen {
     private Camera camera;
     private Teleporter teleporter;
     private NodeGraph graph;
-    private NPC npcTest;
+
+    private Array<NPC> npcs;
 
     public PlayScreen(MainGame game){
         this.game = game;
@@ -81,8 +83,13 @@ public class PlayScreen implements Screen {
 
         //NPCs
         graph = new NodeGraph();
-        npcTest = new NPC(world, atlas, graph,
-                graph.getNode(0), new Vector2(graph.getNode(0).getX(), graph.getNode(0).getY()));
+        npcs = new Array<>();
+
+        for (int i = 0; i < 20; i++) {
+            NPC npc = new NPC(world, atlas, graph,
+                    graph.getNode(i), new Vector2(graph.getNode(i).getX(), graph.getNode(i).getY()));
+            npcs.add(npc);
+        }
     }
 
     @Override
@@ -102,8 +109,10 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(camera.cam.combined);
 
         game.batch.begin();
+        for (NPC boi : npcs){
+            game.batch.draw(boi.currentSprite, boi.x, boi.y);
+        }
         game.batch.draw(player.currentSprite, player.x, player.y);
-        game.batch.draw(npcTest.currentSprite, npcTest.x, npcTest.y);
         game.batch.end();
 
         teleStage.act(delta);
@@ -148,10 +157,12 @@ public class PlayScreen implements Screen {
         camera.follow(player);
 
         //Moves npc
-        npcTest.update(delta);
+        for (NPC boi : npcs){
+            boi.update(delta);
+        }
 
         //Move player
-        player.Update(delta);
+        player.update();
 
         renderer.setView(camera.cam);
     }

@@ -5,6 +5,8 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
+import com.team5.game.Tools.Constants;
+import jdk.vm.ci.meta.Constant;
 
 public class Walls {
 
@@ -50,6 +52,9 @@ public class Walls {
 
             shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
             fixDef.shape = shape;
+
+            fixDef.filter.groupIndex = Constants.GROUP_WALLS;
+
             body.createFixture(fixDef);
         }
     }
