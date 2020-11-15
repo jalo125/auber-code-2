@@ -115,7 +115,7 @@ public class NPC extends Sprite {
             currentIndex = 1;
 
             Random random = new Random();
-            int goalIndex = random.nextInt(graph.getNodeCount()-1);
+            int goalIndex = random.nextInt(graph.getNodeCount()-2);
 
             if (goalIndex >= graph.getIndex(currentNode)){
                 goalIndex++;
