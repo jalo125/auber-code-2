@@ -5,6 +5,11 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Link<N> implements Connection<Node> {
 
+    /*
+    Link represents the link between two Nodes on the graph
+    that is the map, basically the route an NPC can take
+     */
+
     Node fromNode;
     Node toNode;
     float cost;

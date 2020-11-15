@@ -9,6 +9,11 @@ import java.util.Hashtable;
 
 public class Animator {
 
+    /*
+    Animator stores all the animations for a sprite and
+    allows them to be easily accessed
+     */
+
     public Hashtable<String, Animation<TextureRegion>> animations;
 
     public Animation<TextureRegion> currentAnim;
