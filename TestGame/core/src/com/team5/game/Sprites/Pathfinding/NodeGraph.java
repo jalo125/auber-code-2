@@ -19,6 +19,7 @@ public class NodeGraph implements IndexedGraph<Node> {
 
     NodeHeuristic nodeHeuristic;
     Array<Node> nodes;
+    Array<Room> rooms;
     Array<Link> links;
 
     ObjectMap<Node, Array<Connection<Node>>> nodeMap = new ObjectMap<>();
@@ -28,9 +29,15 @@ public class NodeGraph implements IndexedGraph<Node> {
     public NodeGraph(){
         nodeHeuristic = new NodeHeuristic();
         nodes = new Array<>();
+        rooms = new Array<>();
         links = new Array<>();
 
         buildNodeMap();
+    }
+
+    public void addRoom(Room room){
+        rooms.add(room);
+        this.addNode(room);
     }
 
     public void addNode(Node node){
@@ -63,7 +70,7 @@ public class NodeGraph implements IndexedGraph<Node> {
     public Node getRandom(Node exception){
         Node node = exception;
         while(node.equals(exception)){
-            node = nodes.random();
+            node = rooms.random();
         }
         Gdx.app.log("Current", exception.getName());
         Gdx.app.log("Goal", node.getName());
@@ -89,58 +96,54 @@ public class NodeGraph implements IndexedGraph<Node> {
         return new Array<>();
     }
 
-    public Array<Node> getNodes(){
-        return nodes;
-    }
-
     void buildNodeMap(){
-        Node lowerEngine = new Node(128, 304, "Lower Engine");
+        Room lowerEngine = new Room(128, 304, "Lower Engine");
         Node westWing = new Node(128, 624, "West Wing");
-        Node upperEngine = new Node(128, 784, "Upper Engine");
-        Node reactor = new Node(64, 624, "Reactor");
-        Node security = new Node(208, 624, "Security");
+        Room upperEngine = new Room(128, 784, "Upper Engine");
+        Room reactor = new Room(64, 624, "Reactor");
+        Room security = new Room(208, 624, "Security");
         Node northWing = new Node(288, 784, "North Wing");
-        Node medical = new Node(288, 704, "Medical");
-        Node upperCafe = new Node(464, 784, "Upper Cafeteria");
-        Node lowerCafe = new Node(464, 688, "Lower Cafeteria");
-        Node weapons = new Node(736, 688, "Weapons");
+        Room medical = new Room(288, 704, "Medical");
+        Room upperCafe = new Room(464, 784, "Upper Cafeteria");
+        Room lowerCafe = new Room(464, 688, "Lower Cafeteria");
+        Room weapons = new Room(736, 688, "Weapons");
         Node upperEastWing = new Node(736, 608, "Upper East Wing");
-        Node oxygen = new Node(640, 608, "Oxygen");
-        Node navigation = new Node(832, 512, "Navigation");
+        Room oxygen = new Room(640, 608, "Oxygen");
+        Room navigation = new Room(832, 512, "Navigation");
         Node lowerEastWing = new Node(736, 512, "Lower East Wing");
-        Node shields = new Node(736, 336, "Shields");
+        Room shields = new Room(736, 336, "Shields");
         Node southEastWing = new Node(608, 336, "South East Wing");
-        Node communication = new Node(608, 256, "Communication");
-        Node upperStorage = new Node(464, 352, "Upper Storage");
-        Node lowerStorage = new Node(464, 304, "Lower Storage");
+        Room communication = new Room(608, 256, "Communication");
+        Room upperStorage = new Room(464, 352, "Upper Storage");
+        Room lowerStorage = new Room(464, 304, "Lower Storage");
         Node southWestWing = new Node(272, 304, "South West Wing");
-        Node electrical = new Node(272, 400, "Electrical");
+        Room electrical = new Room(272, 400, "Electrical");
         Node centralWing = new Node(464, 512, "Central Wing");
-        Node admin = new Node(624, 512, "Admin");
+        Room admin = new Room(624, 512, "Admin");
 
-        addNode(lowerEngine);
+        addRoom(lowerEngine);
         addNode(westWing);
-        addNode(upperEngine);
-        addNode(reactor);
-        addNode(security);
+        addRoom(upperEngine);
+        addRoom(reactor);
+        addRoom(security);
         addNode(northWing);
-        addNode(medical);
-        addNode(upperCafe);
-        addNode(lowerCafe);
-        addNode(weapons);
+        addRoom(medical);
+        addRoom(upperCafe);
+        addRoom(lowerCafe);
+        addRoom(weapons);
         addNode(upperEastWing);
-        addNode(oxygen);
-        addNode(navigation);
+        addRoom(oxygen);
+        addRoom(navigation);
         addNode(lowerEastWing);
-        addNode(shields);
+        addRoom(shields);
         addNode(southEastWing);
-        addNode(communication);
-        addNode(upperStorage);
-        addNode(lowerStorage);
+        addRoom(communication);
+        addRoom(upperStorage);
+        addRoom(lowerStorage);
         addNode(southWestWing);
-        addNode(electrical);
+        addRoom(electrical);
         addNode(centralWing);
-        addNode(admin);
+        addRoom(admin);
 
         linkNodes(lowerEngine, westWing);
         linkNodes(lowerEngine, southWestWing);

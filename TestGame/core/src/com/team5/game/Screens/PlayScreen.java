@@ -84,7 +84,7 @@ public class PlayScreen implements Screen {
         graph = new NodeGraph();
         npcs = new Array<>();
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 80; i++) {
             NPC npc = new NPC(world, atlas, graph,
                     graph.getNode(i%graph.getNodeCount()),
                     new Vector2(graph.getNode(i%graph.getNodeCount()).getX(),
@@ -105,7 +105,7 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
-        b2dr.render(world, new Matrix4(camera.cam.combined));
+        //b2dr.render(world, new Matrix4(camera.cam.combined));
 
         game.batch.setProjectionMatrix(camera.cam.combined);
 
@@ -153,6 +153,9 @@ public class PlayScreen implements Screen {
     public void update(float delta){
         world.step(1/60f, 6, 2);
 
+        //Move player
+        player.update();
+
         //Moves the camera to the player
         camera.update();
         camera.follow(player);
@@ -161,9 +164,6 @@ public class PlayScreen implements Screen {
         for (NPC boi : npcs){
             boi.update(delta);
         }
-
-        //Move player
-        player.update();
 
         renderer.setView(camera.cam);
     }

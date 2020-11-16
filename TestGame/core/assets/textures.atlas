@@ -20,7 +20,7 @@ NPC/1/Idle
   index: 1
 NPC/1/Idle
   rotate: false
-  xy: 194, 3
+  xy: 211, 3
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -62,7 +62,7 @@ NPC/2/Idle
   index: 1
 NPC/2/Idle
   rotate: false
-  xy: 211, 3
+  xy: 228, 3
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -104,7 +104,7 @@ NPC/3/Idle
   index: 1
 NPC/3/Idle
   rotate: false
-  xy: 228, 3
+  xy: 245, 3
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -146,7 +146,7 @@ NPC/4/Idle
   index: 1
 NPC/4/Idle
   rotate: false
-  xy: 245, 3
+  xy: 262, 3
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -188,7 +188,7 @@ NPC/5/Idle
   index: 1
 NPC/5/Idle
   rotate: false
-  xy: 262, 3
+  xy: 279, 3
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -230,7 +230,7 @@ NPC/6/Idle
   index: 1
 NPC/6/Idle
   rotate: false
-  xy: 279, 3
+  xy: 296, 3
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -272,7 +272,7 @@ NPC/7/Idle
   index: 1
 NPC/7/Idle
   rotate: false
-  xy: 296, 3
+  xy: 313, 3
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -314,7 +314,7 @@ Player/Idle
   index: 1
 Player/Idle
   rotate: false
-  xy: 313, 3
+  xy: 330, 3
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -349,18 +349,18 @@ Player/Run
   index: 4
 Teleporter/Idle
   rotate: false
-  xy: 330, 3
+  xy: 194, 3
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 2
-Teleporter/Off
+  index: 1
+Teleporter/Idle
   rotate: false
   xy: 347, 3
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: -1
+  index: 2
 Teleporter/On
   rotate: false
   xy: 20, 1

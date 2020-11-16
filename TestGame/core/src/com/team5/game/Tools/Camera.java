@@ -17,8 +17,8 @@ public class Camera {
     public OrthographicCamera cam;
     public Viewport port;
 
-    public int camWidth = 480;
-    public int camHeight = 270;
+    public int camWidth = 400;
+    public int camHeight = 225;
 
     float smoothing = 0.1f;
 
@@ -42,7 +42,7 @@ public class Camera {
     }
 
     public void follow(Player player){
-        cam.position.lerp(new Vector3(player.b2body.getPosition().x, player.b2body.getPosition().y, 0), smoothing);
+        cam.position.set(player.b2body.getPosition().x, player.b2body.getPosition().y, 0);
     }
 
 }
