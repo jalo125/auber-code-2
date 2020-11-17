@@ -58,7 +58,7 @@ public class PlayScreen implements Screen {
 
         //Tilemap
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("TileMap.tmx");
+        map = mapLoader.load("Map-Reactor.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
 
         //Collisions
@@ -84,8 +84,8 @@ public class PlayScreen implements Screen {
         graph = new NodeGraph();
         npcs = new Array<>();
 
-        for (int i = 0; i < 80; i++) {
-            NPC npc = new NPC(world, atlas, graph,
+        for (int i = 0; i < 64; i++) {
+            NPC npc = new NPC(this, world, atlas, graph,
                     graph.getNode(i%graph.getNodeCount()),
                     new Vector2(graph.getNode(i%graph.getNodeCount()).getX(),
                             graph.getNode(i%graph.getNodeCount()).getY()));
@@ -106,6 +106,7 @@ public class PlayScreen implements Screen {
 
         renderer.render();
         //b2dr.render(world, new Matrix4(camera.cam.combined));
+        teleStage.act(delta);
 
         game.batch.setProjectionMatrix(camera.cam.combined);
 
@@ -113,11 +114,11 @@ public class PlayScreen implements Screen {
         for (NPC boi : npcs){
             game.batch.draw(boi.currentSprite, boi.x, boi.y);
         }
+
+        teleStage.draw();
+
         game.batch.draw(player.currentSprite, player.x, player.y);
         game.batch.end();
-
-        teleStage.act(delta);
-        teleStage.draw();
     }
 
     @Override

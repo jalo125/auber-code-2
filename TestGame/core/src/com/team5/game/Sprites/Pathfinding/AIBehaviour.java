@@ -17,7 +17,7 @@ public class AIBehaviour {
     NPC npc;
 
     //Movement
-    int maxSpeed = 100;
+    int maxSpeed = 80;
     int minSpeed = 40;
     float speed;
 
@@ -31,7 +31,7 @@ public class AIBehaviour {
     float offset = 8;
 
     //Waiting
-    float maxWait = 10;
+    float maxWait = 20;
     float minWait = 1;
     float waitTime;
 

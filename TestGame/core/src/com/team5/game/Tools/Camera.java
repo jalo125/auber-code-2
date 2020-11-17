@@ -17,13 +17,12 @@ public class Camera {
     public OrthographicCamera cam;
     public Viewport port;
 
-    public int camWidth = 400;
-    public int camHeight = 225;
+    public int camWidth = 480;
+    public int camHeight = 270;
 
-    float smoothing = 0.1f;
+    float smoothing = 1f;
 
     public Camera (){
-        cam = new OrthographicCamera();
         cam = new OrthographicCamera();
         port = new FitViewport(camWidth, camHeight, cam);
         cam.position.set(camWidth/2, camHeight/2, 0);

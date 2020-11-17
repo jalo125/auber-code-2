@@ -50,7 +50,7 @@ public class Teleporter {
     Array<Vector2> telePositions;
 
     //Player variables
-    int xOffset = 1;
+    int xOffset = -1;
     int yOffset = 0;
 
     int teleIndex = 5;

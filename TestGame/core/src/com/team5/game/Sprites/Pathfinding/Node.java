@@ -23,14 +23,19 @@ public class Node{
     Random random;
 
     public Node(float x, float y, String name){
-        this(x, y, name, new Vector2(0, 0.5f));
+        this(x, y, name, new Vector2(0f, 0f));
+    }
+
+    public Node(float x, float y, String name, float xDim, float yDim){
+        this(x, y, name, new Vector2(xDim, yDim));
     }
 
     public Node(float x, float y, String name, Vector2 dimension){
-        this.x = x;
-        this.y = y;
+        this.x = x*Constants.TILE_SIZE;
+        this.y = y*Constants.TILE_SIZE;
         this.name = name;
-        this.dimensions = dimension;
+        this.dimensions = new Vector2(dimension.x*Constants.TILE_SIZE,
+                dimension.y*Constants.TILE_SIZE);
 
         random = new Random();
     }
@@ -59,7 +64,7 @@ public class Node{
         float randX = random.nextFloat()-0.5f;
         float randY = random.nextFloat()-0.5f;
 
-        return new Vector2(x + randX*dimensions.x*Constants.TILE_SIZE,
-                y + randY*dimensions.y*Constants.TILE_SIZE);
+        return new Vector2(x + randX*dimensions.x,
+                y + randY*dimensions.y);
     }
 }

@@ -57,6 +57,12 @@ public class NodeGraph implements IndexedGraph<Node> {
         links.add(link);
     }
 
+    public void linkNodes(Node fromNode, Node... args){
+        for (Node node : args) {
+            this.linkNodes(fromNode, node);
+        }
+    }
+
     public GraphPath<Node> findPath(Node startNode, Node goalNode){
         GraphPath<Node> path = new DefaultGraphPath<>();
         new IndexedAStarPathFinder<>(this).searchNodePath(startNode, goalNode, nodeHeuristic, path);
@@ -97,101 +103,161 @@ public class NodeGraph implements IndexedGraph<Node> {
     }
 
     void buildNodeMap(){
-        Room lowerEngine = new Room(128, 304, "Lower Engine");
-        Node westWing = new Node(128, 624, "West Wing");
-        Room upperEngine = new Room(128, 784, "Upper Engine");
-        Room reactor = new Room(64, 624, "Reactor");
-        Room security = new Room(208, 624, "Security");
-        Node northWing = new Node(288, 784, "North Wing");
-        Room medical = new Room(288, 704, "Medical");
-        Room upperCafe = new Room(464, 784, "Upper Cafeteria");
-        Room lowerCafe = new Room(464, 688, "Lower Cafeteria");
-        Room weapons = new Room(736, 688, "Weapons");
-        Node upperEastWing = new Node(736, 608, "Upper East Wing");
-        Room oxygen = new Room(640, 608, "Oxygen");
-        Room navigation = new Room(832, 512, "Navigation");
-        Node lowerEastWing = new Node(736, 512, "Lower East Wing");
-        Room shields = new Room(736, 336, "Shields");
-        Node southEastWing = new Node(608, 336, "South East Wing");
-        Room communication = new Room(608, 256, "Communication");
-        Room upperStorage = new Room(464, 352, "Upper Storage");
-        Room lowerStorage = new Room(464, 304, "Lower Storage");
-        Node southWestWing = new Node(272, 304, "South West Wing");
-        Room electrical = new Room(272, 400, "Electrical");
-        Node centralWing = new Node(464, 512, "Central Wing");
-        Room admin = new Room(624, 512, "Admin");
+        //Declaring the Nodes
+        Room bridge = new Room("Bridge", 49.5f, 92.5f, "Bridge", 12, 6);
+        Node bridgeExit = new Node(49.5f, 87.5f, "Bridge Exit", 2, 0);
+        Node centreNorthWing = new Node(49.5f, 79.5f, "Centre North Wing", 1, 1);
 
-        addRoom(lowerEngine);
-        addNode(westWing);
-        addRoom(upperEngine);
+        Room brig = new Room("Brig", 19.5f, 90, "Brig", 12, 2);
+        Node brigExit = new Node(19.5f, 87.5f, "Brig Exit", 2, 0);
+        Node leftNorthWing = new Node(19.5f, 79.5f, "Left North Wing", 1, 1);
+
+        Room infirmary = new Room("Infirmary", 81.5f, 89.5f, "Infirmary", 12, 3);
+        Node infirmaryExit = new Node(81.5f, 84.5f, "Infirmary Exit", 2, 0);
+        Node rightNorthWing = new Node(81.5f, 79.5f, "Right North Wing", 1, 1);
+
+        Room topLeftCafeteria = new Room("Cafeteria", 46.5f, 68.5f, "Top Left Cafeteria");
+        Room topRightCafeteria = new Room("Cafeteria", 51.5f, 68.5f, "Top Right Cafeteria");
+        Room midLeftCafeteria = new Room("Cafeteria", 46.5f, 62.5f, "Mid Left Cafeteria", 1, 1);
+        Room midRightCafeteria = new Room("Cafeteria", 51.5f, 62.5f, "Mid Right Cafeteria", 1, 1);
+        Room bottomLeftCafeteria = new Room("Cafeteria", 46.5f, 56.5f, "Bottom Left Cafeteria");
+        Room bottomRightCafeteria = new Room("Cafeteria", 51.5f, 56.5f, "Bottom Right Cafeteria");
+        Node westCafeteriaExit = new Node(40.5f, 62, "West Cafeteria Exit", 0, 1.5f);
+        Node eastCafeteriaExit = new Node(58.5f, 62, "East Cafeteria Exit", 0, 1.5f);
+        Node northCafeteriaExit = new Node(49.5f, 70.5f, "North Cafeteria Exit", 2, 0);
+        Node southCafeteriaExit = new Node(49.5f, 54.5f, "South Cafeteria Exit", 2, 0);
+
+        //PQ stands for personal quarters, that's just a bit long for a name
+        Room midRightPQ = new Room("Personal Quarters", 23.5f, 61.5f, "Mid Right PQ");
+        Room midCentrePQ = new Room("Personal Quarters", 14.5f, 61.5f, "Mid Centre PQ");
+        Room midLeftPQ = new Room("Personal Quarters", 6.5f, 61.5f, "Mid Left PQ");
+        Room topRightPQ = new Room("Personal Quarters", 23.5f, 66.5f, "Top Right PQ");
+        Room topCentrePQ = new Room("Personal Quarters", 14.5f, 66.5f, "Top Centre PQ");
+        Room topLeftPQ = new Room("Personal Quarters", 6.5f, 66.5f, "Top Left PQ");
+        Room bottomRightPQ = new Room("Personal Quarters", 23.5f, 56.5f, "Bottom Right PQ");
+        Room bottomCentrePQ = new Room("Personal Quarters", 14.5f, 56.5f, "Bottom Centre PQ");
+        Room bottomLeftPQ = new Room("Personal Quarters", 6.5f, 56.5f, "Bottom Left PQ");
+        Node PQExit = new Node(26.5f, 62, "PQ Exit", 0, 1.5f);
+
+        Room cargo = new Room("Cargo Bay", 81.5f, 62.5f, "Cargo Bay", 2, 3);
+        Node northCargoExit = new Node(81.5f, 74.5f, "North Cargo Exit", 2, 0);
+        Node westCargoExit = new Node(73.5f, 62f, "West Cargo Exit", 0, 1.5f);
+        Node southCargoExit = new Node(81.5f, 53.5f, "South Cargo Exit", 1, 0);
+
+        Room reactor = new Room("Reactor", 49.5f, 37.5f, "Reactor", 9, 11);
+        Node northReactorExit = new Node(49.5f, 45.5f, "North Reactor Exit", 2, 0);
+        Node eastReactorExit = new Node(55.5f, 37, "East Reactor Exit", 0, 1.5f);
+
+        Room midLeftEngine = new Room("Engine", 78.5f, 36.5f, "Mid Left Engine");
+        Room midCentreEngine = new Room("Engine", 83.5f, 36.5f, "Mid Centre Engine");
+        Room midRightEngine = new Room("Engine", 91.5f, 36.5f, "Mid Right Engine");
+        Room topLeftEngine = new Room("Engine", 78.5f, 45, "Top Left Engine");
+        Room topCentreEngine = new Room("Engine", 83.5f, 45, "Top Centre Engine");
+        Node northEngineExit = new Node(81.5f, 47.5f, "North Engine Exit", 1, 0);
+        Node westEngineExit = new Node(65.5f, 37, "West Engine Exit", 0, 1.5f);
+
+        //Adding the Nodes to the NodeGraph
+        addRoom(bridge);
+        addNode(bridgeExit);
+        addNode(centreNorthWing);
+
+        addRoom(brig);
+        addNode(brigExit);
+        addNode(leftNorthWing);
+
+        addRoom(infirmary);
+        addNode(infirmaryExit);
+        addNode(rightNorthWing);
+
+        addRoom(topLeftCafeteria);
+        addRoom(topRightCafeteria);
+        addRoom(midLeftCafeteria);
+        addRoom(midRightCafeteria);
+        addRoom(bottomLeftCafeteria);
+        addRoom(bottomRightCafeteria);
+        addNode(westCafeteriaExit);
+        addNode(eastCafeteriaExit);
+        addNode(northCafeteriaExit);
+        addNode(southCafeteriaExit);
+
+        addRoom(midRightPQ);
+        addRoom(midCentrePQ);
+        addRoom(midLeftPQ);
+        addRoom(topRightPQ);
+        addRoom(topCentrePQ);
+        addRoom(topLeftPQ);
+        addRoom(bottomRightPQ);
+        addRoom(bottomCentrePQ);
+        addRoom(bottomLeftPQ);
+        addNode(PQExit);
+
+        addRoom(cargo);
+        addNode(northCargoExit);
+        addNode(westCargoExit);
+        addNode(southCargoExit);
+
         addRoom(reactor);
-        addRoom(security);
-        addNode(northWing);
-        addRoom(medical);
-        addRoom(upperCafe);
-        addRoom(lowerCafe);
-        addRoom(weapons);
-        addNode(upperEastWing);
-        addRoom(oxygen);
-        addRoom(navigation);
-        addNode(lowerEastWing);
-        addRoom(shields);
-        addNode(southEastWing);
-        addRoom(communication);
-        addRoom(upperStorage);
-        addRoom(lowerStorage);
-        addNode(southWestWing);
-        addRoom(electrical);
-        addNode(centralWing);
-        addRoom(admin);
+        addNode(northReactorExit);
+        addNode(eastReactorExit);
 
-        linkNodes(lowerEngine, westWing);
-        linkNodes(lowerEngine, southWestWing);
-        linkNodes(westWing, reactor);
-        linkNodes(westWing, security);
-        linkNodes(westWing, lowerEngine);
-        linkNodes(westWing, upperEngine);
-        linkNodes(upperEngine, westWing);
-        linkNodes(upperEngine, northWing);
-        linkNodes(reactor, westWing);
-        linkNodes(security, westWing);
-        linkNodes(northWing, upperEngine);
-        linkNodes(northWing, medical);
-        linkNodes(northWing, upperCafe);
-        linkNodes(medical, northWing);
-        linkNodes(upperCafe, northWing);
-        linkNodes(upperCafe, lowerCafe);
-        linkNodes(lowerCafe, upperCafe);
-        linkNodes(lowerCafe, weapons);
-        linkNodes(lowerCafe, centralWing);
-        linkNodes(weapons, lowerCafe);
-        linkNodes(weapons, upperEastWing);
-        linkNodes(upperEastWing, weapons);
-        linkNodes(upperEastWing, oxygen);
-        linkNodes(upperEastWing, lowerEastWing);
-        linkNodes(oxygen, upperEastWing);
-        linkNodes(navigation, lowerEastWing);
-        linkNodes(lowerEastWing, upperEastWing);
-        linkNodes(lowerEastWing, navigation);
-        linkNodes(lowerEastWing, shields);
-        linkNodes(shields, lowerEastWing);
-        linkNodes(shields, southEastWing);
-        linkNodes(southEastWing, shields);
-        linkNodes(southEastWing, communication);
-        linkNodes(southEastWing, upperStorage);
-        linkNodes(communication, southEastWing);
-        linkNodes(upperStorage, centralWing);
-        linkNodes(upperStorage, southEastWing);
-        linkNodes(upperStorage, lowerStorage);
-        linkNodes(lowerStorage, upperStorage);
-        linkNodes(lowerStorage, southWestWing);
-        linkNodes(southWestWing, lowerStorage);
-        linkNodes(southWestWing, electrical);
-        linkNodes(southWestWing, lowerEngine);
-        linkNodes(electrical, southWestWing);
-        linkNodes(centralWing, upperStorage);
-        linkNodes(centralWing, lowerCafe);
-        linkNodes(centralWing, admin);
-        linkNodes(admin, centralWing);
+        addRoom(midLeftEngine);
+        addRoom(midCentreEngine);
+        addRoom(midRightEngine);
+        addRoom(topLeftEngine);
+        addRoom(topCentreEngine);
+        addNode(northEngineExit);
+        addNode(westEngineExit);
+
+        //Linking the Nodes on the NodeGraph
+        linkNodes(bridge, bridgeExit);
+        linkNodes(bridgeExit, bridge, centreNorthWing);
+        linkNodes(centreNorthWing, bridgeExit, leftNorthWing, rightNorthWing, northCafeteriaExit);
+
+        linkNodes(brig, brigExit);
+        linkNodes(brigExit, brig, leftNorthWing);
+        linkNodes(leftNorthWing, centreNorthWing, brigExit);
+
+        linkNodes(infirmary, infirmaryExit);
+        linkNodes(infirmaryExit, infirmary, rightNorthWing);
+        linkNodes(rightNorthWing, infirmaryExit, centreNorthWing, northCargoExit);
+
+        linkNodes(topLeftCafeteria, northCafeteriaExit, topRightCafeteria, midLeftCafeteria);
+        linkNodes(topRightCafeteria, northCafeteriaExit, topLeftCafeteria, midRightCafeteria);
+        linkNodes(midLeftCafeteria, westCafeteriaExit, topLeftCafeteria, midRightCafeteria, bottomLeftCafeteria);
+        linkNodes(midRightCafeteria, eastCafeteriaExit, topRightCafeteria, midLeftCafeteria, bottomRightCafeteria);
+        linkNodes(bottomLeftCafeteria, southCafeteriaExit, midLeftCafeteria, bottomRightCafeteria);
+        linkNodes(bottomRightCafeteria, southCafeteriaExit, midRightCafeteria, bottomLeftCafeteria);
+        linkNodes(westCafeteriaExit, midLeftCafeteria, PQExit);
+        linkNodes(eastCafeteriaExit, midRightCafeteria, westCargoExit);
+        linkNodes(northCafeteriaExit, topLeftCafeteria, topRightCafeteria, centreNorthWing);
+        linkNodes(southCafeteriaExit, bottomLeftCafeteria, bottomRightCafeteria, northReactorExit);
+
+        linkNodes(midRightPQ, PQExit, midCentrePQ, topRightPQ, bottomRightPQ);
+        linkNodes(midCentrePQ, midRightPQ, midLeftPQ);
+        linkNodes(midLeftPQ, midCentrePQ, topLeftPQ, bottomLeftPQ);
+        linkNodes(topRightPQ, midRightPQ, topCentrePQ);
+        linkNodes(topCentrePQ, topRightPQ, topLeftPQ);
+        linkNodes(topLeftPQ, midLeftPQ, topCentrePQ);
+        linkNodes(bottomRightPQ, midRightPQ, bottomCentrePQ);
+        linkNodes(bottomCentrePQ, bottomRightPQ, bottomLeftPQ);
+        linkNodes(bottomLeftPQ, midLeftPQ, bottomCentrePQ);
+        linkNodes(PQExit, midRightPQ, westCafeteriaExit);
+
+        linkNodes(cargo, northCargoExit, southCargoExit, westCargoExit);
+        linkNodes(northCargoExit, cargo, rightNorthWing);
+        linkNodes(westCargoExit, cargo, eastCafeteriaExit);
+        linkNodes(southCargoExit, cargo, northEngineExit);
+
+        linkNodes(reactor, northReactorExit, eastReactorExit);
+        linkNodes(northReactorExit, southCafeteriaExit, reactor);
+        linkNodes(eastReactorExit, westEngineExit, reactor);
+
+        linkNodes(midLeftEngine, westEngineExit, topLeftEngine, midCentreEngine);
+        linkNodes(midCentreEngine, topCentreEngine, midLeftEngine, midRightEngine);
+        linkNodes(midRightEngine, midCentreEngine);
+        linkNodes(topLeftEngine, northEngineExit, midLeftEngine, topCentreEngine);
+        linkNodes(topCentreEngine, northEngineExit, midCentreEngine, topLeftEngine);
+        linkNodes(northEngineExit, southCargoExit, topLeftEngine, topCentreEngine);
+        linkNodes(westEngineExit, eastReactorExit, midLeftEngine);
     }
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.team5.game.Sprites.Animation.Animator;
 import com.team5.game.Sprites.Collisions.CharacterCollider;
+import com.team5.game.Tools.Constants;
 
 public class Player extends Sprite {
 
@@ -40,8 +41,8 @@ public class Player extends Sprite {
     //Movement
     float speed = 2000000;
 
-    public float x = 500;
-    public float y = 320;
+    public float x = 50 * Constants.TILE_SIZE;
+    public float y = 95 * Constants.TILE_SIZE;
 
     public Player(World world, TextureAtlas atlas){
         this.world = world;

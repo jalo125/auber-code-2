@@ -8,11 +8,20 @@ public class Room extends Node{
     Room is used to differentiate hallways and rooms in the NodeGraph class
      */
 
-    public Room(float x, float y, String name, Vector2 dimension) {
+    public String tag;
+
+    public Room(String tag, float x, float y, String name, Vector2 dimension) {
         super(x, y, name, dimension);
+        this.tag = tag;
     }
 
-    public Room(float x, float y, String name) {
+    public Room(String tag, float x, float y, String name) {
         super(x, y, name);
+        this.tag = tag;
+    }
+
+    public Room(String tag, float x, float y, String name, float xDim, float yDim) {
+        super(x, y, name, xDim, yDim);
+        this.tag = tag;
     }
 }
