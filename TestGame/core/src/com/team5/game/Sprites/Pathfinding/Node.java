@@ -20,18 +20,24 @@ public class Node{
 
     int index;
 
+    Random random;
+
     public Node(float x, float y, String name){
-        this.x = x;
-        this.y = y;
-        this.name = name;
-        this.dimensions = new Vector2(2, 2);
+        this(x, y, name, new Vector2(0f, 0f));
+    }
+
+    public Node(float x, float y, String name, float xDim, float yDim){
+        this(x, y, name, new Vector2(xDim, yDim));
     }
 
     public Node(float x, float y, String name, Vector2 dimension){
-        this.x = x;
-        this.y = y;
+        this.x = x*Constants.TILE_SIZE;
+        this.y = y*Constants.TILE_SIZE;
         this.name = name;
-        this.dimensions = dimension;
+        this.dimensions = new Vector2(dimension.x*Constants.TILE_SIZE,
+                dimension.y*Constants.TILE_SIZE);
+
+        random = new Random();
     }
 
     public void setIndex(int index){
@@ -55,10 +61,10 @@ public class Node{
     }
 
     public Vector2 randomPos(){
-        Random random = new Random();
-        float randX = random.nextFloat();
-        float randY = random.nextFloat();
+        float randX = random.nextFloat()-0.5f;
+        float randY = random.nextFloat()-0.5f;
 
-        return new Vector2((randX-0.5f)*dimensions.x, (randY-0.5f)*dimensions.y);
+        return new Vector2(x + randX*dimensions.x,
+                y + randY*dimensions.y);
     }
 }

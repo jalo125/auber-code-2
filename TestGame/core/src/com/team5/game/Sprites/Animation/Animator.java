@@ -20,14 +20,19 @@ public class Animator {
     public TextureRegion currentSprite;
 
     float stateTime;
-    public static final float frameDuration = 0.2f;
+    float frameDuration;
 
     TextureAtlas atlas;
 
     boolean looping = true;
 
     public Animator(TextureAtlas atlas, String idleKey, String idleRegion){
+        this(atlas, idleKey, idleRegion, 0.2f);
+    }
+
+    public Animator(TextureAtlas atlas, String idleKey, String idleRegion, float frameDuration){
         this.atlas = atlas;
+        this.frameDuration = frameDuration;
 
         animations = new Hashtable<>();
 
@@ -54,6 +59,10 @@ public class Animator {
 
     public void add(String animKey, String atlasRegion){
         animations.put(animKey, new Animation<TextureRegion>(frameDuration, atlas.findRegions(atlasRegion)));
+    }
+
+    public Animation getAnimation(String animKey){
+        return animations.get(animKey);
     }
 
     public void flip(){
