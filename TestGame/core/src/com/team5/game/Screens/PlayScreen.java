@@ -24,7 +24,6 @@ import com.team5.game.Tools.CustomCamera;
 import com.team5.game.Environment.Walls;
 import com.team5.game.MainGame;
 import com.team5.game.Sprites.Player;
-import com.team5.game.UI.Hud;
 
 import java.lang.invoke.ConstantCallSite;
 import java.util.Random;
