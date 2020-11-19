@@ -62,7 +62,7 @@ public class AIBehaviour {
     }
 
     void newTarget(){
-        goalNode = graph.getRandom(currentNode);
+        goalNode = graph.getRandomRoom(currentNode);
         path = graph.findPath(currentNode, goalNode);
 
         target = path.get(currentIndex).randomPos();

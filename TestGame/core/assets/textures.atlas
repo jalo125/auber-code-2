@@ -1,628 +1,915 @@
 
 textures.png
-size: 512,64
+size: 1024,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 Empty
   rotate: false
-  xy: 1, 39
+  xy: 436, 50
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
+Health/0
+  rotate: false
+  xy: 1, 3
+  size: 98, 48
+  orig: 98, 48
+  offset: 0, 0
+  index: -1
+Health/1
+  rotate: false
+  xy: 436, 69
+  size: 98, 48
+  orig: 98, 48
+  offset: 0, 0
+  index: -1
+Health/2
+  rotate: false
+  xy: 100, 3
+  size: 98, 48
+  orig: 98, 48
+  offset: 0, 0
+  index: -1
+Health/3
+  rotate: false
+  xy: 535, 69
+  size: 98, 48
+  orig: 98, 48
+  offset: 0, 0
+  index: -1
 NPC/1/Idle
   rotate: false
-  xy: 191, 3
+  xy: 216, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 NPC/1/Idle
   rotate: false
-  xy: 348, 41
+  xy: 369, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 NPC/1/IdleOutline
   rotate: false
-  xy: 1, 20
+  xy: 962, 99
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 1
 NPC/1/IdleOutline
   rotate: false
-  xy: 20, 1
+  xy: 493, 50
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/1/Interact
+  rotate: false
+  xy: 925, 66
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/1/Interact
+  rotate: false
+  xy: 512, 31
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/1/InteractOutline
+  rotate: false
+  xy: 588, 50
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/1/InteractOutline
+  rotate: false
+  xy: 710, 66
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 2
 NPC/1/Run
   rotate: false
-  xy: 208, 3
+  xy: 755, 35
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 NPC/1/Run
   rotate: false
-  xy: 329, 24
+  xy: 857, 49
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 NPC/1/Run
   rotate: false
-  xy: 465, 24
+  xy: 857, 32
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 NPC/1/Run
   rotate: false
-  xy: 344, 7
+  xy: 738, 18
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 4
 NPC/1/RunOutline
   rotate: false
-  xy: 77, 20
+  xy: 664, 47
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 1
 NPC/1/RunOutline
   rotate: false
-  xy: 96, 1
+  xy: 664, 28
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 2
 NPC/1/RunOutline
   rotate: false
-  xy: 153, 39
+  xy: 237, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 3
 NPC/1/RunOutline
   rotate: false
-  xy: 172, 20
+  xy: 332, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 4
 NPC/2/Idle
   rotate: false
-  xy: 210, 22
+  xy: 233, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 NPC/2/Idle
   rotate: false
-  xy: 365, 41
+  xy: 386, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 NPC/2/IdleOutline
   rotate: false
-  xy: 20, 39
+  xy: 455, 50
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 1
 NPC/2/IdleOutline
   rotate: false
-  xy: 39, 20
+  xy: 512, 50
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/2/Interact
+  rotate: false
+  xy: 944, 66
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/2/Interact
+  rotate: false
+  xy: 531, 31
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/2/InteractOutline
+  rotate: false
+  xy: 607, 50
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/2/InteractOutline
+  rotate: false
+  xy: 830, 66
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 2
 NPC/2/Run
   rotate: false
-  xy: 227, 22
+  xy: 789, 52
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 NPC/2/Run
   rotate: false
-  xy: 346, 24
+  xy: 874, 49
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 NPC/2/Run
   rotate: false
-  xy: 482, 24
+  xy: 874, 32
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 NPC/2/Run
   rotate: false
-  xy: 361, 7
+  xy: 755, 18
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 4
 NPC/2/RunOutline
   rotate: false
-  xy: 96, 39
+  xy: 683, 47
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 1
 NPC/2/RunOutline
   rotate: false
-  xy: 115, 20
+  xy: 683, 28
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 2
 NPC/2/RunOutline
   rotate: false
-  xy: 134, 1
+  xy: 256, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 3
 NPC/2/RunOutline
   rotate: false
-  xy: 191, 39
+  xy: 351, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 4
 NPC/3/Idle
   rotate: false
-  xy: 229, 41
+  xy: 250, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 NPC/3/Idle
   rotate: false
-  xy: 382, 41
+  xy: 403, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 NPC/3/IdleOutline
   rotate: false
-  xy: 1, 1
+  xy: 981, 99
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/5/IdleOutline
+  rotate: false
+  xy: 981, 99
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 1
 NPC/3/IdleOutline
   rotate: false
-  xy: 58, 39
+  xy: 531, 50
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/5/IdleOutline
+  rotate: false
+  xy: 531, 50
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/3/Interact
+  rotate: false
+  xy: 436, 31
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/3/Interact
+  rotate: false
+  xy: 550, 31
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/3/InteractOutline
+  rotate: false
+  xy: 634, 66
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/3/InteractOutline
+  rotate: false
+  xy: 849, 66
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 2
 NPC/3/Run
   rotate: false
-  xy: 225, 5
+  xy: 772, 35
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 NPC/3/Run
   rotate: false
-  xy: 363, 24
+  xy: 891, 49
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 NPC/3/Run
   rotate: false
-  xy: 242, 5
+  xy: 891, 32
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 NPC/3/Run
   rotate: false
-  xy: 378, 7
+  xy: 772, 18
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 4
 NPC/3/RunOutline
   rotate: false
-  xy: 77, 1
+  xy: 702, 47
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/5/RunOutline
+  rotate: false
+  xy: 702, 47
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 1
 NPC/3/RunOutline
   rotate: false
-  xy: 134, 39
+  xy: 702, 28
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/5/RunOutline
+  rotate: false
+  xy: 702, 28
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 2
 NPC/3/RunOutline
   rotate: false
-  xy: 153, 20
+  xy: 275, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 3
+NPC/5/RunOutline
+  rotate: false
+  xy: 275, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 3
 NPC/3/RunOutline
   rotate: false
-  xy: 172, 1
+  xy: 370, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 4
+NPC/5/RunOutline
+  rotate: false
+  xy: 370, 18
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 4
 NPC/4/Idle
   rotate: false
-  xy: 246, 41
+  xy: 267, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 NPC/4/Idle
   rotate: false
-  xy: 399, 41
+  xy: 721, 49
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 NPC/4/IdleOutline
   rotate: false
-  xy: 20, 20
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: 1
-NPC/6/IdleOutline
-  rotate: false
-  xy: 20, 20
+  xy: 474, 50
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 1
 NPC/4/IdleOutline
   rotate: false
-  xy: 39, 1
+  xy: 550, 50
   size: 18, 18
   orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/4/Interact
+  rotate: false
+  xy: 455, 31
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/4/Interact
+  rotate: false
+  xy: 569, 31
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/4/InteractOutline
+  rotate: false
+  xy: 653, 66
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/4/InteractOutline
+  rotate: false
+  xy: 868, 66
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/4/Run
+  rotate: false
+  xy: 806, 52
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+NPC/4/Run
+  rotate: false
+  xy: 908, 49
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+NPC/4/Run
+  rotate: false
+  xy: 908, 32
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 3
+NPC/4/Run
+  rotate: false
+  xy: 789, 18
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 4
+NPC/4/RunOutline
+  rotate: false
+  xy: 626, 28
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/4/RunOutline
+  rotate: false
+  xy: 199, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/4/RunOutline
+  rotate: false
+  xy: 294, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 3
+NPC/4/RunOutline
+  rotate: false
+  xy: 389, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 4
+NPC/5/Idle
+  rotate: false
+  xy: 284, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+NPC/5/Idle
+  rotate: false
+  xy: 721, 32
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+NPC/5/Interact
+  rotate: false
+  xy: 474, 31
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/5/Interact
+  rotate: false
+  xy: 588, 31
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/5/InteractOutline
+  rotate: false
+  xy: 672, 66
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/5/InteractOutline
+  rotate: false
+  xy: 887, 66
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/5/Run
+  rotate: false
+  xy: 789, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+NPC/5/Run
+  rotate: false
+  xy: 925, 49
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+NPC/5/Run
+  rotate: false
+  xy: 925, 32
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 3
+NPC/5/Run
+  rotate: false
+  xy: 806, 18
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 4
+NPC/6/Idle
+  rotate: false
+  xy: 301, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+NPC/6/Idle
+  rotate: false
+  xy: 738, 52
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: 2
 NPC/6/IdleOutline
   rotate: false
-  xy: 39, 1
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: 2
-NPC/4/Run
-  rotate: false
-  xy: 244, 24
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 1
-NPC/4/Run
-  rotate: false
-  xy: 380, 24
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 2
-NPC/4/Run
-  rotate: false
-  xy: 259, 7
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 3
-NPC/4/Run
-  rotate: false
-  xy: 395, 7
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 4
-NPC/4/RunOutline
-  rotate: false
-  xy: 96, 20
+  xy: 1000, 99
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 1
-NPC/6/RunOutline
+NPC/6/IdleOutline
   rotate: false
-  xy: 96, 20
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: 1
-NPC/4/RunOutline
-  rotate: false
-  xy: 115, 1
+  xy: 569, 50
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 2
-NPC/6/RunOutline
+NPC/6/Interact
   rotate: false
-  xy: 115, 1
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: 2
-NPC/4/RunOutline
-  rotate: false
-  xy: 172, 39
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: 3
-NPC/6/RunOutline
-  rotate: false
-  xy: 172, 39
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: 3
-NPC/4/RunOutline
-  rotate: false
-  xy: 191, 20
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: 4
-NPC/6/RunOutline
-  rotate: false
-  xy: 191, 20
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: 4
-NPC/5/Idle
-  rotate: false
-  xy: 263, 41
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 1
-NPC/5/Idle
-  rotate: false
-  xy: 416, 41
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 2
-NPC/5/IdleOutline
-  rotate: false
-  xy: 39, 39
+  xy: 493, 31
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 1
-NPC/5/IdleOutline
+NPC/6/Interact
   rotate: false
-  xy: 58, 20
+  xy: 607, 31
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 2
-NPC/5/Run
+NPC/6/InteractOutline
   rotate: false
-  xy: 261, 24
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 1
-NPC/5/Run
-  rotate: false
-  xy: 397, 24
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 2
-NPC/5/Run
-  rotate: false
-  xy: 276, 7
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 3
-NPC/5/Run
-  rotate: false
-  xy: 412, 7
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 4
-NPC/5/RunOutline
-  rotate: false
-  xy: 115, 39
+  xy: 691, 66
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 1
-NPC/5/RunOutline
+NPC/6/InteractOutline
   rotate: false
-  xy: 134, 20
+  xy: 906, 66
   size: 18, 18
   orig: 18, 18
-  offset: 0, 0
-  index: 2
-NPC/5/RunOutline
-  rotate: false
-  xy: 153, 1
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: 3
-NPC/5/RunOutline
-  rotate: false
-  xy: 210, 39
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: 4
-NPC/6/Idle
-  rotate: false
-  xy: 280, 41
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 1
-NPC/6/Idle
-  rotate: false
-  xy: 433, 41
-  size: 16, 16
-  orig: 16, 16
   offset: 0, 0
   index: 2
 NPC/6/Run
   rotate: false
-  xy: 278, 24
+  xy: 806, 35
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 NPC/6/Run
   rotate: false
-  xy: 414, 24
+  xy: 942, 49
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 NPC/6/Run
   rotate: false
-  xy: 293, 7
+  xy: 942, 32
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 NPC/6/Run
   rotate: false
-  xy: 429, 7
+  xy: 823, 15
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 4
+NPC/6/RunOutline
+  rotate: false
+  xy: 645, 28
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+NPC/6/RunOutline
+  rotate: false
+  xy: 218, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+NPC/6/RunOutline
+  rotate: false
+  xy: 313, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 3
+NPC/6/RunOutline
+  rotate: false
+  xy: 408, 18
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 4
+NPC/Infiltrator/Caught
+  rotate: false
+  xy: 199, 1
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 NPC/Infiltrator/Idle
   rotate: false
-  xy: 297, 41
+  xy: 318, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 NPC/Infiltrator/Idle
   rotate: false
-  xy: 450, 41
+  xy: 755, 52
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 NPC/Infiltrator/Run
   rotate: false
-  xy: 295, 24
+  xy: 823, 49
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 NPC/Infiltrator/Run
   rotate: false
-  xy: 431, 24
+  xy: 823, 32
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 NPC/Infiltrator/Run
   rotate: false
-  xy: 310, 7
+  xy: 420, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 NPC/Infiltrator/Run
   rotate: false
-  xy: 446, 7
+  xy: 840, 15
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 4
 Player/Idle
   rotate: false
-  xy: 314, 41
+  xy: 335, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 Player/Idle
   rotate: false
-  xy: 467, 41
+  xy: 738, 35
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 Player/Run
   rotate: false
-  xy: 312, 24
+  xy: 840, 49
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 Player/Run
   rotate: false
-  xy: 448, 24
+  xy: 840, 32
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 Player/Run
   rotate: false
-  xy: 327, 7
+  xy: 721, 15
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 Player/Run
   rotate: false
-  xy: 463, 7
+  xy: 857, 15
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 4
+Systems/CafeteriaOff
+  rotate: false
+  xy: 830, 85
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Systems/CafeteriaOn
+  rotate: false
+  xy: 863, 85
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Systems/CargoOff
+  rotate: false
+  xy: 210, 37
+  size: 112, 80
+  orig: 112, 80
+  offset: 0, 0
+  index: -1
+Systems/CargoOn
+  rotate: false
+  xy: 323, 37
+  size: 112, 80
+  orig: 112, 80
+  offset: 0, 0
+  index: -1
+Systems/EngineOff
+  rotate: false
+  xy: 634, 85
+  size: 48, 32
+  orig: 48, 32
+  offset: 0, 0
+  index: -1
+Systems/EngineOn
+  rotate: false
+  xy: 683, 85
+  size: 48, 32
+  orig: 48, 32
+  offset: 0, 0
+  index: -1
+Systems/InfirmaryOff
+  rotate: false
+  xy: 896, 85
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Systems/InfirmaryOn
+  rotate: false
+  xy: 929, 85
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Systems/PQOff
+  rotate: false
+  xy: 1, 85
+  size: 208, 32
+  orig: 208, 32
+  offset: 0, 0
+  index: -1
+Systems/PQOn
+  rotate: false
+  xy: 1, 52
+  size: 208, 32
+  orig: 208, 32
+  offset: 0, 0
+  index: -1
+Systems/ReactorOff
+  rotate: false
+  xy: 732, 69
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+Systems/ReactorOn
+  rotate: false
+  xy: 781, 69
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
 Teleporter/Idle
   rotate: false
-  xy: 331, 41
+  xy: 352, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 Teleporter/Idle
   rotate: false
-  xy: 484, 41
+  xy: 772, 52
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 Teleporter/On
   rotate: false
-  xy: 77, 39
+  xy: 626, 47
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 Teleporter/Outline
   rotate: false
-  xy: 58, 1
+  xy: 645, 47
   size: 18, 18
   orig: 18, 18
   offset: 0, 0

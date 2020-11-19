@@ -4,21 +4,30 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
+import com.team5.game.Environment.Brig;
+import com.team5.game.Sprites.Infiltrator;
 import com.team5.game.Sprites.NPC;
+import com.team5.game.Sprites.Pathfinding.Node;
 import com.team5.game.Sprites.Pathfinding.NodeGraph;
 import com.team5.game.Sprites.Teleporter;
-import com.team5.game.Tools.Camera;
+import com.team5.game.Tools.Constants;
+import com.team5.game.Tools.CustomCamera;
 import com.team5.game.Environment.Walls;
 import com.team5.game.MainGame;
 import com.team5.game.Sprites.Player;
+import com.team5.game.UI.Hud;
+
+import java.lang.invoke.ConstantCallSite;
+import java.util.Random;
 
 public class PlayScreen implements Screen {
 
@@ -41,14 +50,20 @@ public class PlayScreen implements Screen {
     private Box2DDebugRenderer b2dr;
 
     //Teleporters
-    public Stage teleStage;
+    public Stage stage;
+
+    //HUD
+    Image healthBar;
+    TextureRegion currentHealth;
+    Vector2 healthOffset = new Vector2(16-Constants.CAMERA_WIDTH/2, Constants.CAMERA_HEIGHT/2-64);
 
     //References
     public Player player;
     private Walls walls;
-    private Camera camera;
+    public CustomCamera camera;
     private Teleporter teleporter;
     private NodeGraph graph;
+    public Brig brig;
 
     private Array<NPC> npcs;
 
@@ -58,7 +73,7 @@ public class PlayScreen implements Screen {
 
         //Tilemap
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Map-Reactor.tmx");
+        map = mapLoader.load("TileMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
 
         //Collisions
@@ -66,16 +81,17 @@ public class PlayScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         //Player setup
-        player = new Player(world, atlas);
+        player = new Player(game, world);
 
         //Camera setup
-        camera = new Camera(player);
+        camera = new CustomCamera(player);
+
+        //UI setup
+        stage = new Stage(camera.port);
+        Gdx.input.setInputProcessor(stage);
 
         //Teleporter setup
-        teleStage = new Stage(camera.port);
-        Gdx.input.setInputProcessor(teleStage);
-
-        teleporter = new Teleporter(map, this, atlas);
+        teleporter = new Teleporter(map, this);
 
         //Collisions for TileMap
         walls = new Walls(world, map);
@@ -84,13 +100,29 @@ public class PlayScreen implements Screen {
         graph = new NodeGraph();
         npcs = new Array<>();
 
-        for (int i = 0; i < 64; i++) {
-            NPC npc = new NPC(this, world, atlas, graph,
-                    graph.getNode(i%graph.getNodeCount()),
-                    new Vector2(graph.getNode(i%graph.getNodeCount()).getX(),
-                            graph.getNode(i%graph.getNodeCount()).getY()));
+        //Brig
+        brig = new Brig();
+
+        for (int i = 0; i < 72; i++) {
+            Node node = graph.getRandomRoom();
+            int index = (i%(graph.getNodeCount()-1))+1;
+            NPC npc = new NPC(this, world, graph,
+                    node, new Vector2(node.getX(), node.getY()));
             npcs.add(npc);
         }
+        for (int i = 0; i < 8; i++) {
+            Node node = graph.getRandomRoom();
+            Infiltrator npc = new Infiltrator(game, this, world, graph,
+                    node, new Vector2(node.getX(), node.getY()));
+            npcs.add(npc);
+        }
+
+        //HUD
+        currentHealth = atlas.findRegion("Health/3");
+        healthBar = new Image(currentHealth);
+        healthBar.setPosition(camera.cam.position.x + healthOffset.x,
+                camera.cam.position.y + healthOffset.y);
+        stage.addActor(healthBar);
     }
 
     @Override
@@ -106,18 +138,22 @@ public class PlayScreen implements Screen {
 
         renderer.render();
         //b2dr.render(world, new Matrix4(camera.cam.combined));
-        teleStage.act(delta);
 
         game.batch.setProjectionMatrix(camera.cam.combined);
 
         game.batch.begin();
-        for (NPC boi : npcs){
-            game.batch.draw(boi.currentSprite, boi.x, boi.y);
+        graph.drawSystems(game.batch);
+
+        for (NPC npc : npcs){
+            game.batch.draw(npc.currentSprite, npc.x, npc.y);
         }
 
-        teleStage.draw();
+        stage.act(delta);
+
+        stage.draw();
 
         game.batch.draw(player.currentSprite, player.x, player.y);
+
         game.batch.end();
     }
 
@@ -161,9 +197,15 @@ public class PlayScreen implements Screen {
         camera.update();
         camera.follow(player);
 
+        //HUD
+        currentHealth = atlas.findRegion("Health/" + String.valueOf(player.getHealth()));
+        healthBar.setPosition(camera.cam.position.x + healthOffset.x,
+                camera.cam.position.y + healthOffset.y);
+        healthBar.setDrawable(new Image(currentHealth).getDrawable());
+
         //Moves npc
-        for (NPC boi : npcs){
-            boi.update(delta);
+        for (NPC npc : npcs){
+            npc.update(delta);
         }
 
         renderer.setView(camera.cam);

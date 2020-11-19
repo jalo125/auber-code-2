@@ -7,8 +7,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.team5.game.MainGame;
+import com.team5.game.Screens.PlayScreen;
 import com.team5.game.Sprites.Animation.Animator;
 import com.team5.game.Sprites.Collisions.CharacterCollider;
+import com.team5.game.Sprites.Health.Health;
 import com.team5.game.Tools.Constants;
 
 public class Player extends Sprite {
@@ -44,11 +47,15 @@ public class Player extends Sprite {
     public float x = 50 * Constants.TILE_SIZE;
     public float y = 95 * Constants.TILE_SIZE;
 
-    public Player(World world, TextureAtlas atlas){
+    //Health
+    Health health;
+
+    public Player(MainGame game, World world){
         this.world = world;
 
+        health = new Health(game);
         b2body = charCollider.defineCollider(world, new Vector2(x, y), size);
-        setupAnimations(atlas);
+        setupAnimations();
     }
 
     public void update(){
@@ -56,9 +63,9 @@ public class Player extends Sprite {
         handleAnimations(direction);
     }
 
-    public void setupAnimations(TextureAtlas atlas){
+    public void setupAnimations(){
         //Setting initial values of animations
-        anim = new Animator(atlas, "idle", "Player/Idle");
+        anim = new Animator("idle", "Player/Idle");
         anim.add("run", "Player/Run");
         facingRight = true;
         currentSprite = anim.getSprite();
@@ -117,6 +124,10 @@ public class Player extends Sprite {
         b2body.setTransform(target, 0);
         x = b2body.getPosition().x;
         y = b2body.getPosition().y;
+    }
+
+    public int getHealth(){
+        return health.getHealth();
     }
 
 }

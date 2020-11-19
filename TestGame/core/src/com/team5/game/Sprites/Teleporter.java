@@ -10,14 +10,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.team5.game.Screens.PlayScreen;
 import com.team5.game.Sprites.Animation.AnimatedDrawable;
-import com.team5.game.Sprites.Animation.Animator;
+import com.team5.game.Tools.Constants;
 
 import java.util.Random;
 
@@ -53,15 +50,14 @@ public class Teleporter {
     int xOffset = -1;
     int yOffset = 0;
 
-    int teleIndex = 5;
+    int teleIndex = 6;
 
-    public Teleporter(TiledMap map, PlayScreen screen, TextureAtlas atlas){
-        this.atlas = atlas;
+    public Teleporter(TiledMap map, PlayScreen screen){
         this.map = map;
         this.screen = screen;
 
-        teleIdle = new AnimatedDrawable(atlas, "idle", "Teleporter/Idle", 1f);
-        outline = new Image(atlas.findRegion("Teleporter/Outline"));
+        teleIdle = new AnimatedDrawable("idle", "Teleporter/Idle", 1f);
+        outline = new Image(Constants.ATLAS.findRegion("Teleporter/Outline"));
         telePositions = new Array<>();
 
         findPositions();
@@ -71,7 +67,7 @@ public class Teleporter {
         for(MapObject object: map.getLayers().get(teleIndex).getObjects().getByType(RectangleMapObject.class)){
             rect = ((RectangleMapObject) object).getRectangle();
 
-            teleport = new ImageButton(new Image(atlas.findRegion("Empty")).getDrawable());
+            teleport = new ImageButton(new Image(Constants.ATLAS.findRegion("Empty")).getDrawable());
             base = new Image(teleIdle);
 
             //The 8s are to make the hitbox bigger
@@ -93,8 +89,8 @@ public class Teleporter {
                             telePositions.get(index).y + (16 * yOffset)));
                 }
             });
-            screen.teleStage.addActor(base);
-            screen.teleStage.addActor(teleport);
+            screen.stage.addActor(base);
+            screen.stage.addActor(teleport);
         }
     }
 
