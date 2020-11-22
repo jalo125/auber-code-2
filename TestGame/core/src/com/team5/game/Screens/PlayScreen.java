@@ -1,32 +1,32 @@
 package com.team5.game.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.team5.game.Environment.Brig;
+import com.team5.game.Environment.SystemChecker;
 import com.team5.game.Sprites.Infiltrator;
 import com.team5.game.Sprites.NPC;
 import com.team5.game.Sprites.Pathfinding.Node;
 import com.team5.game.Sprites.Pathfinding.NodeGraph;
-import com.team5.game.Sprites.Teleporter;
-import com.team5.game.Tools.Constants;
+import com.team5.game.Sprites.Pathfinding.System;
+import com.team5.game.Sprites.Teleporters;
 import com.team5.game.Tools.CustomCamera;
 import com.team5.game.Environment.Walls;
 import com.team5.game.MainGame;
 import com.team5.game.Sprites.Player;
-
-import java.lang.invoke.ConstantCallSite;
-import java.util.Random;
+import com.team5.game.UI.Hud;
+import com.team5.game.UI.Minimap.Minimap;
+import com.team5.game.UI.PauseMenu;
 
 public class PlayScreen implements Screen {
 
@@ -36,35 +36,40 @@ public class PlayScreen implements Screen {
      */
 
     //Game Reference
-    private MainGame game;
+    private final MainGame game;
 
     //Tilemaps
-    private TmxMapLoader mapLoader;
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
-    private TextureAtlas atlas;
+    private final TmxMapLoader mapLoader;
+    private final TiledMap map;
+    private final OrthogonalTiledMapRenderer renderer;
+    private final TextureAtlas atlas;
 
     //Colliders
-    private World world;
-    private Box2DDebugRenderer b2dr;
+    private final World world;
+    private final Box2DDebugRenderer b2dr;
 
     //Teleporters
     public Stage stage;
 
     //HUD
-    Image healthBar;
-    TextureRegion currentHealth;
-    Vector2 healthOffset = new Vector2(16-Constants.CAMERA_WIDTH/2, Constants.CAMERA_HEIGHT/2-64);
+    private Hud hud;
+    private PauseMenu pauseMenu;
+    private Minimap minimap;
+
+    public boolean paused;
+    public boolean mapVisible;
 
     //References
     public Player player;
-    private Walls walls;
+    private final Walls walls;
     public CustomCamera camera;
-    private Teleporter teleporter;
-    private NodeGraph graph;
+    private final Teleporters teleporters;
+    private final NodeGraph graph;
     public Brig brig;
+    public SystemChecker systemChecker;
 
-    private Array<NPC> npcs;
+    private final Array<NPC> npcs;
+    private final Array<Infiltrator> infiltrators;
 
     public PlayScreen(MainGame game){
         this.game = game;
@@ -89,18 +94,20 @@ public class PlayScreen implements Screen {
         stage = new Stage(camera.port);
         Gdx.input.setInputProcessor(stage);
 
-        //Teleporter setup
-        teleporter = new Teleporter(map, this);
-
         //Collisions for TileMap
         walls = new Walls(world, map);
+
+        //Teleporter setup
+        teleporters = new Teleporters(this);
 
         //NPCs
         graph = new NodeGraph();
         npcs = new Array<>();
+        infiltrators = new Array<>();
 
-        //Brig
+        //Checkers
         brig = new Brig();
+        systemChecker = new SystemChecker();
 
         for (int i = 0; i < 72; i++) {
             Node node = graph.getRandomRoom();
@@ -110,18 +117,16 @@ public class PlayScreen implements Screen {
             npcs.add(npc);
         }
         for (int i = 0; i < 8; i++) {
-            Node node = graph.getRandomRoom();
+            System node = graph.getRandomSystem();
             Infiltrator npc = new Infiltrator(game, this, world, graph,
                     node, new Vector2(node.getX(), node.getY()));
-            npcs.add(npc);
+            infiltrators.add(npc);
         }
 
         //HUD
-        currentHealth = atlas.findRegion("Health/3");
-        healthBar = new Image(currentHealth);
-        healthBar.setPosition(camera.cam.position.x + healthOffset.x,
-                camera.cam.position.y + healthOffset.y);
-        stage.addActor(healthBar);
+        hud = new Hud(this, atlas);
+        pauseMenu = new PauseMenu(game, this);
+        minimap = new Minimap(this, teleporters);
     }
 
     @Override
@@ -130,7 +135,12 @@ public class PlayScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        update(Gdx.graphics.getDeltaTime());
+        checkPause();
+        checkSystems();
+
+        if (!paused && !mapVisible) {
+            update(Gdx.graphics.getDeltaTime());
+        }
 
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -146,14 +156,27 @@ public class PlayScreen implements Screen {
         for (NPC npc : npcs){
             game.batch.draw(npc.currentSprite, npc.x, npc.y);
         }
+        for (Infiltrator bad : infiltrators){
+            game.batch.draw(bad.currentSprite, bad.x, bad.y);
+        }
 
         stage.act(delta);
-
         stage.draw();
 
         game.batch.draw(player.currentSprite, player.x, player.y);
 
         game.batch.end();
+
+        hud.draw(delta);
+
+        if (paused) {
+            pauseMenu.draw(delta);
+        }
+
+        if (mapVisible){
+            minimap.draw(delta);
+        }
+
     }
 
     @Override
@@ -163,12 +186,13 @@ public class PlayScreen implements Screen {
 
     @Override
     public void pause() {
-
+        pauseMenu.update();
+        Gdx.input.setInputProcessor(pauseMenu.stage);
+        paused = true;
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
@@ -178,6 +202,8 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
+        this.dispose();
+        stage.dispose();
         map.dispose();
         renderer.dispose();
         world.dispose();
@@ -196,17 +222,49 @@ public class PlayScreen implements Screen {
         camera.update();
         camera.follow(player);
 
-        //HUD
-        currentHealth = atlas.findRegion("Health/" + String.valueOf(player.getHealth()));
-        healthBar.setPosition(camera.cam.position.x + healthOffset.x,
-                camera.cam.position.y + healthOffset.y);
-        healthBar.setDrawable(new Image(currentHealth).getDrawable());
-
         //Moves npc
         for (NPC npc : npcs){
             npc.update(delta);
         }
+        for (Infiltrator bad : infiltrators){
+            bad.update(delta);
+        }
+
+        //HUD
+        hud.update();
 
         renderer.setView(camera.cam);
+    }
+
+    public void minimapOn(){
+        minimap.update();
+        Gdx.input.setInputProcessor(minimap.stage);
+        mapVisible = true;
+    }
+
+    public void minimapOff(){
+        Gdx.input.setInputProcessor(stage);
+        mapVisible = false;
+    }
+
+    void checkPause(){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            if (mapVisible){
+                minimapOff();
+            } else if (paused){
+                Gdx.input.setInputProcessor(stage);
+                paused = false;
+            } else {
+                pauseMenu.update();
+                Gdx.input.setInputProcessor(pauseMenu.stage);
+                paused = true;
+            }
+        }
+    }
+
+    void checkSystems(){
+        if (systemChecker.allSystemsBroken()){
+            game.setScreen(new LoseScreen(game));
+        }
     }
 }

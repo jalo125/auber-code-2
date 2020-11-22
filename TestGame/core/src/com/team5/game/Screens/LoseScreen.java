@@ -41,11 +41,11 @@ public class LoseScreen implements Screen {
     Vector2 titlePos = new Vector2(Constants.CAMERA_WIDTH/2-96, 100);
 
     //Colliders
-    private World world;
-    private Box2DDebugRenderer b2dr;
+    private final World world;
+    private final Box2DDebugRenderer b2dr;
 
     //Reference
-    private CustomCamera camera;
+    private final CustomCamera camera;
 
     public LoseScreen (final MainGame game){
 
@@ -111,6 +111,8 @@ public class LoseScreen implements Screen {
 
     @Override
     public void dispose() {
+        this.dispose();
+        stage.dispose();
         world.dispose();
         b2dr.dispose();
     }
@@ -129,7 +131,7 @@ public class LoseScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         playButton = new ImageButton(new Image(new Texture("Sprites/Menu/PlayOff.png")).getDrawable());
-        quitButton = new ImageButton(new Image(new Texture("Sprites/Menu/ExitOff.png")).getDrawable());
+        quitButton = new ImageButton(new Image(new Texture("Sprites/Menu/MenuOff.png")).getDrawable());
 
         playButton.setPosition(playPos.x, playPos.y);
         quitButton.setPosition(quitPos.x, quitPos.y);
@@ -138,7 +140,7 @@ public class LoseScreen implements Screen {
         quitButton.setSize(96, 32);
 
         playButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/PlayOn.png")).getDrawable();
-        quitButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/ExitOn.png")).getDrawable();
+        quitButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/MenuOn.png")).getDrawable();
 
         stage.addActor(playButton);
         stage.addActor(quitButton);

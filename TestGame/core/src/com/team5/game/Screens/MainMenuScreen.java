@@ -41,11 +41,11 @@ public class MainMenuScreen implements Screen {
     Vector2 titlePos = new Vector2(Constants.CAMERA_WIDTH/2-120, 100);
 
     //Colliders
-    private World world;
-    private Box2DDebugRenderer b2dr;
+    private final World world;
+    private final Box2DDebugRenderer b2dr;
 
     //Reference
-    private CustomCamera camera;
+    private final CustomCamera camera;
 
     public MainMenuScreen (final MainGame game){
 
@@ -111,6 +111,8 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void dispose() {
+        this.dispose();
+        stage.dispose();
         world.dispose();
         b2dr.dispose();
     }
