@@ -13,11 +13,13 @@ public class MainGame extends Game {
 	 */
 
 	public SpriteBatch batch;
+	public SpriteBatch hudBatch;
 	public TextureAtlas atlas;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
+		hudBatch = new SpriteBatch();
 		atlas = new TextureAtlas("textures.atlas");
 		this.setScreen(new MainMenuScreen(this));
 	}
@@ -30,6 +32,7 @@ public class MainGame extends Game {
 	@Override
 	public void dispose(){
 		batch.dispose();
+		hudBatch.dispose();
 		atlas.dispose();
 	}
 }

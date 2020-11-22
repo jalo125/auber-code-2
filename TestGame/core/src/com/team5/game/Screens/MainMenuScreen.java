@@ -14,7 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.team5.game.MainGame;
-import com.team5.game.Tools.Camera;
+import com.team5.game.Tools.Constants;
+import com.team5.game.Tools.CustomCamera;
 
 public class MainMenuScreen implements Screen {
 
@@ -32,30 +33,23 @@ public class MainMenuScreen implements Screen {
 
     Stage stage;
 
-    //Menu graphics
-    Image playGraphics;
-    Image quitGraphics;
-
     Texture title;
 
     //Menu positions
-    Vector2 playPos = new Vector2(192, 75);
-    Vector2 quitPos = new Vector2(192, 25);
-    Vector2 titlePos = new Vector2(112, 96);
+    Vector2 playPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 60);
+    Vector2 quitPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 20);
+    Vector2 titlePos = new Vector2(Constants.CAMERA_WIDTH/2-120, 100);
 
     //Colliders
     private World world;
     private Box2DDebugRenderer b2dr;
 
     //Reference
-    private Camera camera;
+    private CustomCamera camera;
 
     public MainMenuScreen (final MainGame game){
 
         this.game = game;
-
-        playGraphics = new Image(new Texture("Sprites/Menu/PlayButton.png"));
-        quitGraphics = new Image(new Texture("Sprites/Menu/QuitButton.png"));
         title = new Texture("Sprites/Menu/Title.png");
 
         //Collisions
@@ -63,7 +57,7 @@ public class MainMenuScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         //Camera
-        camera = new Camera();
+        camera = new CustomCamera();
 
         //Buttons
         setupButtons();
@@ -134,14 +128,17 @@ public class MainMenuScreen implements Screen {
         stage = new Stage(camera.port);
         Gdx.input.setInputProcessor(stage);
 
-        playButton = new ImageButton(playGraphics.getDrawable());
-        quitButton = new ImageButton(quitGraphics.getDrawable());
+        playButton = new ImageButton(new Image(new Texture("Sprites/Menu/PlayOff.png")).getDrawable());
+        quitButton = new ImageButton(new Image(new Texture("Sprites/Menu/ExitOff.png")).getDrawable());
 
         playButton.setPosition(playPos.x, playPos.y);
         quitButton.setPosition(quitPos.x, quitPos.y);
 
         playButton.setSize(96, 32);
         quitButton.setSize(96, 32);
+
+        playButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/PlayOn.png")).getDrawable();
+        quitButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/ExitOn.png")).getDrawable();
 
         stage.addActor(playButton);
         stage.addActor(quitButton);

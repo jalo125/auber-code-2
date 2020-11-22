@@ -21,8 +21,8 @@ public class AnimatedDrawable extends BaseDrawable {
 
     int tileSize;
 
-    public AnimatedDrawable(TextureAtlas atlas, String key, String path, float frameDuration) {
-        this(new Animator(atlas, key, path, frameDuration).getAnimation(key));
+    public AnimatedDrawable(String key, String path, float frameDuration) {
+        this(new Animator(key, path, frameDuration).getAnimation(key));
     }
 
     public AnimatedDrawable(Animation<TextureRegion> animation){

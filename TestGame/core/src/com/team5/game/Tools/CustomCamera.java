@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team5.game.Sprites.Player;
 
-public class Camera {
+public class CustomCamera {
 
     /*
     Camera creates a camera for any given scene,
@@ -17,20 +17,19 @@ public class Camera {
     public OrthographicCamera cam;
     public Viewport port;
 
-    public int camWidth = 480;
-    public int camHeight = 270;
+    public int camWidth = Constants.CAMERA_WIDTH;
+    public int camHeight = Constants.CAMERA_HEIGHT;
 
     float smoothing = 1f;
 
-    public Camera (){
+    public CustomCamera(){
         cam = new OrthographicCamera();
         port = new FitViewport(camWidth, camHeight, cam);
         cam.position.set(camWidth/2, camHeight/2, 0);
     }
 
     //Makes it so the camera is on the player at the start
-    public Camera (Player player){
-        cam = new OrthographicCamera();
+    public CustomCamera(Player player){
         cam = new OrthographicCamera();
         port = new FitViewport(camWidth, camHeight, cam);
         cam.position.set(player.b2body.getPosition().x, player.b2body.getPosition().y, 0);

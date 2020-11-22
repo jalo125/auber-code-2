@@ -39,7 +39,7 @@ public class Mouse{
         mouseBody.createFixture(fixDef).setUserData("Mouse");
     }
 
-    public void update(Camera camera){
+    public void update(CustomCamera camera){
         position = new Vector2(camera.cam.position.x - (camera.camWidth/2) + (Gdx.input.getX() * 0.25f),
                 camera.cam.position.y + (camera.camHeight/2) - (Gdx.input.getY() * 0.25f));
 

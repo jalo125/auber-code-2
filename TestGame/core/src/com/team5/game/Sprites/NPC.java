@@ -1,21 +1,16 @@
 package com.team5.game.Sprites;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.ai.pfa.GraphPath;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.team5.game.Screens.PlayScreen;
-import com.team5.game.Sprites.Animation.AnimatedDrawable;
 import com.team5.game.Sprites.Animation.Animator;
 import com.team5.game.Sprites.Collisions.CharacterCollider;
 import com.team5.game.Sprites.Pathfinding.AIBehaviour;
@@ -56,13 +51,13 @@ public class NPC extends Sprite {
     //Movement
     public Vector2 direction;
 
-    public float x = 640;
-    public float y = 120;
+    public float x;
+    public float y;
 
     //AI
     AIBehaviour ai;
 
-    public NPC(PlayScreen screen, World world, TextureAtlas atlas, NodeGraph graph, Node node, Vector2 position){
+    public NPC(PlayScreen screen, World world, NodeGraph graph, Node node, Vector2 position){
         this.world = world;
         this.screen = screen;
         this.x = position.x;
@@ -71,7 +66,7 @@ public class NPC extends Sprite {
         ai = new AIBehaviour(this, graph, node);
 
         b2body = charCollider.defineCollider(world, position, size);
-        setupAnimations(atlas);
+        setupAnimations();
     }
 
     public void update(float delta){
@@ -79,21 +74,21 @@ public class NPC extends Sprite {
         handleAnimations(direction);
     }
 
-    public void setupAnimations(TextureAtlas atlas){
+    public void setupAnimations(){
         //Setting initial values of animations
         Random random = new Random();
         int sprite = random.nextInt(6);
-        anim = new Animator(atlas, "idle", "NPC/" + String.valueOf(sprite+1) + "/Idle");
+        anim = new Animator("idle", "NPC/" + String.valueOf(sprite+1) + "/Idle");
         anim.add("run", "NPC/" + String.valueOf(sprite+1) + "/Run");
         facingRight = true;
         currentSprite = anim.getSprite();
 
         //Setting outline animations
-        outlineAnim = new Animator(atlas, "idle", "NPC/" + String.valueOf(sprite+1) + "/IdleOutline");
+        outlineAnim = new Animator("idle", "NPC/" + String.valueOf(sprite+1) + "/IdleOutline");
         outlineAnim.add("run", "NPC/" + String.valueOf(sprite+1) + "/RunOutline");
 
         outlineImage = new Image(outlineAnim.getSprite());
-        outlineButton = new ImageButton(new Image(atlas.findRegion("Empty")).getDrawable());
+        outlineButton = new ImageButton(new Image(Constants.ATLAS.findRegion("Empty")).getDrawable());
 
         outlineButton.setPosition(x-4, y-4);
         outlineButton.setSize(Constants.TILE_SIZE+8, Constants.TILE_SIZE+8);
@@ -102,11 +97,11 @@ public class NPC extends Sprite {
 
         outlineButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
-                Gdx.app.log("Person", "Ouch");
+                screen.player.health.decreaseHealth();
             }
         });
 
-        screen.teleStage.addActor(outlineButton);
+        screen.stage.addActor(outlineButton);
     }
 
     void handleAnimations(Vector2 direction){

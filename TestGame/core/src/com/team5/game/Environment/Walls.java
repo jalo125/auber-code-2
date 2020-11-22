@@ -25,7 +25,7 @@ public class Walls {
     FixtureDef fixDef;
 
     //stopIndex is the index of the Stop object layer in the Tilemap
-    int stopIndex = 4;
+    int stopIndex = 5;
 
     public Walls(World world, TiledMap map){
         this.world = world;

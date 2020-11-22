@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.team5.game.Tools.Constants;
 
 import java.util.Hashtable;
 
@@ -26,12 +27,12 @@ public class Animator {
 
     boolean looping = true;
 
-    public Animator(TextureAtlas atlas, String idleKey, String idleRegion){
-        this(atlas, idleKey, idleRegion, 0.2f);
+    public Animator(String idleKey, String idleRegion){
+        this(idleKey, idleRegion, 0.2f);
     }
 
-    public Animator(TextureAtlas atlas, String idleKey, String idleRegion, float frameDuration){
-        this.atlas = atlas;
+    public Animator(String idleKey, String idleRegion, float frameDuration){
+        this.atlas = Constants.ATLAS;
         this.frameDuration = frameDuration;
 
         animations = new Hashtable<>();
