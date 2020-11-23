@@ -34,7 +34,7 @@ public class NPCAIBehaviour {
     float offset = 8;
 
     //Waiting
-    float maxWait = 10;
+    float maxWait = 5;
     float minWait = 1;
     float waitTime;
 

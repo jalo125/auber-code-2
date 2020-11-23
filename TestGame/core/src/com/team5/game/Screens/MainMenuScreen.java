@@ -2,6 +2,7 @@ package com.team5.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Matrix4;
@@ -34,6 +35,9 @@ public class MainMenuScreen implements Screen {
     Stage stage;
 
     Texture title;
+
+    //Audio
+    Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/click.wav"));
 
     //Menu positions
     Vector2 playPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 60);
@@ -115,6 +119,7 @@ public class MainMenuScreen implements Screen {
         stage.dispose();
         world.dispose();
         b2dr.dispose();
+        click.dispose();
     }
 
     //Custom functions from here
@@ -147,12 +152,14 @@ public class MainMenuScreen implements Screen {
 
         playButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
+                click.play(0.5f, 1.5f, 0);
                 game.setScreen(new PlayScreen(game));
             }
         });
 
         quitButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
+                click.play(0.5f, 1.5f, 0);
                 Gdx.app.exit();
             }
         });

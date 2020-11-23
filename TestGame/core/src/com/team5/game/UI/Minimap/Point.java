@@ -1,5 +1,7 @@
 package com.team5.game.UI.Minimap;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -19,16 +21,22 @@ public class Point {
     Minimap.
      */
 
+    //References
     PlayScreen screen;
     Stage stage;
     Teleporters teleporters;
-
     Player player;
 
+    //Image
     Image cursor;
 
+    //Audio
+    Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/click.wav"));
+
+    //Positioning
     int offset = 13;
 
+    //Point variables
     ImageButton point;
     Vector2 position;
     String key;
@@ -57,6 +65,7 @@ public class Point {
 
         point.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
+                click.play(0.5f, 1.5f, 0);
                 Vector2 newPosition = teleporters.getTeleporter(key);
                 player.updatePosition(new Vector2(newPosition.x -Constants.TILE_SIZE, newPosition.y));
                 screen.minimapOff();

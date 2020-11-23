@@ -1,5 +1,7 @@
 package com.team5.game.Sprites.Pathfinding;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,6 +22,9 @@ public class System extends Room{
 
     //Sprites
     public TextureRegion currentSprite;
+
+    //Audio
+    Sound explosion = Gdx.audio.newSound(Gdx.files.internal("Audio/ploosh.wav"));
 
     //On means it's not been broken yet, off means it's broken.
     public TextureRegion onSprite;
@@ -55,6 +60,7 @@ public class System extends Room{
 
     //destroy function is called when the infiltrator breaks the system
     public void destroy(){
+        explosion.play(0.2f);
         broken = true;
     }
 

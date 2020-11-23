@@ -1,5 +1,7 @@
 package com.team5.game.Sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -39,6 +41,9 @@ public class Infiltrator extends NPC{
 
     //SystemChecker reference
     SystemChecker systemChecker;
+
+    //Audio
+    Sound pass = Gdx.audio.newSound(Gdx.files.internal("Audio/pass.wav"));
 
     public Infiltrator(MainGame game, PlayScreen screen, GameController gameController, World world,
                        NodeGraph graph, Node node, Vector2 position) {
@@ -112,6 +117,7 @@ public class Infiltrator extends NPC{
         outlineButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
                 if (!caught) {
+                    pass.play(0.3f);
                     caught = true;
                     anim.play("caught");
                     outlineButton.getStyle().imageOver =

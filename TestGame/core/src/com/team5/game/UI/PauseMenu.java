@@ -1,5 +1,7 @@
 package com.team5.game.UI;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -19,14 +21,21 @@ public class PauseMenu {
     in the PlayScreen class when the Escape key is pressed.
      */
 
+    //Game Reference
     public MainGame game;
 
+    //Camera
     public Stage stage;
     public CustomCamera camera;
 
+    //Menu Elements
     Image pauseImage;
     ImageButton menuButton;
 
+    //Audio
+    public Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/click.wav"));
+
+    //Element Positioning
     Vector2 pauseOffset = new Vector2(-112, -75);
     Vector2 menuOffset = new Vector2(-48, -48);
 
@@ -51,6 +60,7 @@ public class PauseMenu {
 
         menuButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
+                click.play(0.5f, 1.5f, 0);
                 game.setScreen(new MainMenuScreen(game));
             }
         });
