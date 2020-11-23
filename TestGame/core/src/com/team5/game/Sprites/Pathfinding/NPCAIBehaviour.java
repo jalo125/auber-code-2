@@ -7,7 +7,7 @@ import com.team5.game.Sprites.NPC;
 
 import java.util.Random;
 
-public class AIBehaviour {
+public class NPCAIBehaviour {
 
     /*
     AIBehaviour contains all of the basic AI for NPCs
@@ -17,8 +17,8 @@ public class AIBehaviour {
     NPC npc;
 
     //Movement
-    int maxSpeed = 80;
-    int minSpeed = 40;
+    int maxSpeed = 100;
+    int minSpeed = 50;
     float speed;
 
     NodeGraph graph;
@@ -31,7 +31,7 @@ public class AIBehaviour {
     float offset = 8;
 
     //Waiting
-    float maxWait = 20;
+    float maxWait = 10;
     float minWait = 1;
     float waitTime;
 
@@ -40,7 +40,7 @@ public class AIBehaviour {
 
     Random random;
 
-    public AIBehaviour(NPC npc, NodeGraph graph, Node node){
+    public NPCAIBehaviour(NPC npc, NodeGraph graph, Node node){
         this.npc = npc;
         this.graph = graph;
         currentNode = node;

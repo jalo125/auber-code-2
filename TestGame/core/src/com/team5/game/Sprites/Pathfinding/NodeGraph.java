@@ -78,12 +78,8 @@ public class NodeGraph implements IndexedGraph<Node> {
         return path;
     }
 
-    public Node getNode(int index){
-        return nodes.get(index);
-    }
-
-    public Room getRoom(int index){
-        return rooms.get(index);
+    public Array<System> getSystems(){
+        return systems;
     }
 
     public Node getRandomRoom(Node exception){
@@ -98,12 +94,8 @@ public class NodeGraph implements IndexedGraph<Node> {
         return rooms.random();
     }
 
-    public Node getRandomSystem(Node exception){
-        Node node = exception;
-        while(node.equals(exception)){
-            node = systems.random();
-        }
-        return node;
+    public System getRandomSystem(){
+        return systems.random();
     }
 
     public void drawSystems(SpriteBatch batch){
@@ -141,10 +133,11 @@ public class NodeGraph implements IndexedGraph<Node> {
         Node brigExit = new Node(19.5f, 87.5f, "Brig Exit", 2, 0);
         Node leftNorthWing = new Node(19.5f, 79.5f, "Left North Wing", 1, 1);
 
-        Room infirmary = new Room("Infirmary", 81.5f, 89.5f, "Infirmary", 12, 3);
+        Room rightInfirmary = new Room("Infirmary", 81.5f, 88.5f, "Right Infirmary", 6, 2f);
+        Room leftInfirmary = new Room("Infirmary", 74f, 88.5f, "Left Infirmary", 1, 1.5f);
         Node infirmaryExit = new Node(81.5f, 84.5f, "Infirmary Exit", 2, 0);
         Node rightNorthWing = new Node(81.5f, 79.5f, "Right North Wing", 1, 1);
-        System leftHealthPad = new System("Infirmary", 84f, 91.5f, "Left Health Pad", 73, 92);
+        System leftHealthPad = new System("Infirmary", 74f, 91.5f, "Left Health Pad", 73, 92);
         System rightHealthPad = new System("Infirmary", 83f, 91.5f, "Right Health Pad", 82, 92);
 
         Room topLeftCafeteria = new Room("Cafeteria", 46.5f, 68.5f, "Top Left Cafeteria");
@@ -157,7 +150,8 @@ public class NodeGraph implements IndexedGraph<Node> {
         Node eastCafeteriaExit = new Node(58.5f, 62, "East Cafeteria Exit", 0, 1.5f);
         Node northCafeteriaExit = new Node(49.5f, 70.5f, "North Cafeteria Exit", 2, 0);
         Node southCafeteriaExit = new Node(49.5f, 54.5f, "South Cafeteria Exit", 2, 0);
-        System vendingMachine = new System("Cafeteria", 45,68.5f, "Vending Machine", 44, 69);
+        System leftVendingMachine = new System("Cafeteria", 45,68.5f, "Vending Machine", 44, 69);
+        System rightVendingMachine = new System("Cafeteria", 54,68.5f, "Vending Machine", 53, 69);
 
         //PQ stands for personal quarters, that's just a bit long for a name
         Room midRightPQ = new Room("PQ", 23.5f, 61.5f, "Mid Right PQ");
@@ -170,9 +164,9 @@ public class NodeGraph implements IndexedGraph<Node> {
         Room bottomCentrePQ = new Room("PQ", 14.5f, 56.5f, "Bottom Centre PQ");
         Room bottomLeftPQ = new Room("PQ", 6.5f, 56.5f, "Bottom Left PQ");
         Node PQExit = new Node(26.5f, 62, "PQ Exit", 0, 1.5f);
-        System topBeds = new System("PQ", 14f, 68f, "Top Beds", 9, 68);
-        System midBeds = new System("PQ", 14f, 63f, "Mid Beds", 9, 63);
-        System bottomBeds = new System("PQ", 14f, 68f, "Bottom Beds", 9, 58);
+        System topBeds = new System("PQ", 22.5f, 69f, "Top Beds", 9, 68);
+        System midBeds = new System("PQ", 22.5f, 64f, "Mid Beds", 9, 63);
+        System bottomBeds = new System("PQ", 22.5f, 59f, "Bottom Beds", 9, 58);
 
         Room cargo = new Room("Cargo", 81.5f, 62.5f, "Cargo Bay", 2, 3);
         Node northCargoExit = new Node(81.5f, 74.5f, "North Cargo Exit", 2, 0);
@@ -186,10 +180,10 @@ public class NodeGraph implements IndexedGraph<Node> {
         Room reactor = new Room("Reactor", 49.5f, 37.5f, "Reactor", 1, 1);
         Node northReactorExit = new Node(49.5f, 45.5f, "North Reactor Exit", 2, 0);
         Node eastReactorExit = new Node(55.5f, 37, "East Reactor Exit", 0, 1.5f);
-        System topLeftReactor = new System("Reactor", 46.5f, 40.5f, "Top Left Reactor", 45, 40);
-        System topRightReactor = new System("Reactor", 52.5f, 40.5f, "Top Right Reactor", 51, 40);
-        System bottomLeftReactor = new System("Reactor", 46.5f, 37.5f, "Bottom Left Reactor", 45, 33);
-        System bottomRightReactor = new System("Reactor", 52.5f, 37.5f, "Bottom Right Reactor", 51, 33);
+        System topLeftReactor = new System("Reactor", 46.5f, 39.5f, "Top Left Reactor", 45, 40);
+        System topRightReactor = new System("Reactor", 52.5f, 39.5f, "Top Right Reactor", 51, 40);
+        System bottomLeftReactor = new System("Reactor", 46.5f, 36.5f, "Bottom Left Reactor", 45, 33);
+        System bottomRightReactor = new System("Reactor", 52.5f, 36.5f, "Bottom Right Reactor", 51, 33);
 
         Room midLeftEngine = new Room("Engine", 78.5f, 36.5f, "Mid Left Engine");
         Room midCentreEngine = new Room("Engine", 83.5f, 36.5f, "Mid Centre Engine");
@@ -198,10 +192,10 @@ public class NodeGraph implements IndexedGraph<Node> {
         Room centreEngine = new Room("Engine", 83.5f, 45, "Top Centre Engine");
         Node northEngineExit = new Node(81.5f, 47.5f, "North Engine Exit", 1, 0);
         Node westEngineExit = new Node(65.5f, 37, "West Engine Exit", 0, 1.5f);
-        System topLeftEngine = new System("Engine", 77.5f, 43.5f, "Top Left Engine", 72, 42);
-        System topRightEngine = new System("Engine", 93.5f, 43.5f, "Top Right Engine", 88, 42);
-        System bottomLeftEngine = new System("Engine", 77.5f, 32.5f, "Bottom Left Engine", 72, 31);
-        System bottomRightEngine = new System("Engine", 93.5f, 32.5f, "Bottom Right Engine", 88, 31);
+        System topLeftEngine = new System("Engine", 77.5f, 42.5f, "Top Left Engine", 72, 42);
+        System topRightEngine = new System("Engine", 93.5f, 42.5f, "Top Right Engine", 88, 42);
+        System bottomLeftEngine = new System("Engine", 77.5f, 31.5f, "Bottom Left Engine", 72, 31);
+        System bottomRightEngine = new System("Engine", 93.5f, 31.5f, "Bottom Right Engine", 88, 31);
 
         //Adding the Nodes to the NodeGraph
         addNode(bridge);
@@ -212,7 +206,8 @@ public class NodeGraph implements IndexedGraph<Node> {
         addNode(brigExit);
         addNode(leftNorthWing);
 
-        addRoom(infirmary);
+        addRoom(rightInfirmary);
+        addRoom(leftInfirmary);
         addNode(infirmaryExit);
         addNode(rightNorthWing);
         addSystem(leftHealthPad);
@@ -228,7 +223,8 @@ public class NodeGraph implements IndexedGraph<Node> {
         addNode(eastCafeteriaExit);
         addNode(northCafeteriaExit);
         addNode(southCafeteriaExit);
-        addSystem(vendingMachine);
+        addSystem(leftVendingMachine);
+        addSystem(rightVendingMachine);
 
         addRoom(midRightPQ);
         addRoom(midCentrePQ);
@@ -282,14 +278,15 @@ public class NodeGraph implements IndexedGraph<Node> {
         linkNodes(brigExit, brig, leftNorthWing);
         linkNodes(leftNorthWing, centreNorthWing, brigExit);
 
-        linkNodes(infirmary, infirmaryExit, leftHealthPad, rightHealthPad);
-        linkNodes(infirmaryExit, infirmary, rightNorthWing);
+        linkNodes(rightInfirmary, infirmaryExit, rightHealthPad, leftInfirmary);
+        linkNodes(leftInfirmary, infirmaryExit, leftHealthPad, rightInfirmary);
+        linkNodes(infirmaryExit, rightInfirmary, leftInfirmary, rightNorthWing);
         linkNodes(rightNorthWing, infirmaryExit, centreNorthWing, northCargoExit);
-        linkNodes(leftHealthPad, infirmary);
-        linkNodes(rightHealthPad, infirmary);
+        linkNodes(leftHealthPad, rightInfirmary);
+        linkNodes(rightHealthPad, rightInfirmary);
 
-        linkNodes(topLeftCafeteria, northCafeteriaExit, topRightCafeteria, midLeftCafeteria, vendingMachine);
-        linkNodes(topRightCafeteria, northCafeteriaExit, topLeftCafeteria, midRightCafeteria);
+        linkNodes(topLeftCafeteria, northCafeteriaExit, topRightCafeteria, midLeftCafeteria, leftVendingMachine);
+        linkNodes(topRightCafeteria, northCafeteriaExit, topLeftCafeteria, midRightCafeteria, rightVendingMachine);
         linkNodes(midLeftCafeteria, westCafeteriaExit, topLeftCafeteria, midRightCafeteria, bottomLeftCafeteria);
         linkNodes(midRightCafeteria, eastCafeteriaExit, topRightCafeteria, midLeftCafeteria, bottomRightCafeteria);
         linkNodes(bottomLeftCafeteria, southCafeteriaExit, midLeftCafeteria, bottomRightCafeteria);
@@ -298,21 +295,22 @@ public class NodeGraph implements IndexedGraph<Node> {
         linkNodes(eastCafeteriaExit, midRightCafeteria, westCargoExit);
         linkNodes(northCafeteriaExit, topLeftCafeteria, topRightCafeteria, centreNorthWing);
         linkNodes(southCafeteriaExit, bottomLeftCafeteria, bottomRightCafeteria, northReactorExit);
-        linkNodes(vendingMachine, topLeftCafeteria);
+        linkNodes(leftVendingMachine, topLeftCafeteria);
+        linkNodes(rightVendingMachine, topRightCafeteria);
 
-        linkNodes(midRightPQ, PQExit, midCentrePQ, topRightPQ, bottomRightPQ);
-        linkNodes(midCentrePQ, midRightPQ, midLeftPQ, midBeds);
+        linkNodes(midRightPQ, PQExit, midCentrePQ, topRightPQ, bottomRightPQ, midBeds, bottomBeds);
+        linkNodes(midCentrePQ, midRightPQ, midLeftPQ);
         linkNodes(midLeftPQ, midCentrePQ, topLeftPQ, bottomLeftPQ);
-        linkNodes(topRightPQ, midRightPQ, topCentrePQ);
-        linkNodes(topCentrePQ, topRightPQ, topLeftPQ, topBeds);
+        linkNodes(topRightPQ, midRightPQ, topCentrePQ, midBeds, topBeds);
+        linkNodes(topCentrePQ, topRightPQ, topLeftPQ);
         linkNodes(topLeftPQ, midLeftPQ, topCentrePQ);
-        linkNodes(bottomRightPQ, midRightPQ, bottomCentrePQ);
-        linkNodes(bottomCentrePQ, bottomRightPQ, bottomLeftPQ, bottomBeds);
+        linkNodes(bottomRightPQ, midRightPQ, bottomCentrePQ, bottomBeds);
+        linkNodes(bottomCentrePQ, bottomRightPQ, bottomLeftPQ);
         linkNodes(bottomLeftPQ, midLeftPQ, bottomCentrePQ);
         linkNodes(PQExit, midRightPQ, westCafeteriaExit);
-        linkNodes(topBeds, topCentrePQ);
-        linkNodes(midBeds, midCentrePQ);
-        linkNodes(bottomBeds, bottomCentrePQ);
+        linkNodes(topBeds, topRightPQ);
+        linkNodes(midBeds, midRightPQ, topRightPQ);
+        linkNodes(bottomBeds, bottomRightPQ, midRightPQ);
 
         linkNodes(cargo, northCargoExit, southCargoExit, westCargoExit,
                 topLeftBoxes, topRightBoxes, bottomLeftBoxes, bottomRightBoxes);

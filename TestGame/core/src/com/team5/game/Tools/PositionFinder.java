@@ -1,5 +1,6 @@
-package com.team5.game.Sprites;
+package com.team5.game.Tools;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapObject;
@@ -18,7 +19,7 @@ import com.team5.game.Tools.Constants;
 
 import java.util.Random;
 
-public class Teleporter {
+public class PositionFinder {
 
     /*
     Teleporter sets up all of the teleporters using the TileMap
@@ -52,7 +53,7 @@ public class Teleporter {
 
     int teleIndex = 6;
 
-    public Teleporter(TiledMap map, PlayScreen screen){
+    public PositionFinder(TiledMap map, PlayScreen screen){
         this.map = map;
         this.screen = screen;
 
@@ -61,6 +62,11 @@ public class Teleporter {
         telePositions = new Array<>();
 
         findPositions();
+
+        for (Vector2 pos : telePositions){
+            Gdx.app.log("Position", String.valueOf(pos.x/Constants.TILE_SIZE)
+                    + ", " + String.valueOf(pos.y/Constants.TILE_SIZE));
+        }
     }
 
     void findPositions(){

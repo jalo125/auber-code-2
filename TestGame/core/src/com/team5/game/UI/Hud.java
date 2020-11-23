@@ -14,58 +14,51 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team5.game.Screens.PlayScreen;
+import com.team5.game.Sprites.Player;
 import com.team5.game.Tools.Constants;
 import com.team5.game.Tools.CustomCamera;
 
 public class Hud {
     public Stage stage;
-    private Viewport viewport;
-    public Camera cam;
-    private PlayScreen screen;
+    public CustomCamera camera;
 
-    Image background;
-    Vector2 backgroundPos = new Vector2(50 * Constants.TILE_SIZE, 95 * Constants.TILE_SIZE);
+    public Player player;
 
-    TextureRegion fullHeart;
-    TextureRegion emptyHeart;
-    Array<Image> hearts;
-    Vector2 heartPos = new Vector2(80, 100);
-    float xOffset = 32;
-
-    int maxHealth;
-    int currentHealth;
+    Image healthBar;
+    TextureRegion currentHealth;
+    Vector2 healthOffset = new Vector2(16-Constants.CAMERA_WIDTH/2, Constants.CAMERA_HEIGHT/2-48);
 
     TextureAtlas atlas;
 
-    public Hud(PlayScreen screen, SpriteBatch batch, TextureAtlas atlas, Stage stage){
+    public Hud(PlayScreen screen, TextureAtlas atlas){
         this.atlas = atlas;
 
-        this.stage = stage;
+        player = screen.player;
+        camera = screen.camera;
 
-        this.screen = screen;
+        setupImages();
     }
 
     void setupImages(){
-        hearts = new Array<>();
+        stage = new Stage(camera.port);
 
-        fullHeart = atlas.findRegion("Health/Heart");
-        emptyHeart = atlas.findRegion("Health/Empty Heart");
-        background = new Image(atlas.findRegion("Health/Bar"));
-
-        background.setPosition(screen.camera.cam.position.x, screen.camera.cam.position.y);
-
-//        for (int i =0; i < maxHealth; i++) {
-//            Image newHeart = new Image(fullHeart);
-//            newHeart.setPosition(heartPos.x + (xOffset*i), heartPos.y);
-//
-//            hearts.add(newHeart);
-//            stage.addActor(newHeart);
-//        }
+        currentHealth = atlas.findRegion("Health/3");
+        healthBar = new Image(currentHealth);
+        healthBar.setPosition(camera.cam.position.x + healthOffset.x,
+                camera.cam.position.y + healthOffset.y);
+        stage.addActor(healthBar);
     }
 
     public void update(){
-        background.setPosition(screen.player.b2body.getPosition().x, screen.player.b2body.getPosition().y);
+        currentHealth = atlas.findRegion("Health/" + player.getHealth());
+        healthBar.setPosition(camera.cam.position.x + healthOffset.x,
+                camera.cam.position.y + healthOffset.y);
+        healthBar.setDrawable(new Image(currentHealth).getDrawable());
     }
 
+    public void draw(float delta){
+        stage.act(delta);
+        stage.draw();
+    }
 
 }

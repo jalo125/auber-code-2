@@ -10,11 +10,6 @@ public class Room extends Node{
 
     public String tag;
 
-    public Room(String tag, float x, float y, String name, Vector2 dimension) {
-        super(x, y, name, dimension);
-        this.tag = tag;
-    }
-
     public Room(String tag, float x, float y, String name) {
         super(x, y, name);
         this.tag = tag;

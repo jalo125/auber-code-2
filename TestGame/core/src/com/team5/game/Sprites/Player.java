@@ -53,7 +53,7 @@ public class Player extends Sprite {
     public Player(MainGame game, World world){
         this.world = world;
 
-        health = new Health(game);
+        health = new Health(game, this);
         b2body = charCollider.defineCollider(world, new Vector2(x, y), size);
         setupAnimations();
     }
@@ -61,6 +61,7 @@ public class Player extends Sprite {
     public void update(){
         checkInputs();
         handleAnimations(direction);
+        health.update();
     }
 
     public void setupAnimations(){

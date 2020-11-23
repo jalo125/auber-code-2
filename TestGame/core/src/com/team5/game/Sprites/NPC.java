@@ -1,8 +1,6 @@
 package com.team5.game.Sprites;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -13,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.team5.game.Screens.PlayScreen;
 import com.team5.game.Sprites.Animation.Animator;
 import com.team5.game.Sprites.Collisions.CharacterCollider;
-import com.team5.game.Sprites.Pathfinding.AIBehaviour;
+import com.team5.game.Sprites.Pathfinding.NPCAIBehaviour;
 import com.team5.game.Sprites.Pathfinding.Node;
 import com.team5.game.Sprites.Pathfinding.NodeGraph;
 import com.team5.game.Tools.Constants;
@@ -30,7 +28,7 @@ public class NPC extends Sprite {
     //Collider
     public World world;
     public Body b2body;
-    private int size = 16;
+    private final int size = 16;
     CharacterCollider charCollider = new CharacterCollider();
 
     //Animations
@@ -55,18 +53,22 @@ public class NPC extends Sprite {
     public float y;
 
     //AI
-    AIBehaviour ai;
+    NodeGraph graph;
+    Node node;
+
+    NPCAIBehaviour ai;
 
     public NPC(PlayScreen screen, World world, NodeGraph graph, Node node, Vector2 position){
         this.world = world;
         this.screen = screen;
         this.x = position.x;
         this.y = position.y;
-
-        ai = new AIBehaviour(this, graph, node);
+        this.graph = graph;
+        this.node = node;
 
         b2body = charCollider.defineCollider(world, position, size);
-        setupAnimations();
+
+        setup();
     }
 
     public void update(float delta){
@@ -74,18 +76,20 @@ public class NPC extends Sprite {
         handleAnimations(direction);
     }
 
-    public void setupAnimations(){
+    public void setup(){
+        ai = new NPCAIBehaviour(this, graph, node);
+
         //Setting initial values of animations
         Random random = new Random();
         int sprite = random.nextInt(6);
-        anim = new Animator("idle", "NPC/" + String.valueOf(sprite+1) + "/Idle");
-        anim.add("run", "NPC/" + String.valueOf(sprite+1) + "/Run");
+        anim = new Animator("idle", "NPC/" + (sprite + 1) + "/Idle");
+        anim.add("run", "NPC/" + (sprite + 1) + "/Run");
         facingRight = true;
         currentSprite = anim.getSprite();
 
         //Setting outline animations
-        outlineAnim = new Animator("idle", "NPC/" + String.valueOf(sprite+1) + "/IdleOutline");
-        outlineAnim.add("run", "NPC/" + String.valueOf(sprite+1) + "/RunOutline");
+        outlineAnim = new Animator("idle", "NPC/" + (sprite + 1) + "/IdleOutline");
+        outlineAnim.add("run", "NPC/" + (sprite + 1) + "/RunOutline");
 
         outlineImage = new Image(outlineAnim.getSprite());
         outlineButton = new ImageButton(new Image(Constants.ATLAS.findRegion("Empty")).getDrawable());

@@ -21,6 +21,7 @@ public class Animator {
     public TextureRegion currentSprite;
 
     float stateTime;
+    float timer;
     float frameDuration;
 
     TextureAtlas atlas;
@@ -45,17 +46,18 @@ public class Animator {
     public TextureRegion getSprite(){
         currentSprite = currentAnim.getKeyFrame(stateTime, looping);
         stateTime += Gdx.graphics.getDeltaTime();
+        timer += Gdx.graphics.getDeltaTime();
         return currentSprite;
     }
 
     public void play(String animKey){
-        currentAnim = animations.get(animKey);
-        looping = true;
+        play(animKey, true);
     }
 
     public void play(String animKey, boolean loop){
         currentAnim = animations.get(animKey);
         looping = loop;
+        timer = 0f;
     }
 
     public void add(String animKey, String atlasRegion){
@@ -66,12 +68,18 @@ public class Animator {
         return animations.get(animKey);
     }
 
+
+
     public void flip(){
         currentSprite.flip(true, false);
     }
 
     public boolean isFlipped(){
         return currentSprite.isFlipX();
+    }
+
+    public boolean finished(){
+        return (timer > currentAnim.getAnimationDuration());
     }
 
 }

@@ -1,5 +1,6 @@
 package com.team5.game.Sprites.Pathfinding;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -44,9 +45,14 @@ public class System extends Room{
             currentSprite = offSprite;
         }
         batch.draw(currentSprite, spritePosition.x, spritePosition.y);
+        batch.draw(new Texture("Sprites/Minimap/Cursor.png"), x-10, y-10);
     }
 
     public void destroy(){
-        broken = false;
+        broken = true;
+    }
+
+    public boolean isBroken(){
+        return broken;
     }
 }
