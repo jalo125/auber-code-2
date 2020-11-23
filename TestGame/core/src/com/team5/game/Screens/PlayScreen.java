@@ -42,7 +42,6 @@ public class PlayScreen implements Screen {
     private final TmxMapLoader mapLoader;
     private final TiledMap map;
     private final OrthogonalTiledMapRenderer renderer;
-    private final TextureAtlas atlas;
 
     //Colliders
     private final World world;
@@ -73,7 +72,6 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(MainGame game){
         this.game = game;
-        atlas = game.atlas;
 
         //Tilemap
         mapLoader = new TmxMapLoader();
@@ -124,7 +122,7 @@ public class PlayScreen implements Screen {
         }
 
         //HUD
-        hud = new Hud(this, atlas);
+        hud = new Hud(this);
         pauseMenu = new PauseMenu(game, this);
         minimap = new Minimap(this, teleporters);
     }

@@ -24,8 +24,6 @@ public class Animator {
     float timer;
     float frameDuration;
 
-    TextureAtlas atlas;
-
     boolean looping = true;
 
     public Animator(String idleKey, String idleRegion){
@@ -33,12 +31,11 @@ public class Animator {
     }
 
     public Animator(String idleKey, String idleRegion, float frameDuration){
-        this.atlas = Constants.ATLAS;
         this.frameDuration = frameDuration;
 
         animations = new Hashtable<>();
 
-        animations.put(idleKey, new Animation<TextureRegion>(frameDuration, atlas.findRegions(idleRegion)));
+        animations.put(idleKey, new Animation<TextureRegion>(frameDuration, Constants.ATLAS.findRegions(idleRegion)));
         currentAnim = animations.get(idleKey);
         currentSprite = currentAnim.getKeyFrame(stateTime, true);
     }
@@ -61,7 +58,7 @@ public class Animator {
     }
 
     public void add(String animKey, String atlasRegion){
-        animations.put(animKey, new Animation<TextureRegion>(frameDuration, atlas.findRegions(atlasRegion)));
+        animations.put(animKey, new Animation<TextureRegion>(frameDuration, Constants.ATLAS.findRegions(atlasRegion)));
     }
 
     public Animation getAnimation(String animKey){

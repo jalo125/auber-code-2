@@ -28,11 +28,8 @@ public class Hud {
     TextureRegion currentHealth;
     Vector2 healthOffset = new Vector2(16-Constants.CAMERA_WIDTH/2, Constants.CAMERA_HEIGHT/2-48);
 
-    TextureAtlas atlas;
 
-    public Hud(PlayScreen screen, TextureAtlas atlas){
-        this.atlas = atlas;
-
+    public Hud(PlayScreen screen){
         player = screen.player;
         camera = screen.camera;
 
@@ -42,7 +39,7 @@ public class Hud {
     void setupImages(){
         stage = new Stage(camera.port);
 
-        currentHealth = atlas.findRegion("Health/3");
+        currentHealth = Constants.ATLAS.findRegion("Health/3");
         healthBar = new Image(currentHealth);
         healthBar.setPosition(camera.cam.position.x + healthOffset.x,
                 camera.cam.position.y + healthOffset.y);
@@ -50,7 +47,7 @@ public class Hud {
     }
 
     public void update(){
-        currentHealth = atlas.findRegion("Health/" + player.getHealth());
+        currentHealth = Constants.ATLAS.findRegion("Health/" + player.getHealth());
         healthBar.setPosition(camera.cam.position.x + healthOffset.x,
                 camera.cam.position.y + healthOffset.y);
         healthBar.setDrawable(new Image(currentHealth).getDrawable());

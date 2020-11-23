@@ -39,8 +39,6 @@ public class PositionFinder {
     Image outline;
     Image base;
 
-    TextureAtlas atlas;
-
     //Animation
     AnimatedDrawable teleIdle;
 
