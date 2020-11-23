@@ -5,15 +5,22 @@ import com.team5.game.Tools.Constants;
 
 public class Brig {
 
-    int xOffset = 3;
+    /*
+    Brig is used to teleport the infiltrators to the brig when they're caught.
+     */
 
+    //The original position of the first caught infiltrator.
     Vector2 basePosition = new Vector2(7.5f, 94.5f);
+
+    //The distance between each cell in the brig, so they fill in from the left.
+    int xOffset = 3;
 
     public int prisoners = 0;
 
     public Brig(){
     }
 
+    //Called whenever an infiltrator is caught and moves them to the brig.
     public Vector2 imprison(){
         Vector2 position =
                 new Vector2((basePosition.x + (xOffset*prisoners))
@@ -22,6 +29,7 @@ public class Brig {
         return position;
     }
 
+    //Returns whether or not all the infiltrators have been caught.
     public boolean allCaught(){
         return prisoners>=8;
     }

@@ -12,19 +12,22 @@ public class Animator {
 
     /*
     Animator stores all the animations for a sprite and
-    allows them to be easily accessed
+    allows them to be easily accessed.
      */
 
+    //Hashtable storing all the animations.
     public Hashtable<String, Animation<TextureRegion>> animations;
 
+    //Textures
     public Animation<TextureRegion> currentAnim;
     public TextureRegion currentSprite;
 
+    //Timing
     float stateTime;
     float timer;
     float frameDuration;
 
-    TextureAtlas atlas;
+    TextureAtlas atlas = Constants.ATLAS;
 
     boolean looping = true;
 
@@ -33,7 +36,6 @@ public class Animator {
     }
 
     public Animator(String idleKey, String idleRegion, float frameDuration){
-        this.atlas = Constants.ATLAS;
         this.frameDuration = frameDuration;
 
         animations = new Hashtable<>();

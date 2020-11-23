@@ -1,25 +1,19 @@
 package com.team5.game.UI.Minimap;
 
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.team5.game.MainGame;
-import com.team5.game.Screens.MainMenuScreen;
 import com.team5.game.Screens.PlayScreen;
-import com.team5.game.Sprites.Player;
 import com.team5.game.Sprites.Teleporters;
-import com.team5.game.Tools.Constants;
 import com.team5.game.Tools.CustomCamera;
 
-import java.util.Hashtable;
-
 public class Minimap {
+
+    /*
+    Minimap contains all the methods used to create the teleporter minimap.
+     */
 
     public PlayScreen screen;
     public Stage stage;
@@ -29,10 +23,8 @@ public class Minimap {
 
     Image minimap;
     Image cursor;
-    ImageButton point;
 
     Vector2 mapOffset = new Vector2(-160, -100);
-    Vector2 cursorOffset = new Vector2(-10, -10);
 
     //Point positions
     Vector2 PQPosition = new Vector2(93, 119);

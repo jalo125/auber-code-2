@@ -3,12 +3,10 @@ package com.team5.game.Sprites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.team5.game.MainGame;
-import com.team5.game.Screens.PlayScreen;
 import com.team5.game.Sprites.Animation.Animator;
 import com.team5.game.Sprites.Collisions.CharacterCollider;
 import com.team5.game.Sprites.Health.Health;
@@ -18,14 +16,13 @@ public class Player extends Sprite {
 
     /*
     Player contains all of the information regarding
-    the player as well as the methods used to control them,
-    also their animations and sprite
+    the player as well as the methods used to control them.
      */
 
     //Collider
     public World world;
     public Body b2body;
-    int size = 16;
+    int size = Constants.TILE_SIZE;
     CharacterCollider charCollider = new CharacterCollider();
 
     //Animations
@@ -47,7 +44,7 @@ public class Player extends Sprite {
     public float x = 50 * Constants.TILE_SIZE;
     public float y = 95 * Constants.TILE_SIZE;
 
-    //Health
+    //Health reference
     Health health;
 
     public Player(MainGame game, World world){
@@ -58,23 +55,22 @@ public class Player extends Sprite {
         setupAnimations();
     }
 
+    //To be called every frame to move and animate the player.
     public void update(){
-        checkInputs();
-        handleAnimations(direction);
+        handleAnimations(checkInputs());
         health.update();
     }
 
+    //Setting up the animator as well as all the animations.
     public void setupAnimations(){
-        //Setting initial values of animations
         anim = new Animator("idle", "Player/Idle");
         anim.add("run", "Player/Run");
         facingRight = true;
         currentSprite = anim.getSprite();
     }
 
-    void checkInputs() {
-        //Actual checking of inputs
-
+    //Checks the keyboard inputs and produces a Vector2 accordingly
+    Vector2 checkInputs() {
         xInput = 0;
         yInput = 0;
 
@@ -94,11 +90,11 @@ public class Player extends Sprite {
             xInput++;
         }
 
-        direction = new Vector2(xInput * speed, yInput * speed);
+        return new Vector2(xInput * speed, yInput * speed);
     }
 
+    //Deciding which animation will be played each frame based on input
     void handleAnimations(Vector2 direction){
-        //Deciding which animation will be played each frame
         if (direction.isZero(0.01f)){
             b2body.setLinearVelocity(0f, 0f);
             anim.play("idle");
@@ -121,6 +117,7 @@ public class Player extends Sprite {
         }
     }
 
+    //Used to teleport the player across the map
     public void updatePosition(Vector2 target){
         b2body.setTransform(target, 0);
         x = b2body.getPosition().x;

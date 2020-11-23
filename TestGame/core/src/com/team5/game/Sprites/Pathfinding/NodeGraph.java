@@ -16,9 +16,10 @@ public class NodeGraph implements IndexedGraph<Node> {
     /*
     NodeGraph creates a graph of Nodes and Links and allows
     an NPC to find a path using A* search from one point
-    in the map to another
+    in the map to another.
      */
 
+    //A* Search Elements
     NodeHeuristic nodeHeuristic;
     Array<Node> nodes;
     Array<Room> rooms;
@@ -39,23 +40,27 @@ public class NodeGraph implements IndexedGraph<Node> {
         buildNodeMap();
     }
 
+    //Adding a new system to the graph.
     public void addSystem(System system){
         systems.add(system);
         this.addNode(system);
     }
 
+    //Adding a new room to the graph.
     public void addRoom(Room room){
         rooms.add(room);
         this.addNode(room);
     }
 
+    //Adding a new node to the graph.
     public void addNode(Node node){
-        node.index = nodeIndex;
+        node.setIndex(nodeIndex);
         nodeIndex++;
 
         nodes.add(node);
     }
 
+    //Links a node to one other node.
     public void linkNodes(Node fromNode, Node toNode){
         Link link = new Link(fromNode, toNode);
 
@@ -66,12 +71,14 @@ public class NodeGraph implements IndexedGraph<Node> {
         links.add(link);
     }
 
+    //Links a node to an array of other nodes.
     public void linkNodes(Node fromNode, Node... args){
         for (Node node : args) {
             this.linkNodes(fromNode, node);
         }
     }
 
+    //Returns a path from a startNode to a goalNode.
     public GraphPath<Node> findPath(Node startNode, Node goalNode){
         GraphPath<Node> path = new DefaultGraphPath<>();
         new IndexedAStarPathFinder<>(this).searchNodePath(startNode, goalNode, nodeHeuristic, path);
@@ -82,6 +89,7 @@ public class NodeGraph implements IndexedGraph<Node> {
         return systems;
     }
 
+    //Returns a random room given an exception.
     public Node getRandomRoom(Node exception){
         Node node = exception;
         while(node.equals(exception)){
@@ -98,6 +106,7 @@ public class NodeGraph implements IndexedGraph<Node> {
         return systems.random();
     }
 
+    //Called every frame, draws all of the systems on the map.
     public void drawSystems(SpriteBatch batch){
         for (System sys : systems){
             sys.draw(batch);
@@ -123,6 +132,7 @@ public class NodeGraph implements IndexedGraph<Node> {
         return new Array<>();
     }
 
+    //Builds the graph full of nodes used for our map.
     void buildNodeMap(){
         //Declaring the Nodes
         Room bridge = new Room("Bridge", 49.5f, 92.5f, "Bridge", 12, 6);

@@ -28,7 +28,7 @@ public class NPC extends Sprite {
     //Collider
     public World world;
     public Body b2body;
-    private final int size = 16;
+    private final int size = Constants.TILE_SIZE;
     CharacterCollider charCollider = new CharacterCollider();
 
     //Animations
@@ -71,11 +71,13 @@ public class NPC extends Sprite {
         setup();
     }
 
+    //To be called every frame to move and animate the NPC.
     public void update(float delta){
         ai.update(delta);
         handleAnimations(direction);
     }
 
+    //Sets up all the base Animations as well as the AI
     public void setup(){
         ai = new NPCAIBehaviour(this, graph, node);
 
@@ -101,15 +103,15 @@ public class NPC extends Sprite {
 
         outlineButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
-                screen.player.health.decreaseHealth();
+                screen.gameController.getPlayer().health.decreaseHealth();
             }
         });
 
         screen.stage.addActor(outlineButton);
     }
 
+    //Deciding which animation will be played each frame based on the ai movement
     void handleAnimations(Vector2 direction){
-        //Deciding which animation will be played each frame
         if (direction.isZero(0.01f)){
             b2body.setLinearVelocity(0f, 0f);
             anim.play("idle");

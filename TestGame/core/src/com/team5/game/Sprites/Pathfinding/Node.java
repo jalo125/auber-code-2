@@ -9,15 +9,20 @@ public class Node{
 
     /*
     Node represents any point that an NPC is going to use
-    to guide their pathfinding around the map
+    to guide their pathfinding around the map.
      */
 
+    //Positions
     float x;
     float y;
+
+    //name is used for comparison and debugging, so I can see where the ai is going
     String name;
 
+    //dimensions is used for randomly selecting a position to go to on the Node
     Vector2 dimensions;
 
+    //Index in NodeGraph
     int index;
 
     Random random;
@@ -56,10 +61,12 @@ public class Node{
         return name;
     }
 
+    //Allows you to compare nodes using their names
     public boolean equals(Node otherNode){
         return (name.equals(otherNode.getName()));
     }
 
+    //Calculates a random position within the dimensions of this node
     public Vector2 randomPos(){
         float randX = random.nextFloat()-0.5f;
         float randY = random.nextFloat()-0.5f;

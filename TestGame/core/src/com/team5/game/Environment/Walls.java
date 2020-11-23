@@ -6,25 +6,26 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.*;
 import com.team5.game.Tools.Constants;
-import jdk.vm.ci.meta.Constant;
 
 public class Walls {
 
     /*
     Walls generates all of the walls in the map that the player
-    can collide with
+    can collide with using the Stop layer in the TileMap.
      */
 
+    //References
     World world;
     TiledMap map;
 
+    //Box2D
     Rectangle rect;
     Body body;
     BodyDef bodDef;
     PolygonShape shape;
     FixtureDef fixDef;
 
-    //stopIndex is the index of the Stop object layer in the Tilemap
+    //stopIndex is the index of the Stop object layer in the TileMap.
     int stopIndex = 5;
 
     public Walls(World world, TiledMap map){
@@ -39,9 +40,9 @@ public class Walls {
 
     }
 
+    //Loops through all rectangles on the Tilemap
+    //object layer and adds a collider to them
     void initialiseColliders(){
-        //Loops through all rectangles on the Tilemap
-        // object layer and adds a collider to them
         for(MapObject object: map.getLayers().get(stopIndex).getObjects().getByType(RectangleMapObject.class)){
             rect = ((RectangleMapObject) object).getRectangle();
 

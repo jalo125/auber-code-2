@@ -1,24 +1,22 @@
 package com.team5.game.UI;
 
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.team5.game.Screens.PlayScreen;
 import com.team5.game.Sprites.Player;
 import com.team5.game.Tools.Constants;
 import com.team5.game.Tools.CustomCamera;
 
 public class Hud {
+
+    /*
+    Hud creates just the healthbar at the moment and
+    creates a new stage to place it on in PlayScreen.
+     */
+
     public Stage stage;
     public CustomCamera camera;
 
@@ -33,7 +31,7 @@ public class Hud {
     public Hud(PlayScreen screen, TextureAtlas atlas){
         this.atlas = atlas;
 
-        player = screen.player;
+        player = screen.gameController.getPlayer();
         camera = screen.camera;
 
         setupImages();

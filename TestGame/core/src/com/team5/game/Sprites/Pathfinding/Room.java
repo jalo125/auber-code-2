@@ -1,11 +1,9 @@
 package com.team5.game.Sprites.Pathfinding;
 
-import com.badlogic.gdx.math.Vector2;
-
 public class Room extends Node{
 
     /*
-    Room is used to differentiate hallways and rooms in the NodeGraph class
+    Room is used to differentiate hallways and rooms in the NodeGraph class.
      */
 
     public String tag;

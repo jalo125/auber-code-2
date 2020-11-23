@@ -12,8 +12,8 @@ import com.team5.game.Screens.PlayScreen;
 import com.team5.game.Screens.WinScreen;
 import com.team5.game.Sprites.Animation.Animator;
 import com.team5.game.Sprites.Pathfinding.*;
-import com.team5.game.Sprites.Pathfinding.System;
 import com.team5.game.Tools.Constants;
+import com.team5.game.Tools.GameController;
 
 import java.util.Random;
 
@@ -24,27 +24,35 @@ public class Infiltrator extends NPC{
     in the game with reference to the AI used for it's pathfinding
      */
 
+    //MainGame reference
     MainGame game;
 
+    //GameController reference
+    GameController gameController;
+
+    //States
     boolean caught = false;
     boolean imprisoned = false;
 
-    float caughtWait;
-    float timer;
-
+    //AI reference
     InfiltratorAIBehaviour ai;
 
+    //SystemChecker reference
     SystemChecker systemChecker;
 
-    public Infiltrator(MainGame game, PlayScreen screen, World world,
+    public Infiltrator(MainGame game, PlayScreen screen, GameController gameController, World world,
                        NodeGraph graph, Node node, Vector2 position) {
         super(screen, world, graph, node, position);
         this.game = game;
-        systemChecker = screen.systemChecker;
 
-        ai = new InfiltratorAIBehaviour(screen, this, graph, node);
+        this.gameController = gameController;
+
+        systemChecker = gameController.getSystemChecker();
+
+        ai = new InfiltratorAIBehaviour(gameController, this, graph, node);
     }
 
+    //To be called every frame to move and animate the infiltrator.
     @Override
     public void update(float delta) {
         if (!caught) {
@@ -62,10 +70,10 @@ public class Infiltrator extends NPC{
 
         } else {
             if (!imprisoned && caught && anim.finished()) {
-                b2body.setTransform(screen.brig.imprison(), 0);
+                b2body.setTransform(gameController.getBrig().imprison(), 0);
                 x = b2body.getPosition().x;
                 y = b2body.getPosition().y;
-                if (screen.brig.allCaught()) {
+                if (gameController.getBrig().allCaught()) {
                     game.setScreen(new WinScreen(game));
                 }
 
@@ -75,10 +83,10 @@ public class Infiltrator extends NPC{
         }
     }
 
+    //Sets up all the base Animations as well as the AI
     @Override
     public void setup() {
 
-        //Setting initial values of animations
         Random random = new Random();
         int sprite = random.nextInt(6)+1;
         anim = new Animator("idle", "NPC/" + sprite + "/Idle");

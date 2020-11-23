@@ -9,9 +9,9 @@ import com.team5.game.Sprites.Player;
 public class CustomCamera {
 
     /*
-    Camera creates a camera for any given scene,
+    CustomCamera creates a camera for any given scene,
     it can then either stay static or follow the player
-    using the follow function
+    using the follow function.
      */
 
     public OrthographicCamera cam;
@@ -19,8 +19,6 @@ public class CustomCamera {
 
     public int camWidth = Constants.CAMERA_WIDTH;
     public int camHeight = Constants.CAMERA_HEIGHT;
-
-    float smoothing = 1f;
 
     public CustomCamera(){
         cam = new OrthographicCamera();
@@ -39,6 +37,7 @@ public class CustomCamera {
         cam.update();
     }
 
+    //follow is used to make the camera follow the player
     public void follow(Player player){
         cam.position.set(player.b2body.getPosition().x, player.b2body.getPosition().y, 0);
     }

@@ -1,36 +1,42 @@
 package com.team5.game.Sprites.Pathfinding;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.team5.game.Environment.SystemChecker;
 import com.team5.game.Screens.PlayScreen;
 import com.team5.game.Sprites.Infiltrator;
-import com.team5.game.Sprites.NPC;
-
-import java.util.Random;
+import com.team5.game.Tools.GameController;
 
 public class InfiltratorAIBehaviour extends NPCAIBehaviour{
 
+    /*
+    InfiltratorAIBehaviour contains all of the basic AI for Infiltrators.
+
+    It makes the Infiltrators either follow the same AI as the NPCs or
+    target a system and break it.
+     */
+
+    //Systems
     System goalSystem;
-
     SystemChecker systemChecker;
-
     Array<System> systems;
 
+    //States
     boolean breaking;
 
     float breakOdds = 1f;
 
-    public InfiltratorAIBehaviour(PlayScreen screen, Infiltrator infiltrator, NodeGraph graph, Node node) {
+    public InfiltratorAIBehaviour(GameController gameController, Infiltrator infiltrator, NodeGraph graph, Node node) {
         super(infiltrator, graph, node);
-        systemChecker = screen.systemChecker;
+        systemChecker = gameController.getSystemChecker();
         systems = new Array<>();
         systems.addAll(graph.getSystems());
 
         goalSystem = systems.random();
     }
 
+    //Used to randomly generate a target system from the systems that
+    //haven't been visited yet.
     void newSystemTarget() {
         goalSystem = systems.random();
         goalNode = goalSystem;
@@ -49,10 +55,11 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour{
         }
     }
 
+    //wait is changed to break a system if they're at one.
     @Override
     public void wait(float delta) {
-         if (waitTime <= 0f || goalSystem.isBroken()){
-             if (breaking && !goalSystem.isBroken()){
+         if (waitTime <= 0f || goalSystem.getBroken()){
+             if (breaking && !goalSystem.getBroken()){
                  goalSystem.destroy();
                  systemChecker.breakSystem();
              }

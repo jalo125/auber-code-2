@@ -14,9 +14,8 @@ import java.util.Hashtable;
 public class Teleporters {
 
     /*
-    Teleporters sets up all of the teleporters using the TileMap
-    to deduce where the teleporters are on the map and then
-    check whether they're clicked and teleport accordingly.
+    Teleporters sets up all of the teleporters and opens the minimap
+    if clicked.
      */
 
     //Screen Reference
@@ -33,7 +32,7 @@ public class Teleporters {
     //Position array
     Hashtable<String, Vector2> positions;
 
-    //Positions
+    //Positions of each teleporter
     Vector2 PQPosition = new Vector2(25*Constants.TILE_SIZE, 69*Constants.TILE_SIZE);
     Vector2 infirmaryPosition = new Vector2(90*Constants.TILE_SIZE, 89*Constants.TILE_SIZE);
     Vector2 northWingPosition = new Vector2(53*Constants.TILE_SIZE, 82*Constants.TILE_SIZE);
@@ -58,6 +57,7 @@ public class Teleporters {
         addTeleporter("engine", enginePosition);
     }
 
+    //Adds a new teleporter to the PlayScreen stage
     void addTeleporter(String key, Vector2 pos){
         positions.put(key, pos);
 

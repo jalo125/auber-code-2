@@ -2,13 +2,16 @@ package com.team5.game.Sprites.Pathfinding;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.team5.game.Tools.Constants;
 
 public class System extends Room{
 
+    /*
+    System is used for the infiltrator pathfinding so they can
+    access and break the systems.
+     */
 
     boolean broken;
 
@@ -18,7 +21,7 @@ public class System extends Room{
     //Sprites
     public TextureRegion currentSprite;
 
-    //On means it's not been broken yet, off means it's broken
+    //On means it's not been broken yet, off means it's broken.
     public TextureRegion onSprite;
     public TextureRegion offSprite;
 
@@ -31,6 +34,7 @@ public class System extends Room{
         setup();
     }
 
+    //Sets up the system sprites
     public void setup(){
         broken = false;
 
@@ -40,6 +44,7 @@ public class System extends Room{
         currentSprite = onSprite;
     }
 
+    //To be called every frame to draw the system sprites
     public void draw(SpriteBatch batch){
         if (broken){
             currentSprite = offSprite;
@@ -48,11 +53,12 @@ public class System extends Room{
         batch.draw(new Texture("Sprites/Minimap/Cursor.png"), x-10, y-10);
     }
 
+    //destroy function is called when the infiltrator breaks the system
     public void destroy(){
         broken = true;
     }
 
-    public boolean isBroken(){
+    public boolean getBroken(){
         return broken;
     }
 }

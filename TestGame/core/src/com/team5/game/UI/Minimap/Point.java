@@ -14,6 +14,11 @@ import com.team5.game.Tools.Constants;
 
 public class Point {
 
+    /*
+    Point is used for each point you can select on the teleporter
+    Minimap.
+     */
+
     PlayScreen screen;
     Stage stage;
     Teleporters teleporters;
@@ -35,7 +40,7 @@ public class Point {
         this.key = key;
         this.position = position;
 
-        player = screen.player;
+        player = screen.gameController.getPlayer();
         cursor = new Image(new Texture("Sprites/Minimap/Cursor.png"));
 
         setup();
@@ -44,7 +49,7 @@ public class Point {
     void setup(){
         point = new ImageButton(new Image(Constants.ATLAS.findRegion("Empty")).getDrawable());
 
-        //The 8s are to make the hitbox bigger
+        //The 10s are to make the hitbox bigger
         point.setPosition(position.x - offset, position.y - offset);
         point.setSize(Constants.TILE_SIZE + 10, Constants.TILE_SIZE + 10);
 
@@ -60,6 +65,7 @@ public class Point {
         stage.addActor(point);
     }
 
+    //This is used to change it according to the cameras position whenever the minimap is called
     public void setPosition(float x, float y){
         point.setPosition(x + position.x - offset, y + position.y - offset);
     }

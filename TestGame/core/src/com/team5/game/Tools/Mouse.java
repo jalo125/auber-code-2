@@ -9,7 +9,7 @@ public class Mouse{
     /*
     Mouse has become obsolete due to using buttons for mouse interactions,
     however if we want to make a custom mouse cursor we can still use this code,
-    so I figured I wouldn't delete it all just yet
+    so I figured I wouldn't delete it all just yet.
      */
 
     //Collider

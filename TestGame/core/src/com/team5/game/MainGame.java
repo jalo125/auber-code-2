@@ -9,7 +9,7 @@ public class MainGame extends Game {
 
 	/*
 	Main Game actually decides which screen will be shown at
-	any given time
+	any given time.
 	 */
 
 	public SpriteBatch batch;

@@ -24,6 +24,7 @@ import com.team5.game.Tools.CustomCamera;
 import com.team5.game.Environment.Walls;
 import com.team5.game.MainGame;
 import com.team5.game.Sprites.Player;
+import com.team5.game.Tools.GameController;
 import com.team5.game.UI.Hud;
 import com.team5.game.UI.Minimap.Minimap;
 import com.team5.game.UI.PauseMenu;
@@ -48,7 +49,7 @@ public class PlayScreen implements Screen {
     private final World world;
     private final Box2DDebugRenderer b2dr;
 
-    //Teleporters
+    //Stage
     public Stage stage;
 
     //HUD
@@ -60,16 +61,9 @@ public class PlayScreen implements Screen {
     public boolean mapVisible;
 
     //References
-    public Player player;
     private final Walls walls;
     public CustomCamera camera;
-    private final Teleporters teleporters;
-    private final NodeGraph graph;
-    public Brig brig;
-    public SystemChecker systemChecker;
-
-    private final Array<NPC> npcs;
-    private final Array<Infiltrator> infiltrators;
+    public GameController gameController;
 
     public PlayScreen(MainGame game){
         this.game = game;
@@ -84,49 +78,24 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
 
-        //Player setup
-        player = new Player(game, world);
-
         //Camera setup
-        camera = new CustomCamera(player);
+        camera = new CustomCamera();
 
         //UI setup
         stage = new Stage(camera.port);
         Gdx.input.setInputProcessor(stage);
 
+        //Game Controller
+        gameController = new GameController(game, this);
+        camera.follow(gameController.getPlayer());
+
         //Collisions for TileMap
         walls = new Walls(world, map);
-
-        //Teleporter setup
-        teleporters = new Teleporters(this);
-
-        //NPCs
-        graph = new NodeGraph();
-        npcs = new Array<>();
-        infiltrators = new Array<>();
-
-        //Checkers
-        brig = new Brig();
-        systemChecker = new SystemChecker();
-
-        for (int i = 0; i < 72; i++) {
-            Node node = graph.getRandomRoom();
-            int index = (i%(graph.getNodeCount()-1))+1;
-            NPC npc = new NPC(this, world, graph,
-                    node, new Vector2(node.getX(), node.getY()));
-            npcs.add(npc);
-        }
-        for (int i = 0; i < 8; i++) {
-            System node = graph.getRandomSystem();
-            Infiltrator npc = new Infiltrator(game, this, world, graph,
-                    node, new Vector2(node.getX(), node.getY()));
-            infiltrators.add(npc);
-        }
 
         //HUD
         hud = new Hud(this, atlas);
         pauseMenu = new PauseMenu(game, this);
-        minimap = new Minimap(this, teleporters);
+        minimap = new Minimap(this, gameController.getTeleporters());
     }
 
     @Override
@@ -136,7 +105,6 @@ public class PlayScreen implements Screen {
     @Override
     public void render(float delta) {
         checkPause();
-        checkSystems();
 
         if (!paused && !mapVisible) {
             update(Gdx.graphics.getDeltaTime());
@@ -151,20 +119,10 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(camera.cam.combined);
 
         game.batch.begin();
-        graph.drawSystems(game.batch);
-
-        for (NPC npc : npcs){
-            game.batch.draw(npc.currentSprite, npc.x, npc.y);
-        }
-        for (Infiltrator bad : infiltrators){
-            game.batch.draw(bad.currentSprite, bad.x, bad.y);
-        }
-
+        gameController.draw(game.batch);
         stage.act(delta);
         stage.draw();
-
-        game.batch.draw(player.currentSprite, player.x, player.y);
-
+        gameController.drawPlayer(game.batch);
         game.batch.end();
 
         hud.draw(delta);
@@ -215,20 +173,11 @@ public class PlayScreen implements Screen {
     public void update(float delta){
         world.step(1/60f, 6, 2);
 
-        //Move player
-        player.update();
+        gameController.update(delta);
 
         //Moves the camera to the player
         camera.update();
-        camera.follow(player);
-
-        //Moves npc
-        for (NPC npc : npcs){
-            npc.update(delta);
-        }
-        for (Infiltrator bad : infiltrators){
-            bad.update(delta);
-        }
+        camera.follow(gameController.getPlayer());
 
         //HUD
         hud.update();
@@ -262,9 +211,5 @@ public class PlayScreen implements Screen {
         }
     }
 
-    void checkSystems(){
-        if (systemChecker.allSystemsBroken()){
-            game.setScreen(new LoseScreen(game));
-        }
-    }
+    public World getWorld(){return world;}
 }

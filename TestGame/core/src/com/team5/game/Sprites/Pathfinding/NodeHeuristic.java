@@ -6,9 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 public class NodeHeuristic implements Heuristic<Node> {
 
     /*
-    NodeHeuristic is just the heuristic for the Nodes used
-    in the NodeGraph class when performing an A* search to
-    find a path
+    NodeHeuristic is the heuristic for the Nodes used
+    in the NodeGraph class when performing an A* search.
      */
 
     @Override

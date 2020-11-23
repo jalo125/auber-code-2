@@ -8,9 +8,10 @@ public class CharacterCollider {
 
     /*
     CharacterCollider just sets ups the collider for NPCs,
-    infiltrators, and the player
+    infiltrators, and the player.
      */
 
+     //Creates and returns a collider for the NPC, Infiltrators and the Player.
    public Body defineCollider(World world, Vector2 position, float size){
         Body b2body;
         BodyDef bodDef = new BodyDef();

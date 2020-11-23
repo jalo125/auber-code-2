@@ -1,6 +1,5 @@
 package com.team5.game.Sprites.Pathfinding;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.math.Vector2;
 import com.team5.game.Sprites.NPC;
@@ -10,7 +9,10 @@ import java.util.Random;
 public class NPCAIBehaviour {
 
     /*
-    AIBehaviour contains all of the basic AI for NPCs
+    NPCAIBehaviour contains all of the basic AI for NPCs.
+
+    It makes the NPCs move to a random target destination and then stop
+    for a random amount of time between given bounds, and repeat.
      */
 
     //NPC Reference
@@ -21,6 +23,7 @@ public class NPCAIBehaviour {
     int minSpeed = 50;
     float speed;
 
+    //Pathfinding
     NodeGraph graph;
     public Node currentNode;
     public Node goalNode;
@@ -52,6 +55,7 @@ public class NPCAIBehaviour {
         newTarget();
     }
 
+    //Is called to tell the NPC what to do on each frame.
     public void update(float delta){
         if (waiting){
             wait(delta);
@@ -61,6 +65,7 @@ public class NPCAIBehaviour {
         }
     }
 
+    //Generates a random room for the npc to target.
     void newTarget(){
         goalNode = graph.getRandomRoom(currentNode);
         path = graph.findPath(currentNode, goalNode);
@@ -68,6 +73,7 @@ public class NPCAIBehaviour {
         target = path.get(currentIndex).randomPos();
     }
 
+    //Moves the npc towards their target.
     public Vector2 move(float x, float y){
         if (goalNode.equals(path.get(currentIndex)) &&
                 x < target.x + offset && x > target.x - offset &&
@@ -94,6 +100,7 @@ public class NPCAIBehaviour {
         return new Vector2(resultant.x * speed, resultant.y * speed);
     }
 
+    //Makes the npc wait for a certain amount of time
     public void wait(float delta){
         if (waitTime <= 0f){
             waiting = false;
