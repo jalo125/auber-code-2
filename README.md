@@ -1,4 +1,4 @@
-![ !](https://github.com/muhidinmo/Eng1_Boolean_Bobcats/blob/master/TestGame/core/assets/Sprites/Menu/Title.png)
+![](https://github.com/muhidinmo/Eng1_Boolean_Bobcats/blob/master/TestGame/core/assets/Sprites/Menu/Title.png)
 
 A team based java game project
 
