@@ -4,7 +4,7 @@ A team based java game project
 
 
 ## About The Project
-Deep Space Y is space station on the outskirts of the galaxy, ihabited by humans and different species of aliens.Auber, the 
+Deep Space Y is space station on the outskirts of the galaxy, ihabited by humans and different species of aliens.Auber, the constable of the station enforces law and order as a team of eight hostile try to infiltrate the space station.
 ## The Team
 1. Muhidin 
 2. Adam
