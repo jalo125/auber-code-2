@@ -13,8 +13,6 @@ import com.team5.game.Sprites.Collisions.CharacterCollider;
 import com.team5.game.Sprites.Health.Health;
 import com.team5.game.Tools.Constants;
 
-import java.util.Random;
-
 public class Player extends Sprite {
 
     /*

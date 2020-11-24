@@ -137,6 +137,26 @@ public class Infiltrator extends NPC{
         screen.stage.addActor(outlineButton);
     }
 
+    //Ability that changes the appearance
+    public void changeSkin(){
+        Random random = new Random();
+        int sprite = random.nextInt(6)+1;
+        anim = new Animator("idle", "NPC/" + sprite + "/Idle");
+        anim.add("run", "NPC/" + sprite + "/Run");
+        anim.add("interact", "NPC/" + sprite + "/Interact");
+        anim.add("caught", "NPC/Infiltrator/Caught");
+        facingRight = true;
+        currentSprite = anim.getSprite();
+
+        outlineAnim = new Animator("idle", "NPC/" + sprite + "/IdleOutline");
+        outlineAnim.add("run", "NPC/" + sprite +"/RunOutline");
+        outlineAnim.add("interact", "NPC/" + sprite + "/InteractOutline");
+
+        outlineImage = new Image(outlineAnim.getSprite());
+        outlineButton.getStyle().imageOver = outlineImage.getDrawable();
+    }
+
+
     public void dispose(){
         pass.dispose();
         ai.dispose();

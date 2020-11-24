@@ -5,7 +5,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.team5.game.Environment.SystemChecker;
-import com.team5.game.Screens.PlayScreen;
 import com.team5.game.Sprites.Infiltrator;
 import com.team5.game.Sprites.Player;
 import com.team5.game.Tools.GameController;
@@ -19,13 +18,15 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour{
     target a system and break it.
      */
 
+    Infiltrator npc;
+
     //Abilities
     Player player;
 
-    float changeCooldown = 30f;
+    float changeCooldown = 15f;
     float timer = changeCooldown;
 
-    float distance = 100;
+    float distance = 50;
 
     //Systems
     System goalSystem;
@@ -43,6 +44,7 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour{
     public InfiltratorAIBehaviour(GameController gameController, Infiltrator infiltrator,
                                   NodeGraph graph, Node node) {
         super(infiltrator, graph, node);
+        npc = infiltrator;
         systemChecker = gameController.getSystemChecker();
         player = gameController.getPlayer();
         systems = new Array<>();
@@ -75,7 +77,7 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour{
         timer -= delta;
         if (timer <= 0){
             if (Vector2.dst(player.x, player.y, npc.x, npc.y) > distance){
-                npc.setup();
+                npc.changeSkin();
                 timer = changeCooldown;
             }
         }
