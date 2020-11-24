@@ -40,7 +40,7 @@ public class Player extends Sprite {
 
 
     //Movement
-    float speed = 2000000;
+    float speed = 150;
 
     public float x = 50 * Constants.TILE_SIZE;
     public float y = 95 * Constants.TILE_SIZE;

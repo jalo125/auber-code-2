@@ -19,8 +19,8 @@ public class NPCAIBehaviour {
     NPC npc;
 
     //Movement
-    int maxSpeed = 75;
-    int minSpeed = 25;
+    int maxSpeed = 50;
+    int minSpeed = 10;
     float speed;
 
     //Pathfinding
