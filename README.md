@@ -13,5 +13,5 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 6. Roan
 
 ## Deliverables
-1. [The link for repo](https://github.com/muhidinmo/Eng1_Boolean_Bobcats)
+1. [The link for final game](https://github.com/muhidinmo/Eng1_Boolean_Bobcats/tree/FinalGame)
 
