@@ -1,9 +1,9 @@
 # Eng1_Boolean_Bobcats
 A team based java game project
+![The title of the game!](https://github.com/muhidinmo/Eng1_Boolean_Bobcats/blob/master/TestGame/core/assets/Sprites/Menu/Title.png"The title of the game")
 
 ## About The Project
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas dui id ornare arcu. Viverra suspendisse potenti nullam ac tortor vitae purus
-
+Deep Space Y is space station on the outskirts of the galaxy, ihabited by humans and different species of aliens.Auber, the 
 ## The Team
 1. Muhidin 
 2. Adam
