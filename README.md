@@ -1,4 +1,4 @@
-![](/Logo/Logo.png)
+![The logo for the game !](/Logo/Logo.png)
 
 A team based java game project
 
