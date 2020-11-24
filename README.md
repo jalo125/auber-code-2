@@ -1,9 +1,6 @@
-title: |
-![](https://github.com/muhidinmo/Eng1_Boolean_Bobcats/blob/master/TestGame/core/assets/Sprites/Menu/Title.png){width=1in}  
+![ !](https://github.com/muhidinmo/Eng1_Boolean_Bobcats/blob/master/TestGame/core/assets/Sprites/Menu/Title.png)
 
 A team based java game project
-# Eng1_Boolean_Bobcats
-
 
 
 ## About The Project
