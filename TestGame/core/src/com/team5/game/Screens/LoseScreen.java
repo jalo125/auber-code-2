@@ -34,7 +34,7 @@ public class LoseScreen implements Screen {
     Texture title;
 
     //Audio
-    Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/click.wav"));
+    Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Sound Effects/click.wav"));
 
     //Menu positions
     Vector2 playPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 60);

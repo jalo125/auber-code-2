@@ -39,11 +39,13 @@ public class Infiltrator extends NPC{
     //AI reference
     InfiltratorAIBehaviour ai;
 
+    boolean breaking;
+
     //SystemChecker reference
     SystemChecker systemChecker;
 
     //Audio
-    Sound pass = Gdx.audio.newSound(Gdx.files.internal("Audio/pass.wav"));
+    Sound pass = Gdx.audio.newSound(Gdx.files.internal("Audio/Sound Effects/pass.wav"));
 
     public Infiltrator(MainGame game, PlayScreen screen, GameController gameController, World world,
                        NodeGraph graph, Node node, Vector2 position) {
@@ -63,6 +65,12 @@ public class Infiltrator extends NPC{
         if (!caught) {
             ai.update(delta);
             if (ai.isWaiting() && ai.isBreaking()){
+                breaking = true;
+                b2body.setLinearVelocity(0f, 0f);
+                x = b2body.getPosition().x;
+                y = b2body.getPosition().y;
+                outlineButton.setPosition(x-4, y-4);
+
                 anim.play("interact");
                 outlineAnim.play("interact");
 
@@ -88,7 +96,7 @@ public class Infiltrator extends NPC{
         }
     }
 
-    //Sets up all the base Animations as well as the AI
+    //Sets up all the base Animations
     @Override
     public void setup() {
 
@@ -127,5 +135,10 @@ public class Infiltrator extends NPC{
         });
 
         screen.stage.addActor(outlineButton);
+    }
+
+    public void dispose(){
+        pass.dispose();
+        ai.dispose();
     }
 }

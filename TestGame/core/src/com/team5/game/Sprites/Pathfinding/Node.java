@@ -28,7 +28,7 @@ public class Node{
     Random random;
 
     public Node(float x, float y, String name){
-        this(x, y, name, new Vector2(0f, 0f));
+        this(x, y, name, new Vector2(0.25f, 0.25f));
     }
 
     public Node(float x, float y, String name, float xDim, float yDim){

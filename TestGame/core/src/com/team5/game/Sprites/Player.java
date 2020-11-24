@@ -3,6 +3,7 @@ package com.team5.game.Sprites;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -11,6 +12,8 @@ import com.team5.game.Sprites.Animation.Animator;
 import com.team5.game.Sprites.Collisions.CharacterCollider;
 import com.team5.game.Sprites.Health.Health;
 import com.team5.game.Tools.Constants;
+
+import java.util.Random;
 
 public class Player extends Sprite {
 
@@ -44,7 +47,7 @@ public class Player extends Sprite {
     public float x = 50 * Constants.TILE_SIZE;
     public float y = 95 * Constants.TILE_SIZE;
 
-    //Health reference
+    //Health
     Health health;
 
     public Player(MainGame game, World world){
@@ -126,6 +129,13 @@ public class Player extends Sprite {
 
     public int getHealth(){
         return health.getHealth();
+    }
+
+    public void draw(SpriteBatch batch){
+        batch.draw(currentSprite, x, y);
+        if (health.getHealing()) {
+            health.draw(batch, x-2, y-2);
+        }
     }
 
 }

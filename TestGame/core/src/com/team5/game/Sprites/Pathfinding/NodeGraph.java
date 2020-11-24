@@ -195,9 +195,9 @@ public class NodeGraph implements IndexedGraph<Node> {
         System bottomLeftReactor = new System("Reactor", 46.5f, 36.5f, "Bottom Left Reactor", 45, 33);
         System bottomRightReactor = new System("Reactor", 52.5f, 36.5f, "Bottom Right Reactor", 51, 33);
 
-        Room midLeftEngine = new Room("Engine", 78.5f, 36.5f, "Mid Left Engine");
-        Room midCentreEngine = new Room("Engine", 83.5f, 36.5f, "Mid Centre Engine");
-        Room midRightEngine = new Room("Engine", 91.5f, 36.5f, "Mid Right Engine");
+        Room midLeftEngine = new Room("Engine", 78.5f, 36.5f, "Mid Left Engine", 2, 10);
+        Room midCentreEngine = new Room("Engine", 83.5f, 36.5f, "Mid Centre Engine", 2, 10);
+        Room midRightEngine = new Room("Engine", 91.5f, 36.5f, "Mid Right Engine", 5, 5);
         Room leftEngine = new Room("Engine", 78.5f, 45, "Top Left Engine");
         Room centreEngine = new Room("Engine", 83.5f, 45, "Top Centre Engine");
         Node northEngineExit = new Node(81.5f, 47.5f, "North Engine Exit", 1, 0);
@@ -292,7 +292,7 @@ public class NodeGraph implements IndexedGraph<Node> {
         linkNodes(leftInfirmary, infirmaryExit, leftHealthPad, rightInfirmary);
         linkNodes(infirmaryExit, rightInfirmary, leftInfirmary, rightNorthWing);
         linkNodes(rightNorthWing, infirmaryExit, centreNorthWing, northCargoExit);
-        linkNodes(leftHealthPad, rightInfirmary);
+        linkNodes(leftHealthPad, leftInfirmary);
         linkNodes(rightHealthPad, rightInfirmary);
 
         linkNodes(topLeftCafeteria, northCafeteriaExit, topRightCafeteria, midLeftCafeteria, leftVendingMachine);

@@ -3,6 +3,7 @@ package com.team5.game.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -20,6 +21,7 @@ import com.team5.game.Sprites.Pathfinding.Node;
 import com.team5.game.Sprites.Pathfinding.NodeGraph;
 import com.team5.game.Sprites.Pathfinding.System;
 import com.team5.game.Sprites.Teleporters;
+import com.team5.game.Tools.Constants;
 import com.team5.game.Tools.CustomCamera;
 import com.team5.game.Environment.Walls;
 import com.team5.game.MainGame;
@@ -33,7 +35,7 @@ public class PlayScreen implements Screen {
 
     /*
     PlayScreen is the class that renders the main gameplay scene
-    of the game, taking all the components from other entities
+    of the game, taking all the components from other entities.
      */
 
     //Game Reference
@@ -43,7 +45,6 @@ public class PlayScreen implements Screen {
     private final TmxMapLoader mapLoader;
     private final TiledMap map;
     private final OrthogonalTiledMapRenderer renderer;
-    private final TextureAtlas atlas;
 
     //Colliders
     private final World world;
@@ -60,6 +61,11 @@ public class PlayScreen implements Screen {
     public boolean paused;
     public boolean mapVisible;
 
+    //Audio
+    Music music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Music/song.wav"));
+
+    float volume = 0.01f;
+
     //References
     private final Walls walls;
     public CustomCamera camera;
@@ -67,7 +73,6 @@ public class PlayScreen implements Screen {
 
     public PlayScreen(MainGame game){
         this.game = game;
-        atlas = game.atlas;
 
         //Tilemap
         mapLoader = new TmxMapLoader();
@@ -93,9 +98,14 @@ public class PlayScreen implements Screen {
         walls = new Walls(world, map);
 
         //HUD
-        hud = new Hud(this, atlas);
+        hud = new Hud(this);
         pauseMenu = new PauseMenu(game, this);
         minimap = new Minimap(this, gameController.getTeleporters());
+
+        //Audio
+        music.setLooping(true);
+        music.setVolume(volume);
+        music.play();
     }
 
     @Override
@@ -114,7 +124,7 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
-        //b2dr.render(world, new Matrix4(camera.cam.combined));
+        //Use b2dr.render(world, new Matrix4(camera.cam.combined)); to check collision boxes
 
         game.batch.setProjectionMatrix(camera.cam.combined);
 
@@ -146,6 +156,7 @@ public class PlayScreen implements Screen {
     public void pause() {
         pauseMenu.update();
         Gdx.input.setInputProcessor(pauseMenu.stage);
+        music.pause();
         paused = true;
     }
 
@@ -155,7 +166,7 @@ public class PlayScreen implements Screen {
 
     @Override
     public void hide() {
-
+        music.stop();
     }
 
     @Override
@@ -166,6 +177,9 @@ public class PlayScreen implements Screen {
         renderer.dispose();
         world.dispose();
         b2dr.dispose();
+        minimap.dispose();
+        gameController.dispose();
+        music.dispose();
     }
 
     //Past here is all the methods I made
@@ -201,9 +215,11 @@ public class PlayScreen implements Screen {
             if (mapVisible){
                 minimapOff();
             } else if (paused){
+                music.play();
                 Gdx.input.setInputProcessor(stage);
                 paused = false;
             } else {
+                music.pause();
                 pauseMenu.update();
                 Gdx.input.setInputProcessor(pauseMenu.stage);
                 paused = true;

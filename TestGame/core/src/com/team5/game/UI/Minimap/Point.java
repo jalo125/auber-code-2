@@ -31,7 +31,7 @@ public class Point {
     Image cursor;
 
     //Audio
-    Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/click.wav"));
+    Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Sound Effects/click.wav"));
 
     //Positioning
     int offset = 13;
@@ -77,6 +77,10 @@ public class Point {
     //This is used to change it according to the cameras position whenever the minimap is called
     public void setPosition(float x, float y){
         point.setPosition(x + position.x - offset, y + position.y - offset);
+    }
+
+    public void dispose(){
+        click.dispose();
     }
 
 }

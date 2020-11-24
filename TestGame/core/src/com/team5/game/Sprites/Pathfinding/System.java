@@ -23,9 +23,6 @@ public class System extends Room{
     //Sprites
     public TextureRegion currentSprite;
 
-    //Audio
-    Sound explosion = Gdx.audio.newSound(Gdx.files.internal("Audio/ploosh.wav"));
-
     //On means it's not been broken yet, off means it's broken.
     public TextureRegion onSprite;
     public TextureRegion offSprite;
@@ -60,7 +57,6 @@ public class System extends Room{
 
     //destroy function is called when the infiltrator breaks the system
     public void destroy(){
-        explosion.play(0.2f);
         broken = true;
     }
 

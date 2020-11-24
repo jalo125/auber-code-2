@@ -33,7 +33,7 @@ public class PauseMenu {
     ImageButton menuButton;
 
     //Audio
-    public Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/click.wav"));
+    public Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Sound Effects/click.wav"));
 
     //Element Positioning
     Vector2 pauseOffset = new Vector2(-112, -75);

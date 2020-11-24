@@ -26,11 +26,9 @@ public class Hud {
     TextureRegion currentHealth;
     Vector2 healthOffset = new Vector2(16-Constants.CAMERA_WIDTH/2, Constants.CAMERA_HEIGHT/2-48);
 
-    TextureAtlas atlas;
+    TextureAtlas atlas = Constants.ATLAS;
 
-    public Hud(PlayScreen screen, TextureAtlas atlas){
-        this.atlas = atlas;
-
+    public Hud(PlayScreen screen){
         player = screen.gameController.getPlayer();
         camera = screen.camera;
 

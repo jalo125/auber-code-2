@@ -76,4 +76,10 @@ public class Minimap {
         stage.act(delta);
         stage.draw();
     }
+
+    public void dispose(){
+        for (Point point : points){
+            point.dispose();
+        }
+    }
 }

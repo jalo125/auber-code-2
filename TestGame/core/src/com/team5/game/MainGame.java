@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.team5.game.Screens.MainMenuScreen;
+import com.team5.game.Tools.Constants;
 
 public class MainGame extends Game {
 
@@ -18,7 +19,7 @@ public class MainGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		atlas = new TextureAtlas("textures.atlas");
+		atlas = Constants.ATLAS;
 		this.setScreen(new MainMenuScreen(this));
 	}
 

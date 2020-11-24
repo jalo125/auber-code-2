@@ -1,10 +1,13 @@
 package com.team5.game.Sprites.Pathfinding;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.team5.game.Environment.SystemChecker;
 import com.team5.game.Screens.PlayScreen;
 import com.team5.game.Sprites.Infiltrator;
+import com.team5.game.Sprites.Player;
 import com.team5.game.Tools.GameController;
 
 public class InfiltratorAIBehaviour extends NPCAIBehaviour{
@@ -16,6 +19,14 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour{
     target a system and break it.
      */
 
+    //Abilities
+    Player player;
+
+    float changeCooldown = 30f;
+    float timer = changeCooldown;
+
+    float distance = 100;
+
     //Systems
     System goalSystem;
     SystemChecker systemChecker;
@@ -26,9 +37,14 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour{
 
     float breakOdds = 1f;
 
-    public InfiltratorAIBehaviour(GameController gameController, Infiltrator infiltrator, NodeGraph graph, Node node) {
+    //Audio
+    Sound explosion = Gdx.audio.newSound(Gdx.files.internal("Audio/Sound Effects/explosion.wav"));
+
+    public InfiltratorAIBehaviour(GameController gameController, Infiltrator infiltrator,
+                                  NodeGraph graph, Node node) {
         super(infiltrator, graph, node);
         systemChecker = gameController.getSystemChecker();
+        player = gameController.getPlayer();
         systems = new Array<>();
         systems.addAll(graph.getSystems());
 
@@ -53,6 +69,16 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour{
         } else {
             npc.direction = move(npc.x, npc.y);
         }
+
+        //This changes the infiltrators disguise every 30 seconds
+        //But only if it's away from the player
+        timer -= delta;
+        if (timer <= 0){
+            if (Vector2.dst(player.x, player.y, npc.x, npc.y) > distance){
+                npc.setup();
+                timer = changeCooldown;
+            }
+        }
     }
 
     //wait is changed to break a system if they're at one.
@@ -60,6 +86,7 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour{
     public void wait(float delta) {
          if (waitTime <= 0f || goalSystem.getBroken()){
              if (breaking && !goalSystem.getBroken()){
+                 explosion.play(0.2f);
                  goalSystem.destroy();
                  systemChecker.breakSystem();
              }
@@ -84,5 +111,9 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour{
 
     public boolean isWaiting(){
         return waiting;
+    }
+
+    public void dispose(){
+        explosion.dispose();
     }
 }

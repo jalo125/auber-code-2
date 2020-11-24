@@ -1,5 +1,7 @@
 package com.team5.game.Sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -58,6 +60,9 @@ public class NPC extends Sprite {
 
     NPCAIBehaviour ai;
 
+    //Audio
+    Sound clicked = Gdx.audio.newSound(Gdx.files.internal("Audio/Sound Effects/wrong.wav"));
+
     public NPC(PlayScreen screen, World world, NodeGraph graph, Node node, Vector2 position){
         this.world = world;
         this.screen = screen;
@@ -103,6 +108,7 @@ public class NPC extends Sprite {
 
         outlineButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
+                clicked.play(0.3f);
                 screen.gameController.getPlayer().health.decreaseHealth();
             }
         });
@@ -140,6 +146,10 @@ public class NPC extends Sprite {
             outlineAnim.flip();
             facingRight = true;
         }
+    }
+
+    public void dispose(){
+        clicked.dispose();
     }
 
 }

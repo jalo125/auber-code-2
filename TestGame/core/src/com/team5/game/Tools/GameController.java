@@ -78,7 +78,7 @@ public class GameController {
     }
 
     public void drawPlayer(SpriteBatch batch){
-        batch.draw(player.currentSprite, player.x, player.y);
+        player.draw(batch);
     }
 
     public void update(float delta){
@@ -116,6 +116,15 @@ public class GameController {
 
     public Brig getBrig(){
         return brig;
+    }
+
+    public void dispose(){
+        for (NPC npc : npcs){
+            npc.dispose();
+        }
+        for (Infiltrator bad : infiltrators){
+            bad.dispose();
+        }
     }
 
 }
