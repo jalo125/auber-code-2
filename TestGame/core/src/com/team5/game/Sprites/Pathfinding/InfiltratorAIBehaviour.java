@@ -71,7 +71,7 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour{
         }
 
         //This changes the infiltrators disguise every 30 seconds
-        //But only if it's away from the player
+        //But only if it's away from the player.
         timer -= delta;
         if (timer <= 0){
             if (Vector2.dst(player.x, player.y, npc.x, npc.y) > distance){
