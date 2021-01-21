@@ -1,4 +1,4 @@
-package com.team5.game.screens;
+package com.team5.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -15,8 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.team5.game.MainGame;
-import com.team5.game.tools.Constants;
-import com.team5.game.tools.CustomCamera;
+import com.team5.game.Tools.Constants;
+import com.team5.game.Tools.CustomCamera;
 
 public class MainMenuScreen implements Screen {
 
@@ -30,6 +30,7 @@ public class MainMenuScreen implements Screen {
 
     //Menu buttons
     ImageButton playButton;
+    ImageButton loadButton;
     ImageButton quitButton;
 
     Stage stage;
@@ -40,9 +41,10 @@ public class MainMenuScreen implements Screen {
     Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Sound Effects/click.wav"));
 
     //Menu positions
-    Vector2 playPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 60);
+    Vector2 playPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 100);
+    Vector2 loadPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 60);
     Vector2 quitPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 20);
-    Vector2 titlePos = new Vector2(Constants.CAMERA_WIDTH/2-120, 100);
+    Vector2 titlePos = new Vector2(Constants.CAMERA_WIDTH/2-120, 140);
 
     //Colliders
     private final World world;
@@ -68,12 +70,10 @@ public class MainMenuScreen implements Screen {
 
     }
 
-    @Override
     public void show() {
 
     }
 
-    @Override
     public void render(float delta) {
         update(Gdx.graphics.getDeltaTime());
 
@@ -93,27 +93,22 @@ public class MainMenuScreen implements Screen {
 
     }
 
-    @Override
     public void resize(int width, int height) {
         camera.port.update(width, height);
     }
 
-    @Override
     public void pause() {
 
     }
 
-    @Override
     public void resume() {
 
     }
 
-    @Override
     public void hide() {
 
     }
 
-    @Override
     public void dispose() {
         this.dispose();
         stage.dispose();
@@ -136,18 +131,23 @@ public class MainMenuScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         playButton = new ImageButton(new Image(new Texture("Sprites/Menu/PlayOff.png")).getDrawable());
+        loadButton = new ImageButton(new Image(new Texture("Sprites/Menu/LoadOff.png")).getDrawable());
         quitButton = new ImageButton(new Image(new Texture("Sprites/Menu/ExitOff.png")).getDrawable());
 
         playButton.setPosition(playPos.x, playPos.y);
+        loadButton.setPosition(loadPos.x, loadPos.y);
         quitButton.setPosition(quitPos.x, quitPos.y);
 
         playButton.setSize(96, 32);
+        loadButton.setSize(96, 32);
         quitButton.setSize(96, 32);
 
         playButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/PlayOn.png")).getDrawable();
+        loadButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/LoadOn.png")).getDrawable();
         quitButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/ExitOn.png")).getDrawable();
 
         stage.addActor(playButton);
+        stage.addActor(loadButton);
         stage.addActor(quitButton);
 
         playButton.addListener(new ClickListener(){
