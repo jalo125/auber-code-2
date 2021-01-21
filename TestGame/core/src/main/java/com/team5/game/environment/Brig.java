@@ -1,7 +1,7 @@
-package com.team5.game.Environment;
+package com.team5.game.environment;
 
 import com.badlogic.gdx.math.Vector2;
-import com.team5.game.Tools.Constants;
+import com.team5.game.tools.Constants;
 
 public class Brig {
 

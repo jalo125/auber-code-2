@@ -3,8 +3,8 @@ package com.team5.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.team5.game.Screens.MainMenuScreen;
-import com.team5.game.Tools.Constants;
+import com.team5.game.screens.MainMenuScreen;
+import com.team5.game.tools.Constants;
 
 public class MainGame extends Game {
 

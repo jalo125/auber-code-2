@@ -1,4 +1,4 @@
-package com.team5.game.Sprites;
+package com.team5.game.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -10,13 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.team5.game.Screens.PlayScreen;
-import com.team5.game.Sprites.Animation.Animator;
-import com.team5.game.Sprites.Collisions.CharacterCollider;
-import com.team5.game.Sprites.Pathfinding.NPCAIBehaviour;
-import com.team5.game.Sprites.Pathfinding.Node;
-import com.team5.game.Sprites.Pathfinding.NodeGraph;
-import com.team5.game.Tools.Constants;
+import com.team5.game.screens.PlayScreen;
+import com.team5.game.sprites.animation.Animator;
+import com.team5.game.sprites.collisions.CharacterCollider;
+import com.team5.game.sprites.pathfinding.NPCAIBehaviour;
+import com.team5.game.sprites.pathfinding.Node;
+import com.team5.game.sprites.pathfinding.NodeGraph;
+import com.team5.game.tools.Constants;
 
 import java.util.Random;
 

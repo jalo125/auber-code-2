@@ -1,4 +1,4 @@
-package com.team5.game.Environment;
+package com.team5.game.environment;
 
 import com.badlogic.gdx.Gdx;
 

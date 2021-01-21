@@ -1,13 +1,13 @@
-package com.team5.game.UI.Minimap;
+package com.team5.game.ui.minimap;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
-import com.team5.game.Screens.PlayScreen;
-import com.team5.game.Sprites.Teleporters;
-import com.team5.game.Tools.CustomCamera;
+import com.team5.game.screens.PlayScreen;
+import com.team5.game.sprites.Teleporters;
+import com.team5.game.tools.CustomCamera;
 
 public class Minimap {
 

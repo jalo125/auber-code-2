@@ -1,7 +1,7 @@
-package com.team5.game.Sprites.Pathfinding;
+package com.team5.game.sprites.pathfinding;
 
 import com.badlogic.gdx.math.Vector2;
-import com.team5.game.Tools.Constants;
+import com.team5.game.tools.Constants;
 
 import java.util.Random;
 

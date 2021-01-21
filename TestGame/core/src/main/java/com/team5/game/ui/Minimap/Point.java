@@ -1,4 +1,4 @@
-package com.team5.game.UI.Minimap;
+package com.team5.game.ui.minimap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -9,10 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.team5.game.Screens.PlayScreen;
-import com.team5.game.Sprites.Player;
-import com.team5.game.Sprites.Teleporters;
-import com.team5.game.Tools.Constants;
+import com.team5.game.screens.PlayScreen;
+import com.team5.game.sprites.Player;
+import com.team5.game.sprites.Teleporters;
+import com.team5.game.tools.Constants;
 
 public class Point {
 

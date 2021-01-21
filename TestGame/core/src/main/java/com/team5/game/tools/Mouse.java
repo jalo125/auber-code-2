@@ -1,4 +1,4 @@
-package com.team5.game.Tools;
+package com.team5.game.tools;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;

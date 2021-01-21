@@ -1,4 +1,4 @@
-package com.team5.game.UI;
+package com.team5.game.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -10,9 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.team5.game.MainGame;
-import com.team5.game.Screens.MainMenuScreen;
-import com.team5.game.Screens.PlayScreen;
-import com.team5.game.Tools.CustomCamera;
+import com.team5.game.screens.MainMenuScreen;
+import com.team5.game.screens.PlayScreen;
+import com.team5.game.tools.CustomCamera;
 
 public class PauseMenu {
 

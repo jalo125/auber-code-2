@@ -1,14 +1,14 @@
-package com.team5.game.Sprites.Health;
+package com.team5.game.sprites.health;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.team5.game.MainGame;
-import com.team5.game.Screens.LoseScreen;
-import com.team5.game.Sprites.Animation.Animator;
-import com.team5.game.Sprites.Player;
-import com.team5.game.Tools.Constants;
+import com.team5.game.screens.LoseScreen;
+import com.team5.game.sprites.animation.Animator;
+import com.team5.game.sprites.Player;
+import com.team5.game.tools.Constants;
 
 public class Health {
 

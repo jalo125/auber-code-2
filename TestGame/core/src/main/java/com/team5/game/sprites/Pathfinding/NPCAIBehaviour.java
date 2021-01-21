@@ -1,8 +1,8 @@
-package com.team5.game.Sprites.Pathfinding;
+package com.team5.game.sprites.pathfinding;
 
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.math.Vector2;
-import com.team5.game.Sprites.NPC;
+import com.team5.game.sprites.NPC;
 
 import java.util.Random;
 

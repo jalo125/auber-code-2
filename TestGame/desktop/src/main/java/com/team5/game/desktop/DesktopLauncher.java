@@ -1,4 +1,4 @@
-package com.team5.game.desktop;
+package main.java.com.team5.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;

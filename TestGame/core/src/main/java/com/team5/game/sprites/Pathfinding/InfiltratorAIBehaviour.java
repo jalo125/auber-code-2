@@ -1,13 +1,13 @@
-package com.team5.game.Sprites.Pathfinding;
+package com.team5.game.sprites.pathfinding;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.team5.game.Environment.SystemChecker;
-import com.team5.game.Sprites.Infiltrator;
-import com.team5.game.Sprites.Player;
-import com.team5.game.Tools.GameController;
+import com.team5.game.environment.SystemChecker;
+import com.team5.game.sprites.Infiltrator;
+import com.team5.game.sprites.Player;
+import com.team5.game.tools.GameController;
 
 public class InfiltratorAIBehaviour extends NPCAIBehaviour{
 

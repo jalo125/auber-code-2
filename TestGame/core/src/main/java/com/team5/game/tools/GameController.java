@@ -1,20 +1,20 @@
-package com.team5.game.Tools;
+package com.team5.game.tools;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.team5.game.Environment.Brig;
-import com.team5.game.Environment.SystemChecker;
+import com.team5.game.environment.Brig;
+import com.team5.game.environment.SystemChecker;
 import com.team5.game.MainGame;
-import com.team5.game.Screens.LoseScreen;
-import com.team5.game.Screens.PlayScreen;
-import com.team5.game.Sprites.Infiltrator;
-import com.team5.game.Sprites.NPC;
-import com.team5.game.Sprites.Pathfinding.Node;
-import com.team5.game.Sprites.Pathfinding.NodeGraph;
-import com.team5.game.Sprites.Pathfinding.System;
-import com.team5.game.Sprites.Player;
-import com.team5.game.Sprites.Teleporters;
+import com.team5.game.screens.LoseScreen;
+import com.team5.game.screens.PlayScreen;
+import com.team5.game.sprites.Infiltrator;
+import com.team5.game.sprites.NPC;
+import com.team5.game.sprites.pathfinding.Node;
+import com.team5.game.sprites.pathfinding.NodeGraph;
+import com.team5.game.sprites.pathfinding.System;
+import com.team5.game.sprites.Player;
+import com.team5.game.sprites.Teleporters;
 
 public class GameController {
 

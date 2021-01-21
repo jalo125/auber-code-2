@@ -1,4 +1,4 @@
-package com.team5.game.Sprites;
+package com.team5.game.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -8,10 +8,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.team5.game.MainGame;
-import com.team5.game.Sprites.Animation.Animator;
-import com.team5.game.Sprites.Collisions.CharacterCollider;
-import com.team5.game.Sprites.Health.Health;
-import com.team5.game.Tools.Constants;
+import com.team5.game.sprites.animation.Animator;
+import com.team5.game.sprites.collisions.CharacterCollider;
+import com.team5.game.sprites.health.Health;
+import com.team5.game.tools.Constants;
 
 public class Player extends Sprite {
 

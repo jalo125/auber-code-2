@@ -1,4 +1,4 @@
-package com.team5.game.Sprites.Pathfinding;
+package com.team5.game.sprites.pathfinding;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.Connection;

@@ -1,4 +1,4 @@
-package com.team5.game.Screens;
+package com.team5.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -15,8 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.team5.game.MainGame;
-import com.team5.game.Tools.Constants;
-import com.team5.game.Tools.CustomCamera;
+import com.team5.game.tools.Constants;
+import com.team5.game.tools.CustomCamera;
 
 public class WinScreen implements Screen {
 

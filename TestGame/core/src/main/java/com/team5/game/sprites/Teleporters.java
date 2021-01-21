@@ -1,13 +1,13 @@
-package com.team5.game.Sprites;
+package com.team5.game.sprites;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.team5.game.Screens.PlayScreen;
-import com.team5.game.Sprites.Animation.AnimatedDrawable;
-import com.team5.game.Tools.Constants;
+import com.team5.game.screens.PlayScreen;
+import com.team5.game.sprites.animation.AnimatedDrawable;
+import com.team5.game.tools.Constants;
 
 import java.util.Hashtable;
 

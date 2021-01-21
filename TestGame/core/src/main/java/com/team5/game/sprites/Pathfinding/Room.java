@@ -1,4 +1,4 @@
-package com.team5.game.Sprites.Pathfinding;
+package com.team5.game.sprites.pathfinding;
 
 public class Room extends Node{
 

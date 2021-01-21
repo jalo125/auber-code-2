@@ -1,10 +1,10 @@
-package com.team5.game.Tools;
+package com.team5.game.tools;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.team5.game.Sprites.Player;
+import com.team5.game.sprites.Player;
 
 public class CustomCamera {
 

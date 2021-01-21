@@ -1,14 +1,14 @@
-package com.team5.game.UI;
+package com.team5.game.ui;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.team5.game.Screens.PlayScreen;
-import com.team5.game.Sprites.Player;
-import com.team5.game.Tools.Constants;
-import com.team5.game.Tools.CustomCamera;
+import com.team5.game.screens.PlayScreen;
+import com.team5.game.sprites.Player;
+import com.team5.game.tools.Constants;
+import com.team5.game.tools.CustomCamera;
 
 public class Hud {
 

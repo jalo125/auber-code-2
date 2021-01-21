@@ -1,4 +1,4 @@
-package com.team5.game.Tools;
+package com.team5.game.tools;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -13,9 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
-import com.team5.game.Screens.PlayScreen;
-import com.team5.game.Sprites.Animation.AnimatedDrawable;
-import com.team5.game.Tools.Constants;
+import com.team5.game.screens.PlayScreen;
+import com.team5.game.sprites.animation.AnimatedDrawable;
+import com.team5.game.tools.Constants;
 
 import java.util.Random;
 

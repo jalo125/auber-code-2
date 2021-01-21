@@ -1,4 +1,4 @@
-package com.team5.game.Screens;
+package com.team5.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -13,23 +13,23 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
-import com.team5.game.Environment.Brig;
-import com.team5.game.Environment.SystemChecker;
-import com.team5.game.Sprites.Infiltrator;
-import com.team5.game.Sprites.NPC;
-import com.team5.game.Sprites.Pathfinding.Node;
-import com.team5.game.Sprites.Pathfinding.NodeGraph;
-import com.team5.game.Sprites.Pathfinding.System;
-import com.team5.game.Sprites.Teleporters;
-import com.team5.game.Tools.Constants;
-import com.team5.game.Tools.CustomCamera;
-import com.team5.game.Environment.Walls;
+import com.team5.game.environment.Brig;
+import com.team5.game.environment.SystemChecker;
+import com.team5.game.sprites.Infiltrator;
+import com.team5.game.sprites.NPC;
+import com.team5.game.sprites.pathfinding.Node;
+import com.team5.game.sprites.pathfinding.NodeGraph;
+import com.team5.game.sprites.pathfinding.System;
+import com.team5.game.sprites.Teleporters;
+import com.team5.game.tools.Constants;
+import com.team5.game.tools.CustomCamera;
+import com.team5.game.environment.Walls;
 import com.team5.game.MainGame;
-import com.team5.game.Sprites.Player;
-import com.team5.game.Tools.GameController;
-import com.team5.game.UI.Hud;
-import com.team5.game.UI.Minimap.Minimap;
-import com.team5.game.UI.PauseMenu;
+import com.team5.game.sprites.Player;
+import com.team5.game.tools.GameController;
+import com.team5.game.ui.Hud;
+import com.team5.game.ui.minimap.Minimap;
+import com.team5.game.ui.PauseMenu;
 
 public class PlayScreen implements Screen {
 

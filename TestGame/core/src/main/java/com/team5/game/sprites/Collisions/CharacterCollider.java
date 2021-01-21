@@ -1,8 +1,8 @@
-package com.team5.game.Sprites.Collisions;
+package com.team5.game.sprites.collisions;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.team5.game.Tools.Constants;
+import com.team5.game.tools.Constants;
 
 public class CharacterCollider {
 

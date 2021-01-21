@@ -1,11 +1,11 @@
-package com.team5.game.Sprites.Animation;
+package com.team5.game.sprites.animation;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
-import com.team5.game.Tools.Constants;
+import com.team5.game.tools.Constants;
 
 public class AnimatedDrawable extends BaseDrawable {
 
