@@ -43,7 +43,7 @@ public class NPCAIBehaviour {
 
     Random random;
 
-    public NPCAIBehaviour(NPC npc, NodeGraph graph, Node node){
+    public NPCAIBehaviour(NPC npc, NodeGraph graph, Node node) {
         this.npc = npc;
         this.graph = graph;
         currentNode = node;
@@ -56,8 +56,8 @@ public class NPCAIBehaviour {
     }
 
     //Is called to tell the NPC what to do on each frame.
-    public void update(float delta){
-        if (waiting){
+    public void update(float delta) {
+        if (waiting) {
             wait(delta);
             npc.direction = Vector2.Zero;
         } else {
@@ -66,7 +66,7 @@ public class NPCAIBehaviour {
     }
 
     //Generates a random room for the npc to target.
-    void newTarget(){
+    void newTarget() {
         goalNode = graph.getRandomRoom(currentNode);
         path = graph.findPath(currentNode, goalNode);
 
@@ -74,20 +74,20 @@ public class NPCAIBehaviour {
     }
 
     //Moves the npc towards their target.
-    public Vector2 move(float x, float y){
+    public Vector2 move(float x, float y) {
         if (goalNode.equals(path.get(currentIndex)) &&
                 x < target.x + offset && x > target.x - offset &&
-                y < target.y + offset && y > target.y - offset){
+                y < target.y + offset && y > target.y - offset) {
             currentNode = goalNode;
             currentIndex = 1;
 
             waiting = true;
-            waitTime = (random.nextFloat()*(maxWait-minWait)) + minWait;
+            waitTime = (random.nextFloat() * (maxWait - minWait)) + minWait;
 
             return Vector2.Zero;
 
         } else if (x < target.x + offset && x > target.x - offset &&
-                y < target.y + offset && y > target.y - offset){
+                y < target.y + offset && y > target.y - offset) {
             currentNode = path.get(currentIndex);
             currentIndex++;
 
@@ -101,11 +101,11 @@ public class NPCAIBehaviour {
     }
 
     //Makes the npc wait for a certain amount of time
-    public void wait(float delta){
-        if (waitTime <= 0f){
+    public void wait(float delta) {
+        if (waitTime <= 0f) {
             waiting = false;
             newTarget();
-        }else {
+        } else {
             waitTime -= delta;
         }
     }

@@ -37,14 +37,14 @@ public class LoseScreen implements Screen {
     Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Sound Effects/click.wav"));
 
     //Menu positions
-    Vector2 playPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 60);
-    Vector2 quitPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 20);
-    Vector2 titlePos = new Vector2(Constants.CAMERA_WIDTH/2-96, 100);
+    Vector2 playPos = new Vector2(Constants.CAMERA_WIDTH / 2 - 48, 60);
+    Vector2 quitPos = new Vector2(Constants.CAMERA_WIDTH / 2 - 48, 20);
+    Vector2 titlePos = new Vector2(Constants.CAMERA_WIDTH / 2 - 96, 100);
 
     //Reference
     private final CustomCamera camera;
 
-    public LoseScreen (final MainGame game){
+    public LoseScreen(final MainGame game) {
 
         this.game = game;
         title = new Texture("Sprites/Menu/MissionFailed.png");
@@ -109,13 +109,13 @@ public class LoseScreen implements Screen {
 
     //Custom functions from here
 
-    public void update(float delta){
+    public void update(float delta) {
 
         //Updates Camera
         camera.update();
     }
 
-    void setupButtons(){
+    void setupButtons() {
         stage = new Stage(camera.port);
         Gdx.input.setInputProcessor(stage);
 
@@ -134,15 +134,15 @@ public class LoseScreen implements Screen {
         stage.addActor(playButton);
         stage.addActor(quitButton);
 
-        playButton.addListener(new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
+        playButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
                 click.play(0.5f, 1.5f, 0);
                 game.setScreen(new PlayScreen(game));
             }
         });
 
-        quitButton.addListener(new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
+        quitButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
                 click.play(0.5f, 1.5f, 0);
                 game.setScreen(new MainMenuScreen(game));
             }

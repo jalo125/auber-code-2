@@ -5,7 +5,7 @@ import com.team5.game.tools.Constants;
 
 import java.util.Random;
 
-public class Node{
+public class Node {
 
     /*
     Node represents any point that an NPC is going to use
@@ -27,33 +27,33 @@ public class Node{
 
     Random random;
 
-    public Node(float x, float y, String name){
+    public Node(float x, float y, String name) {
         this(x, y, name, new Vector2(0f, 0f));
     }
 
-    public Node(float x, float y, String name, float xDim, float yDim){
+    public Node(float x, float y, String name, float xDim, float yDim) {
         this(x, y, name, new Vector2(xDim, yDim));
     }
 
-    public Node(float x, float y, String name, Vector2 dimension){
-        this.x = x*Constants.TILE_SIZE;
-        this.y = y*Constants.TILE_SIZE;
+    public Node(float x, float y, String name, Vector2 dimension) {
+        this.x = x * Constants.TILE_SIZE;
+        this.y = y * Constants.TILE_SIZE;
         this.name = name;
-        this.dimensions = new Vector2(dimension.x*Constants.TILE_SIZE,
-                dimension.y*Constants.TILE_SIZE);
+        this.dimensions = new Vector2(dimension.x * Constants.TILE_SIZE,
+                dimension.y * Constants.TILE_SIZE);
 
         random = new Random();
     }
 
-    public void setIndex(int index){
+    public void setIndex(int index) {
         this.index = index;
     }
 
-    public float getX(){
+    public float getX() {
         return x;
     }
 
-    public float getY(){
+    public float getY() {
         return y;
     }
 
@@ -62,16 +62,16 @@ public class Node{
     }
 
     //Allows you to compare nodes using their names
-    public boolean equals(Node otherNode){
+    public boolean equals(Node otherNode) {
         return (name.equals(otherNode.getName()));
     }
 
     //Calculates a random position within the dimensions of this node
-    public Vector2 randomPos(){
-        float randX = random.nextFloat()-0.5f;
-        float randY = random.nextFloat()-0.5f;
+    public Vector2 randomPos() {
+        float randX = random.nextFloat() - 0.5f;
+        float randY = random.nextFloat() - 0.5f;
 
-        return new Vector2(x + randX*dimensions.x,
-                y + randY*dimensions.y);
+        return new Vector2(x + randX * dimensions.x,
+                y + randY * dimensions.y);
     }
 }

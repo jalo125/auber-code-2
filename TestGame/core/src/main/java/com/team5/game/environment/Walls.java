@@ -28,7 +28,7 @@ public class Walls {
     //stopIndex is the index of the Stop object layer in the TileMap.
     int stopIndex = 5;
 
-    public Walls(World world, TiledMap map){
+    public Walls(World world, TiledMap map) {
         this.world = world;
         this.map = map;
 
@@ -42,8 +42,8 @@ public class Walls {
 
     //Loops through all rectangles on the Tilemap
     //object layer and adds a collider to them
-    void initialiseColliders(){
-        for(MapObject object: map.getLayers().get(stopIndex).getObjects().getByType(RectangleMapObject.class)){
+    void initialiseColliders() {
+        for (MapObject object : map.getLayers().get(stopIndex).getObjects().getByType(RectangleMapObject.class)) {
             rect = ((RectangleMapObject) object).getRectangle();
 
             bodDef.type = BodyDef.BodyType.StaticBody;
@@ -51,7 +51,7 @@ public class Walls {
 
             body = world.createBody(bodDef);
 
-            shape.setAsBox(rect.getWidth()/2, rect.getHeight()/2);
+            shape.setAsBox(rect.getWidth() / 2, rect.getHeight() / 2);
             fixDef.shape = shape;
 
             fixDef.filter.groupIndex = Constants.GROUP_WALLS;

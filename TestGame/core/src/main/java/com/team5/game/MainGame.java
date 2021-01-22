@@ -13,24 +13,24 @@ public class MainGame extends Game {
 	any given time.
 	 */
 
-	public SpriteBatch batch;
-	public TextureAtlas atlas;
+    public SpriteBatch batch;
+    public TextureAtlas atlas;
 
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		atlas = Constants.ATLAS;
-		this.setScreen(new MainMenuScreen(this));
-	}
+    @Override
+    public void create() {
+        batch = new SpriteBatch();
+        atlas = Constants.ATLAS;
+        this.setScreen(new MainMenuScreen(this));
+    }
 
-	@Override
-	public void render () {
-		super.render();
-	}
+    @Override
+    public void render() {
+        super.render();
+    }
 
-	@Override
-	public void dispose(){
-		batch.dispose();
-		atlas.dispose();
-	}
+    @Override
+    public void dispose() {
+        batch.dispose();
+        atlas.dispose();
+    }
 }

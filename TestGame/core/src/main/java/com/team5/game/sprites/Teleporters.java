@@ -33,13 +33,13 @@ public class Teleporters {
     Hashtable<String, Vector2> positions;
 
     //Positions of each teleporter
-    Vector2 PQPosition = new Vector2(25*Constants.TILE_SIZE, 69*Constants.TILE_SIZE);
-    Vector2 infirmaryPosition = new Vector2(90*Constants.TILE_SIZE, 89*Constants.TILE_SIZE);
-    Vector2 northWingPosition = new Vector2(53*Constants.TILE_SIZE, 82*Constants.TILE_SIZE);
-    Vector2 brigPosition = new Vector2(29*Constants.TILE_SIZE, 90*Constants.TILE_SIZE);
-    Vector2 enginePosition = new Vector2(81*Constants.TILE_SIZE, 42*Constants.TILE_SIZE);
+    Vector2 PQPosition = new Vector2(25 * Constants.TILE_SIZE, 69 * Constants.TILE_SIZE);
+    Vector2 infirmaryPosition = new Vector2(90 * Constants.TILE_SIZE, 89 * Constants.TILE_SIZE);
+    Vector2 northWingPosition = new Vector2(53 * Constants.TILE_SIZE, 82 * Constants.TILE_SIZE);
+    Vector2 brigPosition = new Vector2(29 * Constants.TILE_SIZE, 90 * Constants.TILE_SIZE);
+    Vector2 enginePosition = new Vector2(81 * Constants.TILE_SIZE, 42 * Constants.TILE_SIZE);
 
-    public Teleporters(PlayScreen screen){
+    public Teleporters(PlayScreen screen) {
         this.screen = screen;
 
         teleIdle = new AnimatedDrawable("idle", "Teleporter/Idle", 1f);
@@ -49,7 +49,7 @@ public class Teleporters {
         setup();
     }
 
-    void setup(){
+    void setup() {
         addTeleporter("PQ", PQPosition);
         addTeleporter("infirmary", infirmaryPosition);
         addTeleporter("north wing", northWingPosition);
@@ -58,7 +58,7 @@ public class Teleporters {
     }
 
     //Adds a new teleporter to the PlayScreen stage
-    void addTeleporter(String key, Vector2 pos){
+    void addTeleporter(String key, Vector2 pos) {
         positions.put(key, pos);
 
         teleporter = new ImageButton(new Image(Constants.ATLAS.findRegion("Empty")).getDrawable());
@@ -72,8 +72,8 @@ public class Teleporters {
 
         teleporter.getStyle().imageOver = outline.getDrawable();
 
-        teleporter.addListener(new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
+        teleporter.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
                 screen.minimapOn();
             }
         });
@@ -81,7 +81,7 @@ public class Teleporters {
         screen.stage.addActor(teleporter);
     }
 
-    public Vector2 getTeleporter(String key){
+    public Vector2 getTeleporter(String key) {
         return positions.get(key);
     }
 

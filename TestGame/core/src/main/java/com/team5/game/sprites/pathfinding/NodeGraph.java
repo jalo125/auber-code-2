@@ -1,13 +1,11 @@
 package com.team5.game.sprites.pathfinding;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.pfa.Connection;
 import com.badlogic.gdx.ai.pfa.DefaultGraphPath;
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedAStarPathFinder;
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 
@@ -30,7 +28,7 @@ public class NodeGraph implements IndexedGraph<Node> {
 
     private int nodeIndex = 0;
 
-    public NodeGraph(){
+    public NodeGraph() {
         nodeHeuristic = new NodeHeuristic();
         nodes = new Array<>();
         rooms = new Array<>();
@@ -41,19 +39,19 @@ public class NodeGraph implements IndexedGraph<Node> {
     }
 
     //Adding a new system to the graph.
-    public void addSystem(System system){
+    public void addSystem(System system) {
         systems.add(system);
         this.addNode(system);
     }
 
     //Adding a new room to the graph.
-    public void addRoom(Room room){
+    public void addRoom(Room room) {
         rooms.add(room);
         this.addNode(room);
     }
 
     //Adding a new node to the graph.
-    public void addNode(Node node){
+    public void addNode(Node node) {
         node.setIndex(nodeIndex);
         nodeIndex++;
 
@@ -61,10 +59,10 @@ public class NodeGraph implements IndexedGraph<Node> {
     }
 
     //Links a node to one other node.
-    public void linkNodes(Node fromNode, Node toNode){
+    public void linkNodes(Node fromNode, Node toNode) {
         Link link = new Link(fromNode, toNode);
 
-        if (!nodeMap.containsKey(fromNode)){
+        if (!nodeMap.containsKey(fromNode)) {
             nodeMap.put(fromNode, new Array<Connection<Node>>());
         }
         nodeMap.get(fromNode).add(link);
@@ -72,43 +70,43 @@ public class NodeGraph implements IndexedGraph<Node> {
     }
 
     //Links a node to an array of other nodes.
-    public void linkNodes(Node fromNode, Node... args){
+    public void linkNodes(Node fromNode, Node... args) {
         for (Node node : args) {
             this.linkNodes(fromNode, node);
         }
     }
 
     //Returns a path from a startNode to a goalNode.
-    public GraphPath<Node> findPath(Node startNode, Node goalNode){
+    public GraphPath<Node> findPath(Node startNode, Node goalNode) {
         GraphPath<Node> path = new DefaultGraphPath<>();
         new IndexedAStarPathFinder<>(this).searchNodePath(startNode, goalNode, nodeHeuristic, path);
         return path;
     }
 
-    public Array<System> getSystems(){
+    public Array<System> getSystems() {
         return systems;
     }
 
     //Returns a random room given an exception.
-    public Node getRandomRoom(Node exception){
+    public Node getRandomRoom(Node exception) {
         Node node = exception;
-        while(node.equals(exception)){
+        while (node.equals(exception)) {
             node = rooms.random();
         }
         return node;
     }
 
-    public Node getRandomRoom(){
+    public Node getRandomRoom() {
         return rooms.random();
     }
 
-    public System getRandomSystem(){
+    public System getRandomSystem() {
         return systems.random();
     }
 
     //Called every frame, draws all of the systems on the map.
-    public void drawSystems(SpriteBatch batch){
-        for (System sys : systems){
+    public void drawSystems(SpriteBatch batch) {
+        for (System sys : systems) {
             sys.draw(batch);
         }
     }
@@ -125,7 +123,7 @@ public class NodeGraph implements IndexedGraph<Node> {
 
     @Override
     public Array<Connection<Node>> getConnections(Node fromNode) {
-        if (nodeMap.containsKey(fromNode)){
+        if (nodeMap.containsKey(fromNode)) {
             return nodeMap.get(fromNode);
         }
 
@@ -133,7 +131,7 @@ public class NodeGraph implements IndexedGraph<Node> {
     }
 
     //Builds the graph full of nodes used for our map.
-    void buildNodeMap(){
+    void buildNodeMap() {
         //Declaring the Nodes
         Room bridge = new Room("Bridge", 49.5f, 92.5f, "Bridge", 12, 6);
         Node bridgeExit = new Node(49.5f, 87.5f, "Bridge Exit", 2, 0);
@@ -160,8 +158,8 @@ public class NodeGraph implements IndexedGraph<Node> {
         Node eastCafeteriaExit = new Node(58.5f, 62, "East Cafeteria Exit", 0, 1.5f);
         Node northCafeteriaExit = new Node(49.5f, 70.5f, "North Cafeteria Exit", 2, 0);
         Node southCafeteriaExit = new Node(49.5f, 54.5f, "South Cafeteria Exit", 2, 0);
-        System leftVendingMachine = new System("Cafeteria", 45,68.5f, "Vending Machine", 44, 69);
-        System rightVendingMachine = new System("Cafeteria", 54,68.5f, "Vending Machine", 53, 69);
+        System leftVendingMachine = new System("Cafeteria", 45, 68.5f, "Vending Machine", 44, 69);
+        System rightVendingMachine = new System("Cafeteria", 54, 68.5f, "Vending Machine", 53, 69);
 
         //PQ stands for personal quarters, that's just a bit long for a name
         Room midRightPQ = new Room("PQ", 23.5f, 61.5f, "Mid Right PQ");

@@ -8,18 +8,20 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.team5.game.environment.SystemChecker;
 import com.team5.game.MainGame;
+import com.team5.game.environment.SystemChecker;
 import com.team5.game.screens.PlayScreen;
 import com.team5.game.screens.WinScreen;
 import com.team5.game.sprites.animation.Animator;
-import com.team5.game.sprites.pathfinding.*;
+import com.team5.game.sprites.pathfinding.InfiltratorAIBehaviour;
+import com.team5.game.sprites.pathfinding.Node;
+import com.team5.game.sprites.pathfinding.NodeGraph;
 import com.team5.game.tools.Constants;
 import com.team5.game.tools.GameController;
 
 import java.util.Random;
 
-public class Infiltrator extends NPC{
+public class Infiltrator extends NPC {
 
     /*
     Infiltrator contains all of the information regarding an Infiltrator
@@ -64,12 +66,12 @@ public class Infiltrator extends NPC{
     public void update(float delta) {
         if (!caught) {
             ai.update(delta);
-            if (ai.isWaiting() && ai.isBreaking()){
+            if (ai.isWaiting() && ai.isBreaking()) {
                 breaking = true;
                 b2body.setLinearVelocity(0f, 0f);
                 x = b2body.getPosition().x;
                 y = b2body.getPosition().y;
-                outlineButton.setPosition(x-4, y-4);
+                outlineButton.setPosition(x - 4, y - 4);
 
                 anim.play("interact");
                 outlineAnim.play("interact");
@@ -101,7 +103,7 @@ public class Infiltrator extends NPC{
     public void setup() {
 
         Random random = new Random();
-        int sprite = random.nextInt(6)+1;
+        int sprite = random.nextInt(6) + 1;
         anim = new Animator("idle", "NPC/" + sprite + "/Idle");
         anim.add("run", "NPC/" + sprite + "/Run");
         anim.add("interact", "NPC/" + sprite + "/Interact");
@@ -111,19 +113,19 @@ public class Infiltrator extends NPC{
 
         //Setting outline animations
         outlineAnim = new Animator("idle", "NPC/" + sprite + "/IdleOutline");
-        outlineAnim.add("run", "NPC/" + sprite +"/RunOutline");
+        outlineAnim.add("run", "NPC/" + sprite + "/RunOutline");
         outlineAnim.add("interact", "NPC/" + sprite + "/InteractOutline");
 
         outlineImage = new Image(outlineAnim.getSprite());
         outlineButton = new ImageButton(new Image(Constants.ATLAS.findRegion("Empty")).getDrawable());
 
-        outlineButton.setPosition(x-4, y-4);
-        outlineButton.setSize(Constants.TILE_SIZE+8, Constants.TILE_SIZE+8);
+        outlineButton.setPosition(x - 4, y - 4);
+        outlineButton.setSize(Constants.TILE_SIZE + 8, Constants.TILE_SIZE + 8);
 
         outlineButton.getStyle().imageOver = outlineImage.getDrawable();
 
-        outlineButton.addListener(new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
+        outlineButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
                 if (!caught) {
                     pass.play(0.3f);
                     caught = true;
@@ -138,9 +140,9 @@ public class Infiltrator extends NPC{
     }
 
     //Ability that changes the appearance
-    public void changeSkin(){
+    public void changeSkin() {
         Random random = new Random();
-        int sprite = random.nextInt(6)+1;
+        int sprite = random.nextInt(6) + 1;
         anim = new Animator("idle", "NPC/" + sprite + "/Idle");
         anim.add("run", "NPC/" + sprite + "/Run");
         anim.add("interact", "NPC/" + sprite + "/Interact");
@@ -149,7 +151,7 @@ public class Infiltrator extends NPC{
         currentSprite = anim.getSprite();
 
         outlineAnim = new Animator("idle", "NPC/" + sprite + "/IdleOutline");
-        outlineAnim.add("run", "NPC/" + sprite +"/RunOutline");
+        outlineAnim.add("run", "NPC/" + sprite + "/RunOutline");
         outlineAnim.add("interact", "NPC/" + sprite + "/InteractOutline");
 
         outlineImage = new Image(outlineAnim.getSprite());
@@ -157,7 +159,7 @@ public class Infiltrator extends NPC{
     }
 
 
-    public void dispose(){
+    public void dispose() {
         pass.dispose();
         ai.dispose();
     }

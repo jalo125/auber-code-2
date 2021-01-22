@@ -9,7 +9,7 @@ import com.team5.game.sprites.Infiltrator;
 import com.team5.game.sprites.Player;
 import com.team5.game.tools.GameController;
 
-public class InfiltratorAIBehaviour extends NPCAIBehaviour{
+public class InfiltratorAIBehaviour extends NPCAIBehaviour {
 
     /*
     InfiltratorAIBehaviour contains all of the basic AI for Infiltrators.
@@ -65,7 +65,7 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour{
 
     @Override
     public void update(float delta) {
-        if (waiting){
+        if (waiting) {
             wait(delta);
             npc.direction = Vector2.Zero;
         } else {
@@ -75,8 +75,8 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour{
         //This changes the infiltrators disguise every 30 seconds
         //But only if it's away from the player.
         timer -= delta;
-        if (timer <= 0){
-            if (Vector2.dst(player.x, player.y, npc.x, npc.y) > distance){
+        if (timer <= 0) {
+            if (Vector2.dst(player.x, player.y, npc.x, npc.y) > distance) {
                 npc.changeSkin();
                 timer = changeCooldown;
             }
@@ -86,36 +86,36 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour{
     //wait is changed to break a system if they're at one.
     @Override
     public void wait(float delta) {
-         if (waitTime <= 0f || goalSystem.getBroken()){
-             if (breaking && !goalSystem.getBroken()){
-                 explosion.play(0.2f);
-                 goalSystem.destroy();
-                 systemChecker.breakSystem();
-             }
+        if (waitTime <= 0f || goalSystem.getBroken()) {
+            if (breaking && !goalSystem.getBroken()) {
+                explosion.play(0.2f);
+                goalSystem.destroy();
+                systemChecker.breakSystem();
+            }
             waiting = false;
             systems.removeValue(goalSystem, false);
 
-            if (random.nextFloat() < breakOdds){
+            if (random.nextFloat() < breakOdds) {
                 breaking = true;
                 newSystemTarget();
             } else {
                 breaking = false;
                 newTarget();
             }
-        }else {
+        } else {
             waitTime -= delta;
         }
     }
 
-    public boolean isBreaking(){
+    public boolean isBreaking() {
         return breaking;
     }
 
-    public boolean isWaiting(){
+    public boolean isWaiting() {
         return waiting;
     }
 
-    public void dispose(){
+    public void dispose() {
         explosion.dispose();
     }
 }

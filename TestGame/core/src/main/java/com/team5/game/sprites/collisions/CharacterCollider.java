@@ -11,8 +11,8 @@ public class CharacterCollider {
     infiltrators, and the player.
      */
 
-     //Creates and returns a collider for the NPC, Infiltrators and the Player.
-   public Body defineCollider(World world, Vector2 position, float size){
+    //Creates and returns a collider for the NPC, Infiltrators and the Player.
+    public Body defineCollider(World world, Vector2 position, float size) {
         Body b2body;
         BodyDef bodDef = new BodyDef();
         bodDef.position.set(position.x, position.y);
@@ -22,7 +22,7 @@ public class CharacterCollider {
         FixtureDef fixDef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(7.5f);
-        shape.setPosition(new Vector2(size/2,size/2));
+        shape.setPosition(new Vector2(size / 2, size / 2));
         fixDef.shape = shape;
 
         fixDef.filter.groupIndex = Constants.GROUP_PLAYER;

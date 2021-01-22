@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
-public class Mouse{
+public class Mouse {
 
     /*
     Mouse has become obsolete due to using buttons for mouse interactions,
@@ -20,11 +20,11 @@ public class Mouse{
     //Movement
     public Vector2 position;
 
-    public Mouse(World world){
+    public Mouse(World world) {
         setupMouse(world);
     }
 
-    public void setupMouse(World world){
+    public void setupMouse(World world) {
         BodyDef bodDef = new BodyDef();
         bodDef.position.set(500, 320);
         bodDef.type = BodyDef.BodyType.KinematicBody;
@@ -33,15 +33,15 @@ public class Mouse{
         FixtureDef fixDef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(colRadius);
-        shape.setPosition(new Vector2(0,0));
+        shape.setPosition(new Vector2(0, 0));
         fixDef.shape = shape;
         fixDef.isSensor = true;
         mouseBody.createFixture(fixDef).setUserData("Mouse");
     }
 
-    public void update(CustomCamera camera){
-        position = new Vector2(camera.cam.position.x - (camera.camWidth/2) + (Gdx.input.getX() * 0.25f),
-                camera.cam.position.y + (camera.camHeight/2) - (Gdx.input.getY() * 0.25f));
+    public void update(CustomCamera camera) {
+        position = new Vector2(camera.cam.position.x - (camera.camWidth / 2) + (Gdx.input.getX() * 0.25f),
+                camera.cam.position.y + (camera.camHeight / 2) - (Gdx.input.getY() * 0.25f));
 
         mouseBody.setTransform(position, 0f);
     }

@@ -1,6 +1,6 @@
 package com.team5.game.sprites.pathfinding;
 
-public class Room extends Node{
+public class Room extends Node {
 
     /*
     Room is used to differentiate hallways and rooms in the NodeGraph class.

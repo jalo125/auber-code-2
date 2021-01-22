@@ -40,9 +40,9 @@ public class WinScreen implements Screen {
     Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Sound Effects/click.wav"));
 
     //Menu positions
-    Vector2 playPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 60);
-    Vector2 quitPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 20);
-    Vector2 titlePos = new Vector2(Constants.CAMERA_WIDTH/2-96, 100);
+    Vector2 playPos = new Vector2(Constants.CAMERA_WIDTH / 2 - 48, 60);
+    Vector2 quitPos = new Vector2(Constants.CAMERA_WIDTH / 2 - 48, 20);
+    Vector2 titlePos = new Vector2(Constants.CAMERA_WIDTH / 2 - 96, 100);
 
     //Colliders
     private final World world;
@@ -51,7 +51,7 @@ public class WinScreen implements Screen {
     //Reference
     private final CustomCamera camera;
 
-    public WinScreen (final MainGame game){
+    public WinScreen(final MainGame game) {
 
         this.game = game;
         title = new Texture("Sprites/Menu/MissionComplete.png");
@@ -124,14 +124,14 @@ public class WinScreen implements Screen {
 
     //Custom functions from here
 
-    public void update(float delta){
-        world.step(1/60f, 6, 2);
+    public void update(float delta) {
+        world.step(1 / 60f, 6, 2);
 
         //Updates Camera
         camera.update();
     }
 
-    void setupButtons(){
+    void setupButtons() {
         stage = new Stage(camera.port);
         Gdx.input.setInputProcessor(stage);
 
@@ -150,15 +150,15 @@ public class WinScreen implements Screen {
         stage.addActor(playButton);
         stage.addActor(quitButton);
 
-        playButton.addListener(new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
+        playButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
                 click.play(0.5f, 1.5f, 0);
                 game.setScreen(new PlayScreen(game));
             }
         });
 
-        quitButton.addListener(new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
+        quitButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
                 click.play(0.5f, 1.5f, 0);
                 game.setScreen(new MainMenuScreen(game));
             }

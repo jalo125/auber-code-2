@@ -2,7 +2,6 @@ package com.team5.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.team5.game.MainGame;
 
 public class DesktopLauncher {
@@ -12,10 +11,10 @@ public class DesktopLauncher {
 	the game and contains all of the settings surrounding that
 	 */
 
-	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+    public static void main(String[] arg) {
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
-		//Pack all of the textures into a texture atlas
+        //Pack all of the textures into a texture atlas
 		/*REMOVE THIS CODE BEFORE RELEASING THE GAME {
 		TexturePacker.Settings sets = new TexturePacker.Settings();C:\Program Files\Java\jre1.8.0_261\jdk-11.0.9.101
 		sets.pot = true;
@@ -27,13 +26,13 @@ public class DesktopLauncher {
 		TexturePacker.process(sets, "Sprites/TexturePack", "./", "textures");
 		}*/
 
-		config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
-		config.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
+        config.width = LwjglApplicationConfiguration.getDesktopDisplayMode().width;
+        config.height = LwjglApplicationConfiguration.getDesktopDisplayMode().height;
 
-		config.forceExit = false;
+        config.forceExit = false;
 
-		config.fullscreen = true;
+        config.fullscreen = true;
 
-		new LwjglApplication(new MainGame(), config);
-	}
+        new LwjglApplication(new MainGame(), config);
+    }
 }

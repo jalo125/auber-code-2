@@ -19,21 +19,21 @@ public class Brig {
 
     private static final int MAX_INFILTRATOR_NUMBER = 8;
 
-    public Brig(){
+    public Brig() {
     }
 
     //Called whenever an infiltrator is caught and moves them to the brig.
-    public Vector2 imprison(){
+    public Vector2 imprison() {
         Vector2 position =
-                new Vector2((basePosition.x + (xOffset*prisoners))
-                        * Constants.TILE_SIZE, basePosition.y* Constants.TILE_SIZE);
+                new Vector2((basePosition.x + (xOffset * prisoners))
+                        * Constants.TILE_SIZE, basePosition.y * Constants.TILE_SIZE);
         prisoners++;
         return position;
     }
 
     //Returns whether or not all the infiltrators have been caught.
-    public boolean allCaught(){
-        return prisoners>=MAX_INFILTRATOR_NUMBER;
+    public boolean allCaught() {
+        return prisoners >= MAX_INFILTRATOR_NUMBER;
     }
 
     int getPrisoners() {

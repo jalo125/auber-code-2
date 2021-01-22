@@ -6,7 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 import com.team5.game.MainGame;
 import com.team5.game.sprites.animation.Animator;
 import com.team5.game.sprites.collisions.CharacterCollider;
@@ -48,7 +49,7 @@ public class Player extends Sprite {
     //Health
     Health health;
 
-    public Player(MainGame game, World world){
+    public Player(MainGame game, World world) {
         this.world = world;
 
         health = new Health(game, this);
@@ -57,13 +58,13 @@ public class Player extends Sprite {
     }
 
     //To be called every frame to move and animate the player.
-    public void update(){
+    public void update() {
         handleAnimations(checkInputs());
         health.update();
     }
 
     //Setting up the animator as well as all the animations.
-    public void setupAnimations(){
+    public void setupAnimations() {
         anim = new Animator("idle", "Player/Idle");
         anim.add("run", "Player/Run");
         facingRight = true;
@@ -75,19 +76,19 @@ public class Player extends Sprite {
         xInput = 0;
         yInput = 0;
 
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)){
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
             yInput++;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)){
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
             yInput--;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)){
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
             xInput--;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             xInput++;
         }
 
@@ -95,8 +96,8 @@ public class Player extends Sprite {
     }
 
     //Deciding which animation will be played each frame based on input
-    void handleAnimations(Vector2 direction){
-        if (direction.isZero(0.01f)){
+    void handleAnimations(Vector2 direction) {
+        if (direction.isZero(0.01f)) {
             b2body.setLinearVelocity(0f, 0f);
             anim.play("idle");
         } else {
@@ -109,30 +110,30 @@ public class Player extends Sprite {
 
         currentSprite = anim.getSprite();
 
-        if ((b2body.getLinearVelocity().x < 0 || !facingRight) && !anim.isFlipped()){
+        if ((b2body.getLinearVelocity().x < 0 || !facingRight) && !anim.isFlipped()) {
             anim.flip();
             facingRight = false;
-        } else if ((b2body.getLinearVelocity().x > 0 || facingRight) && anim.isFlipped()){
+        } else if ((b2body.getLinearVelocity().x > 0 || facingRight) && anim.isFlipped()) {
             anim.flip();
             facingRight = true;
         }
     }
 
     //Used to teleport the player across the map
-    public void updatePosition(Vector2 target){
+    public void updatePosition(Vector2 target) {
         b2body.setTransform(target, 0);
         x = b2body.getPosition().x;
         y = b2body.getPosition().y;
     }
 
-    public int getHealth(){
+    public int getHealth() {
         return health.getHealth();
     }
 
-    public void draw(SpriteBatch batch){
+    public void draw(SpriteBatch batch) {
         batch.draw(currentSprite, x, y);
         if (health.getHealing()) {
-            health.draw(batch, x-2, y-2);
+            health.draw(batch, x - 2, y - 2);
         }
     }
 

@@ -16,7 +16,7 @@ public class Link<N> implements Connection<Node> {
 
     float cost;
 
-    public Link(Node fromNode, Node toNode){
+    public Link(Node fromNode, Node toNode) {
         this.fromNode = fromNode;
         this.toNode = toNode;
 

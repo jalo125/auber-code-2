@@ -2,7 +2,6 @@ package com.team5.game.sprites.animation;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.team5.game.tools.Constants;
 
@@ -29,11 +28,11 @@ public class Animator {
 
     boolean looping = true;
 
-    public Animator(String idleKey, String idleRegion){
+    public Animator(String idleKey, String idleRegion) {
         this(idleKey, idleRegion, 0.2f);
     }
 
-    public Animator(String idleKey, String idleRegion, float frameDuration){
+    public Animator(String idleKey, String idleRegion, float frameDuration) {
         this.frameDuration = frameDuration;
 
         animations = new Hashtable<>();
@@ -43,42 +42,41 @@ public class Animator {
         currentSprite = currentAnim.getKeyFrame(stateTime, true);
     }
 
-    public TextureRegion getSprite(){
+    public TextureRegion getSprite() {
         currentSprite = currentAnim.getKeyFrame(stateTime, looping);
         stateTime += Gdx.graphics.getDeltaTime();
         timer += Gdx.graphics.getDeltaTime();
         return currentSprite;
     }
 
-    public void play(String animKey){
+    public void play(String animKey) {
         play(animKey, true);
     }
 
-    public void play(String animKey, boolean loop){
+    public void play(String animKey, boolean loop) {
         currentAnim = animations.get(animKey);
         looping = loop;
         timer = 0f;
     }
 
-    public void add(String animKey, String atlasRegion){
+    public void add(String animKey, String atlasRegion) {
         animations.put(animKey, new Animation<TextureRegion>(frameDuration, Constants.ATLAS.findRegions(atlasRegion)));
     }
 
-    public Animation getAnimation(String animKey){
+    public Animation getAnimation(String animKey) {
         return animations.get(animKey);
     }
 
 
-
-    public void flip(){
+    public void flip() {
         currentSprite.flip(true, false);
     }
 
-    public boolean isFlipped(){
+    public boolean isFlipped() {
         return currentSprite.isFlipX();
     }
 
-    public boolean finished(){
+    public boolean finished() {
         return (timer > currentAnim.getAnimationDuration());
     }
 

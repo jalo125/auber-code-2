@@ -5,7 +5,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -63,7 +64,7 @@ public class NPC extends Sprite {
     //Audio
     Sound clicked = Gdx.audio.newSound(Gdx.files.internal("Audio/Sound Effects/wrong.wav"));
 
-    public NPC(PlayScreen screen, World world, NodeGraph graph, Node node, Vector2 position){
+    public NPC(PlayScreen screen, World world, NodeGraph graph, Node node, Vector2 position) {
         this.world = world;
         this.screen = screen;
         this.x = position.x;
@@ -77,13 +78,13 @@ public class NPC extends Sprite {
     }
 
     //To be called every frame to move and animate the NPC.
-    public void update(float delta){
+    public void update(float delta) {
         ai.update(delta);
         handleAnimations(direction);
     }
 
     //Sets up all the base Animations as well as the AI
-    public void setup(){
+    public void setup() {
         ai = new NPCAIBehaviour(this, graph, node);
 
         //Setting initial values of animations
@@ -101,13 +102,13 @@ public class NPC extends Sprite {
         outlineImage = new Image(outlineAnim.getSprite());
         outlineButton = new ImageButton(new Image(Constants.ATLAS.findRegion("Empty")).getDrawable());
 
-        outlineButton.setPosition(x-4, y-4);
-        outlineButton.setSize(Constants.TILE_SIZE+8, Constants.TILE_SIZE+8);
+        outlineButton.setPosition(x - 4, y - 4);
+        outlineButton.setSize(Constants.TILE_SIZE + 8, Constants.TILE_SIZE + 8);
 
         outlineButton.getStyle().imageOver = outlineImage.getDrawable();
 
-        outlineButton.addListener(new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
+        outlineButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
                 clicked.play(0.3f);
                 screen.gameController.getPlayer().health.decreaseHealth();
             }
@@ -117,8 +118,8 @@ public class NPC extends Sprite {
     }
 
     //Deciding which animation will be played each frame based on the ai movement
-    void handleAnimations(Vector2 direction){
-        if (direction.isZero(0.01f)){
+    void handleAnimations(Vector2 direction) {
+        if (direction.isZero(0.01f)) {
             b2body.setLinearVelocity(0f, 0f);
             anim.play("idle");
             outlineAnim.play("idle");
@@ -131,24 +132,24 @@ public class NPC extends Sprite {
         x = b2body.getPosition().x;
         y = b2body.getPosition().y;
 
-        outlineButton.setPosition(x-4, y-4);
+        outlineButton.setPosition(x - 4, y - 4);
 
         currentSprite = anim.getSprite();
         outlineImage = new Image(outlineAnim.getSprite());
         outlineButton.getStyle().imageOver = outlineImage.getDrawable();
 
-        if ((b2body.getLinearVelocity().x < 0 || !facingRight) && !anim.isFlipped()){
+        if ((b2body.getLinearVelocity().x < 0 || !facingRight) && !anim.isFlipped()) {
             anim.flip();
             outlineAnim.flip();
             facingRight = false;
-        } else if ((b2body.getLinearVelocity().x > 0 || facingRight) && anim.isFlipped()){
+        } else if ((b2body.getLinearVelocity().x > 0 || facingRight) && anim.isFlipped()) {
             anim.flip();
             outlineAnim.flip();
             facingRight = true;
         }
     }
 
-    public void dispose(){
+    public void dispose() {
         clicked.dispose();
     }
 

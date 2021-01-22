@@ -41,7 +41,7 @@ public class Point {
     Vector2 position;
     String key;
 
-    public Point(PlayScreen screen, Stage stage, Teleporters teleporters, String key, Vector2 position){
+    public Point(PlayScreen screen, Stage stage, Teleporters teleporters, String key, Vector2 position) {
         this.screen = screen;
         this.stage = stage;
         this.teleporters = teleporters;
@@ -54,7 +54,7 @@ public class Point {
         setup();
     }
 
-    void setup(){
+    void setup() {
         point = new ImageButton(new Image(Constants.ATLAS.findRegion("Empty")).getDrawable());
 
         //The 10s are to make the hitbox bigger
@@ -63,11 +63,11 @@ public class Point {
 
         point.getStyle().imageOver = cursor.getDrawable();
 
-        point.addListener(new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
+        point.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
                 click.play(0.5f, 1.5f, 0);
                 Vector2 newPosition = teleporters.getTeleporter(key);
-                player.updatePosition(new Vector2(newPosition.x -Constants.TILE_SIZE, newPosition.y));
+                player.updatePosition(new Vector2(newPosition.x - Constants.TILE_SIZE, newPosition.y));
                 screen.minimapOff();
             }
         });
@@ -75,11 +75,11 @@ public class Point {
     }
 
     //This is used to change it according to the cameras position whenever the minimap is called
-    public void setPosition(float x, float y){
+    public void setPosition(float x, float y) {
         point.setPosition(x + position.x - offset, y + position.y - offset);
     }
 
-    public void dispose(){
+    public void dispose() {
         click.dispose();
     }
 

@@ -5,31 +5,20 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Array;
-import com.team5.game.environment.Brig;
-import com.team5.game.environment.SystemChecker;
-import com.team5.game.sprites.Infiltrator;
-import com.team5.game.sprites.NPC;
-import com.team5.game.sprites.pathfinding.Node;
-import com.team5.game.sprites.pathfinding.NodeGraph;
-import com.team5.game.sprites.pathfinding.System;
-import com.team5.game.sprites.Teleporters;
-import com.team5.game.tools.Constants;
-import com.team5.game.tools.CustomCamera;
-import com.team5.game.environment.Walls;
 import com.team5.game.MainGame;
-import com.team5.game.sprites.Player;
+import com.team5.game.environment.Walls;
+import com.team5.game.tools.CustomCamera;
 import com.team5.game.tools.GameController;
 import com.team5.game.ui.Hud;
-import com.team5.game.ui.minimap.Minimap;
 import com.team5.game.ui.PauseMenu;
+import com.team5.game.ui.minimap.Minimap;
 
 public class PlayScreen implements Screen {
 
@@ -71,7 +60,7 @@ public class PlayScreen implements Screen {
     public CustomCamera camera;
     public GameController gameController;
 
-    public PlayScreen(MainGame game){
+    public PlayScreen(MainGame game) {
         this.game = game;
 
         //Tilemap
@@ -141,7 +130,7 @@ public class PlayScreen implements Screen {
             pauseMenu.draw(delta);
         }
 
-        if (mapVisible){
+        if (mapVisible) {
             minimap.draw(delta);
         }
 
@@ -184,8 +173,8 @@ public class PlayScreen implements Screen {
 
     //Past here is all the methods I made
 
-    public void update(float delta){
-        world.step(1/60f, 6, 2);
+    public void update(float delta) {
+        world.step(1 / 60f, 6, 2);
 
         gameController.update(delta);
 
@@ -199,22 +188,22 @@ public class PlayScreen implements Screen {
         renderer.setView(camera.cam);
     }
 
-    public void minimapOn(){
+    public void minimapOn() {
         minimap.update();
         Gdx.input.setInputProcessor(minimap.stage);
         mapVisible = true;
     }
 
-    public void minimapOff(){
+    public void minimapOff() {
         Gdx.input.setInputProcessor(stage);
         mapVisible = false;
     }
 
-    void checkPause(){
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
-            if (mapVisible){
+    void checkPause() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            if (mapVisible) {
                 minimapOff();
-            } else if (paused){
+            } else if (paused) {
                 music.play();
                 Gdx.input.setInputProcessor(stage);
                 paused = false;
@@ -227,5 +216,7 @@ public class PlayScreen implements Screen {
         }
     }
 
-    public World getWorld(){return world;}
+    public World getWorld() {
+        return world;
+    }
 }

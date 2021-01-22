@@ -35,7 +35,7 @@ public class Minimap {
 
     Array<Point> points;
 
-    public Minimap(PlayScreen screen, Teleporters teleporters){
+    public Minimap(PlayScreen screen, Teleporters teleporters) {
         this.screen = screen;
         this.teleporters = teleporters;
         camera = screen.camera;
@@ -43,7 +43,7 @@ public class Minimap {
         setup();
     }
 
-    void setup(){
+    void setup() {
         stage = new Stage(camera.port);
         points = new Array<>();
 
@@ -55,30 +55,30 @@ public class Minimap {
 
         cursor = new Image(new Texture("Sprites/Minimap/Cursor.png"));
 
-        points.add(new Point(screen, stage, teleporters, "PQ" , PQPosition));
-        points.add(new Point(screen, stage, teleporters,"infirmary", infirmaryPosition));
-        points.add(new Point(screen, stage, teleporters,"north wing", northWingPosition));
-        points.add(new Point(screen, stage, teleporters,"brig", brigPosition));
-        points.add(new Point(screen, stage, teleporters,"engine", enginePosition));
+        points.add(new Point(screen, stage, teleporters, "PQ", PQPosition));
+        points.add(new Point(screen, stage, teleporters, "infirmary", infirmaryPosition));
+        points.add(new Point(screen, stage, teleporters, "north wing", northWingPosition));
+        points.add(new Point(screen, stage, teleporters, "brig", brigPosition));
+        points.add(new Point(screen, stage, teleporters, "engine", enginePosition));
 
     }
 
-    public void update(){
+    public void update() {
         minimap.setPosition(camera.cam.position.x + mapOffset.x,
                 camera.cam.position.y + mapOffset.y);
-        for (Point point : points){
+        for (Point point : points) {
             point.setPosition(camera.cam.position.x + mapOffset.x,
                     camera.cam.position.y + mapOffset.y);
         }
     }
 
-    public void draw(float delta){
+    public void draw(float delta) {
         stage.act(delta);
         stage.draw();
     }
 
-    public void dispose(){
-        for (Point point : points){
+    public void dispose() {
+        for (Point point : points) {
             point.dispose();
         }
     }

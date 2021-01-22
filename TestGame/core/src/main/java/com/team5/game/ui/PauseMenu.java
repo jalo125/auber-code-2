@@ -39,14 +39,14 @@ public class PauseMenu {
     Vector2 pauseOffset = new Vector2(-112, -75);
     Vector2 menuOffset = new Vector2(-48, -48);
 
-    public PauseMenu(MainGame game, PlayScreen screen){
+    public PauseMenu(MainGame game, PlayScreen screen) {
         this.game = game;
         camera = screen.camera;
 
         setup();
     }
 
-    void setup(){
+    void setup() {
         stage = new Stage(camera.port);
         pauseImage = new Image(new Texture("Sprites/Menu/Pause Menu.png"));
         pauseImage.setPosition(camera.cam.position.x + pauseOffset.x,
@@ -58,8 +58,8 @@ public class PauseMenu {
         menuButton.setSize(96, 32);
         menuButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/MenuOn.png")).getDrawable();
 
-        menuButton.addListener(new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
+        menuButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
                 click.play(0.5f, 1.5f, 0);
                 game.setScreen(new MainMenuScreen(game));
             }
@@ -69,14 +69,14 @@ public class PauseMenu {
         stage.addActor(menuButton);
     }
 
-    public void update(){
+    public void update() {
         pauseImage.setPosition(camera.cam.position.x + pauseOffset.x,
                 camera.cam.position.y + pauseOffset.y);
         menuButton.setPosition(camera.cam.position.x + menuOffset.x,
                 camera.cam.position.y + menuOffset.y);
     }
 
-    public void draw(float delta){
+    public void draw(float delta) {
         stage.act(delta);
         stage.draw();
     }

@@ -3,18 +3,18 @@ package com.team5.game.tools;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.team5.game.MainGame;
 import com.team5.game.environment.Brig;
 import com.team5.game.environment.SystemChecker;
-import com.team5.game.MainGame;
 import com.team5.game.screens.LoseScreen;
 import com.team5.game.screens.PlayScreen;
 import com.team5.game.sprites.Infiltrator;
 import com.team5.game.sprites.NPC;
+import com.team5.game.sprites.Player;
+import com.team5.game.sprites.Teleporters;
 import com.team5.game.sprites.pathfinding.Node;
 import com.team5.game.sprites.pathfinding.NodeGraph;
 import com.team5.game.sprites.pathfinding.System;
-import com.team5.game.sprites.Player;
-import com.team5.game.sprites.Teleporters;
 
 public class GameController {
 
@@ -33,7 +33,7 @@ public class GameController {
     int noNPCs = 72;
     int noInfiltrators = 8;
 
-    public GameController(MainGame game, PlayScreen screen){
+    public GameController(MainGame game, PlayScreen screen) {
         this.game = game;
 
         //Player
@@ -65,64 +65,64 @@ public class GameController {
         }
     }
 
-    public void draw(SpriteBatch batch){
+    public void draw(SpriteBatch batch) {
 
         graph.drawSystems(batch);
 
-        for (NPC npc : npcs){
+        for (NPC npc : npcs) {
             batch.draw(npc.currentSprite, npc.x, npc.y);
         }
-        for (Infiltrator bad : infiltrators){
+        for (Infiltrator bad : infiltrators) {
             batch.draw(bad.currentSprite, bad.x, bad.y);
         }
     }
 
-    public void drawPlayer(SpriteBatch batch){
+    public void drawPlayer(SpriteBatch batch) {
         player.draw(batch);
     }
 
-    public void update(float delta){
+    public void update(float delta) {
         checkSystems();
 
         //Moves player
         player.update();
 
         //Moves npc
-        for (NPC npc : npcs){
+        for (NPC npc : npcs) {
             npc.update(delta);
         }
-        for (Infiltrator bad : infiltrators){
+        for (Infiltrator bad : infiltrators) {
             bad.update(delta);
         }
     }
 
-    void checkSystems(){
-        if (systemChecker.allSystemsBroken()){
+    void checkSystems() {
+        if (systemChecker.allSystemsBroken()) {
             game.setScreen(new LoseScreen(game));
         }
     }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return player;
     }
 
-    public Teleporters getTeleporters(){
+    public Teleporters getTeleporters() {
         return teleporters;
     }
 
-    public SystemChecker getSystemChecker(){
+    public SystemChecker getSystemChecker() {
         return systemChecker;
     }
 
-    public Brig getBrig(){
+    public Brig getBrig() {
         return brig;
     }
 
-    public void dispose(){
-        for (NPC npc : npcs){
+    public void dispose() {
+        for (NPC npc : npcs) {
             npc.dispose();
         }
-        for (Infiltrator bad : infiltrators){
+        for (Infiltrator bad : infiltrators) {
             bad.dispose();
         }
     }

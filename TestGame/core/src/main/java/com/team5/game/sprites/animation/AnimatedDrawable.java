@@ -27,24 +27,24 @@ public class AnimatedDrawable extends BaseDrawable {
         this(new Animator(key, path, frameDuration).getAnimation(key));
     }
 
-    public AnimatedDrawable(Animation<TextureRegion> animation){
+    public AnimatedDrawable(Animation<TextureRegion> animation) {
         this.animation = animation;
 
         keyFrame = animation.getKeyFrame(0);
 
         //I can use width since all of my sprite sizes are squares
-        this.setLeftWidth(tileSize/2);
-        this.setRightWidth(tileSize/2);
-        this.setBottomHeight(tileSize/2);
-        this.setTopHeight(tileSize/2);
+        this.setLeftWidth(tileSize / 2);
+        this.setRightWidth(tileSize / 2);
+        this.setBottomHeight(tileSize / 2);
+        this.setTopHeight(tileSize / 2);
         this.setMinSize(tileSize, tileSize);
     }
 
     //Called when the animated UI is being drawn to the screen
-    public void draw(Batch batch, float x, float y, float width, float height){
+    public void draw(Batch batch, float x, float y, float width, float height) {
 
         stateTime += Gdx.graphics.getDeltaTime();
-        keyFrame = (TextureRegion)animation.getKeyFrame(stateTime, true);
+        keyFrame = (TextureRegion) animation.getKeyFrame(stateTime, true);
 
         batch.draw(keyFrame, x, y, tileSize, tileSize);
     }
