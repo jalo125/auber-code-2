@@ -15,7 +15,9 @@ public class Brig {
     //The distance between each cell in the brig, so they fill in from the left.
     int xOffset = 3;
 
-    public int prisoners = 0;
+    private int prisoners = 0;
+
+    private static final int MAX_INFILTRATOR_NUMBER = 8;
 
     public Brig(){
     }
@@ -31,7 +33,10 @@ public class Brig {
 
     //Returns whether or not all the infiltrators have been caught.
     public boolean allCaught(){
-        return prisoners>=8;
+        return prisoners>=MAX_INFILTRATOR_NUMBER;
     }
 
+    int getPrisoners() {
+        return prisoners;
+    }
 }
