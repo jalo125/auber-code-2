@@ -30,7 +30,6 @@ public class MainMenuScreen implements Screen {
 
     //Menu buttons
     ImageButton playButton;
-    ImageButton loadButton;
     ImageButton quitButton;
 
     Stage stage;
@@ -41,10 +40,9 @@ public class MainMenuScreen implements Screen {
     Sound click = Gdx.audio.newSound(Gdx.files.internal("Audio/Sound Effects/click.wav"));
 
     //Menu positions
-    Vector2 playPos = new Vector2(Constants.CAMERA_WIDTH / 2 - 48, 100);
-    Vector2 loadPos = new Vector2(Constants.CAMERA_WIDTH / 2 - 48, 60);
-    Vector2 quitPos = new Vector2(Constants.CAMERA_WIDTH / 2 - 48, 20);
-    Vector2 titlePos = new Vector2(Constants.CAMERA_WIDTH / 2 - 120, 140);
+    Vector2 playPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 60);
+    Vector2 quitPos = new Vector2(Constants.CAMERA_WIDTH/2-48, 20);
+    Vector2 titlePos = new Vector2(Constants.CAMERA_WIDTH/2-120, 100);
 
     //Colliders
     private final World world;
@@ -53,7 +51,7 @@ public class MainMenuScreen implements Screen {
     //Reference
     private final CustomCamera camera;
 
-    public MainMenuScreen(final MainGame game) {
+    public MainMenuScreen (final MainGame game){
 
         this.game = game;
         title = new Texture("Sprites/Menu/Title.png");
@@ -126,46 +124,41 @@ public class MainMenuScreen implements Screen {
 
     //Custom functions from here
 
-    public void update(float delta) {
-        world.step(1 / 60f, 6, 2);
+    public void update(float delta){
+        world.step(1/60f, 6, 2);
 
         //Updates Camera
         camera.update();
     }
 
-    void setupButtons() {
+    void setupButtons(){
         stage = new Stage(camera.port);
         Gdx.input.setInputProcessor(stage);
 
         playButton = new ImageButton(new Image(new Texture("Sprites/Menu/PlayOff.png")).getDrawable());
-        loadButton = new ImageButton(new Image(new Texture("Sprites/Menu/LoadOff.png")).getDrawable());
         quitButton = new ImageButton(new Image(new Texture("Sprites/Menu/ExitOff.png")).getDrawable());
 
         playButton.setPosition(playPos.x, playPos.y);
-        loadButton.setPosition(loadPos.x, loadPos.y);
         quitButton.setPosition(quitPos.x, quitPos.y);
 
         playButton.setSize(96, 32);
-        loadButton.setSize(96, 32);
         quitButton.setSize(96, 32);
 
         playButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/PlayOn.png")).getDrawable();
-        loadButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/LoadOn.png")).getDrawable();
         quitButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/ExitOn.png")).getDrawable();
 
         stage.addActor(playButton);
-        stage.addActor(loadButton);
         stage.addActor(quitButton);
 
-        playButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
+        playButton.addListener(new ClickListener(){
+            public void clicked(InputEvent event, float x, float y){
                 click.play(0.5f, 1.5f, 0);
                 game.setScreen(new PlayScreen(game));
             }
         });
 
-        quitButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
+        quitButton.addListener(new ClickListener(){
+            public void clicked(InputEvent event, float x, float y){
                 click.play(0.5f, 1.5f, 0);
                 Gdx.app.exit();
             }
