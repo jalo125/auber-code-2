@@ -30,6 +30,7 @@ public class PauseMenu {
 
     //Menu Elements
     Image pauseImage;
+    ImageButton saveButton;
     ImageButton menuButton;
 
     //Audio
@@ -37,6 +38,7 @@ public class PauseMenu {
 
     //Element Positioning
     Vector2 pauseOffset = new Vector2(-112, -75);
+    Vector2 saveOffset = new Vector2(-48, -15);
     Vector2 menuOffset = new Vector2(-48, -48);
 
     public PauseMenu(MainGame game, PlayScreen screen) {
@@ -52,11 +54,25 @@ public class PauseMenu {
         pauseImage.setPosition(camera.cam.position.x + pauseOffset.x,
                 camera.cam.position.y + pauseOffset.y);
 
+        saveButton = new ImageButton(new Image(new Texture("Sprites/Menu/saveOff.png")).getDrawable());
+        saveButton.setPosition(camera.cam.position.x + saveOffset.x,
+                camera.cam.position.y + saveOffset.y);
+        saveButton.setSize(96, 32);
+        saveButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/saveOn.png")).getDrawable();
+
         menuButton = new ImageButton(new Image(new Texture("Sprites/Menu/MenuOff.png")).getDrawable());
         menuButton.setPosition(camera.cam.position.x + menuOffset.x,
                 camera.cam.position.y + menuOffset.y);
         menuButton.setSize(96, 32);
         menuButton.getStyle().imageOver = new Image(new Texture("Sprites/Menu/MenuOn.png")).getDrawable();
+
+        // CHANGE FUNCTION OF SAVE BUTTON
+        saveButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                click.play(0.5f, 1.5f, 0);
+                game.setScreen(new MainMenuScreen(game));
+            }
+        });
 
         menuButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
@@ -66,12 +82,15 @@ public class PauseMenu {
         });
 
         stage.addActor(pauseImage);
+        stage.addActor(saveButton);
         stage.addActor(menuButton);
     }
 
     public void update() {
         pauseImage.setPosition(camera.cam.position.x + pauseOffset.x,
                 camera.cam.position.y + pauseOffset.y);
+        saveButton.setPosition(camera.cam.position.x + saveOffset.x,
+                camera.cam.position.y + saveOffset.y);
         menuButton.setPosition(camera.cam.position.x + menuOffset.x,
                 camera.cam.position.y + menuOffset.y);
     }
