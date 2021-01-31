@@ -27,4 +27,7 @@ public class SystemChecker {
         return (systemsBroken >= maxSystems);
     }
 
+    int getSystemsBroken() {
+        return systemsBroken;
+    }
 }
