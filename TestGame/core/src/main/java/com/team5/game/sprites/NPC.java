@@ -17,6 +17,7 @@ import com.team5.game.sprites.collisions.CharacterCollider;
 import com.team5.game.sprites.pathfinding.NPCAIBehaviour;
 import com.team5.game.sprites.pathfinding.Node;
 import com.team5.game.sprites.pathfinding.NodeGraph;
+import com.team5.game.tools.Atlas;
 import com.team5.game.tools.Constants;
 
 import java.util.Random;
@@ -100,7 +101,7 @@ public class NPC extends Sprite {
         outlineAnim.add("run", "NPC/" + (sprite + 1) + "/RunOutline");
 
         outlineImage = new Image(outlineAnim.getSprite());
-        outlineButton = new ImageButton(new Image(Constants.ATLAS.findRegion("Empty")).getDrawable());
+        outlineButton = new ImageButton(new Image(Atlas.getInstance().findRegion("Empty")).getDrawable());
 
         outlineButton.setPosition(x - 4, y - 4);
         outlineButton.setSize(Constants.TILE_SIZE + 8, Constants.TILE_SIZE + 8);

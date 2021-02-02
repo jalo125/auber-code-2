@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.team5.game.tools.Atlas;
 import com.team5.game.tools.Constants;
 
 public class System extends Room {
@@ -38,8 +39,8 @@ public class System extends Room {
     public void setup() {
         broken = false;
 
-        onSprite = Constants.ATLAS.findRegion("Systems/" + tag + "On");
-        offSprite = Constants.ATLAS.findRegion("Systems/" + tag + "Off");
+        onSprite = Atlas.getInstance().findRegion("Systems/" + tag + "On");
+        offSprite = Atlas.getInstance().findRegion("Systems/" + tag + "Off");
 
         currentSprite = onSprite;
     }

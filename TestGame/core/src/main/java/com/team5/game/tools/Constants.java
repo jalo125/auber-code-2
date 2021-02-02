@@ -10,7 +10,7 @@ public class Constants {
      */
 
     //ATLAS is the TexureAtlas holding all of the animated sprites.
-    public static final TextureAtlas ATLAS = new TextureAtlas("textures.atlas");
+
 
     //Tile_SIZE refers to how many pixels per tile in the TileMap.
     //This is useful since LibGDX works in pixels so this way you can

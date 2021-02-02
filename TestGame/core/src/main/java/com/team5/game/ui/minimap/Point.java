@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.team5.game.screens.PlayScreen;
 import com.team5.game.sprites.Player;
 import com.team5.game.sprites.Teleporters;
+import com.team5.game.tools.Atlas;
 import com.team5.game.tools.Constants;
 
 public class Point {
@@ -55,7 +56,7 @@ public class Point {
     }
 
     void setup() {
-        point = new ImageButton(new Image(Constants.ATLAS.findRegion("Empty")).getDrawable());
+        point = new ImageButton(new Image(Atlas.getInstance().findRegion("Empty")).getDrawable());
 
         //The 10s are to make the hitbox bigger
         point.setPosition(position.x - offset, position.y - offset);

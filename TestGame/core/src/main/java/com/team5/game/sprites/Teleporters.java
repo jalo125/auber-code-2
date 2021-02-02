@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.team5.game.screens.PlayScreen;
 import com.team5.game.sprites.animation.AnimatedDrawable;
+import com.team5.game.tools.Atlas;
 import com.team5.game.tools.Constants;
 
 import java.util.Hashtable;
@@ -43,7 +44,7 @@ public class Teleporters {
         this.screen = screen;
 
         teleIdle = new AnimatedDrawable("idle", "Teleporter/Idle", 1f);
-        outline = new Image(Constants.ATLAS.findRegion("Teleporter/Outline"));
+        outline = new Image(Atlas.getInstance().findRegion("Teleporter/Outline"));
         positions = new Hashtable<>();
 
         setup();
@@ -61,7 +62,7 @@ public class Teleporters {
     void addTeleporter(String key, Vector2 pos) {
         positions.put(key, pos);
 
-        teleporter = new ImageButton(new Image(Constants.ATLAS.findRegion("Empty")).getDrawable());
+        teleporter = new ImageButton(new Image(Atlas.getInstance().findRegion("Empty")).getDrawable());
         base = new Image(teleIdle);
 
         //The 8s are to make the hitbox bigger

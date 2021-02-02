@@ -3,6 +3,7 @@ package com.team5.game.sprites.animation;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.team5.game.tools.Atlas;
 import com.team5.game.tools.Constants;
 
 import java.util.Hashtable;
@@ -37,7 +38,7 @@ public class Animator {
 
         animations = new Hashtable<>();
 
-        animations.put(idleKey, new Animation<TextureRegion>(frameDuration, Constants.ATLAS.findRegions(idleRegion)));
+        animations.put(idleKey, new Animation<TextureRegion>(frameDuration, Atlas.getInstance().findRegions(idleRegion)));
         currentAnim = animations.get(idleKey);
         currentSprite = currentAnim.getKeyFrame(stateTime, true);
     }
@@ -60,7 +61,7 @@ public class Animator {
     }
 
     public void add(String animKey, String atlasRegion) {
-        animations.put(animKey, new Animation<TextureRegion>(frameDuration, Constants.ATLAS.findRegions(atlasRegion)));
+        animations.put(animKey, new Animation<TextureRegion>(frameDuration, Atlas.getInstance().findRegions(atlasRegion)));
     }
 
     public Animation getAnimation(String animKey) {

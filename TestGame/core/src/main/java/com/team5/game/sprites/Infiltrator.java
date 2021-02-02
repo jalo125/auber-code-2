@@ -16,6 +16,7 @@ import com.team5.game.sprites.animation.Animator;
 import com.team5.game.sprites.pathfinding.InfiltratorAIBehaviour;
 import com.team5.game.sprites.pathfinding.Node;
 import com.team5.game.sprites.pathfinding.NodeGraph;
+import com.team5.game.tools.Atlas;
 import com.team5.game.tools.Constants;
 import com.team5.game.tools.GameController;
 
@@ -117,7 +118,7 @@ public class Infiltrator extends NPC {
         outlineAnim.add("interact", "NPC/" + sprite + "/InteractOutline");
 
         outlineImage = new Image(outlineAnim.getSprite());
-        outlineButton = new ImageButton(new Image(Constants.ATLAS.findRegion("Empty")).getDrawable());
+        outlineButton = new ImageButton(new Image(Atlas.getInstance().findRegion("Empty")).getDrawable());
 
         outlineButton.setPosition(x - 4, y - 4);
         outlineButton.setSize(Constants.TILE_SIZE + 8, Constants.TILE_SIZE + 8);
@@ -131,7 +132,7 @@ public class Infiltrator extends NPC {
                     caught = true;
                     anim.play("caught");
                     outlineButton.getStyle().imageOver =
-                            new Image(Constants.ATLAS.findRegion("Empty")).getDrawable();
+                            new Image(Atlas.getInstance().findRegion("Empty")).getDrawable();
                 }
             }
         });

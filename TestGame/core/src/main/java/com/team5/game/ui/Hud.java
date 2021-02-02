@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.team5.game.screens.PlayScreen;
 import com.team5.game.sprites.Player;
+import com.team5.game.tools.Atlas;
 import com.team5.game.tools.Constants;
 import com.team5.game.tools.CustomCamera;
 
@@ -26,7 +27,7 @@ public class Hud {
     TextureRegion currentHealth;
     Vector2 healthOffset = new Vector2(16 - Constants.CAMERA_WIDTH / 2, Constants.CAMERA_HEIGHT / 2 - 48);
 
-    TextureAtlas atlas = Constants.ATLAS;
+    TextureAtlas atlas = Atlas.getInstance();
 
     public Hud(PlayScreen screen) {
         player = screen.gameController.getPlayer();
