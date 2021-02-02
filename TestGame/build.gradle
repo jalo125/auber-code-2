@@ -56,6 +56,7 @@ project(":desktop") {
 project(":core") {
     apply plugin: "java-library"
 
+    apply plugin: "jacoco"
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -65,7 +66,27 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         api "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
-        testCompile "org.mockito:mockito-all:1.9.+"
+        testCompile "org.junit.jupiter:junit-jupiter:5.5.2"
+        testCompile "org.mockito:mockito-junit-jupiter:3.7.7"
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 
+        test {
+            useJUnitPlatform()
+            finalizedBy jacocoTestReport // report is always generated after tests run
+        }
+        jacocoTestReport {
+            dependsOn test // tests are required to run before generating the report
+        }
+        jacoco {
+            toolVersion = "0.8.6"
+        }
+        jacocoTestReport {
+            reports {
+                xml.enabled false
+                csv.enabled false
+                html.destination file("build/jacocoHtml")
+            }
+        }
     }
 }
