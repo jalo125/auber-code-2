@@ -351,4 +351,8 @@ public class NodeGraph implements IndexedGraph<Node> {
         linkNodes(bottomLeftEngine, midLeftEngine);
         linkNodes(bottomRightEngine, midRightEngine);
     }
+
+    Array<Link> getLinks() {
+        return links;
+    }
 }
