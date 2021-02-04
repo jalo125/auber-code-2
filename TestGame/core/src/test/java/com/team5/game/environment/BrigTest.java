@@ -24,7 +24,7 @@ class BrigTest {
 
     @Test
     void allCaught() {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 5; i++) {
             brig.imprison();
         }
         assertFalse(brig.allCaught());
