@@ -30,8 +30,8 @@ public class GameController {
     Array<Infiltrator> infiltrators;
 
     //NPC numbers
-    int noNPCs = 72;
-    int noInfiltrators = 8;
+    int noNPCs = Difficulty.getNoNPCs();
+    int noInfiltrators = Difficulty.getNoInfiltrators();
 
     public GameController(MainGame game, PlayScreen screen) {
         this.game = game;

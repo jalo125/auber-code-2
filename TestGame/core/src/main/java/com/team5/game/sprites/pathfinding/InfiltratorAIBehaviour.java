@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Array;
 import com.team5.game.environment.SystemChecker;
 import com.team5.game.sprites.Infiltrator;
 import com.team5.game.sprites.Player;
+import com.team5.game.tools.Difficulty;
 import com.team5.game.tools.GameController;
 
 public class InfiltratorAIBehaviour extends NPCAIBehaviour {
@@ -23,7 +24,7 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour {
     //Abilities
     Player player;
 
-    float changeCooldown = 15f;
+    float changeCooldown = Difficulty.getChangeCooldown();
     float timer = changeCooldown;
 
     float distance = 50;

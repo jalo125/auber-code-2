@@ -160,7 +160,7 @@ public class MainMenuScreen implements Screen {
         playButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
                 click.play(0.5f, 1.5f, 0);
-                game.setScreen(new PlayScreen(game));
+                game.setScreen(new DifficultyScreen(game));
             }
         });
 
@@ -168,7 +168,7 @@ public class MainMenuScreen implements Screen {
         loadButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
                 click.play(0.5f, 1.5f, 0);
-                game.setScreen(new PlayScreen(game));
+                game.setScreen(new DifficultyScreen(game));
             }
         });
 

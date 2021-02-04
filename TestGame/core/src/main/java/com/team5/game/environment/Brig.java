@@ -2,6 +2,7 @@ package com.team5.game.environment;
 
 import com.badlogic.gdx.math.Vector2;
 import com.team5.game.tools.Constants;
+import com.team5.game.tools.Difficulty;
 
 public class Brig {
 
@@ -17,7 +18,7 @@ public class Brig {
 
     private int prisoners = 0;
 
-    private static final int MAX_INFILTRATOR_NUMBER = 8;
+    private static final int MAX_INFILTRATOR_NUMBER = Difficulty.getNoInfiltrators();
 
     public Brig() {
     }
