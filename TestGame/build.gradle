@@ -66,10 +66,8 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         api "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
-        testCompile "org.junit.jupiter:junit-jupiter:5.5.2"
+        testCompile "org.junit.jupiter:junit-jupiter:5.7.0"
         testCompile "org.mockito:mockito-junit-jupiter:3.7.7"
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 
         test {
             useJUnitPlatform()
