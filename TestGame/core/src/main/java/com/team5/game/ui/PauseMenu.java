@@ -13,6 +13,12 @@ import com.team5.game.MainGame;
 import com.team5.game.screens.MainMenuScreen;
 import com.team5.game.screens.PlayScreen;
 import com.team5.game.tools.CustomCamera;
+import com.team5.game.tools.Difficulty;
+import com.team5.game.tools.GameState;
+import com.team5.game.tools.GameStorage;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class PauseMenu {
 
@@ -70,6 +76,13 @@ public class PauseMenu {
         saveButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 click.play(0.5f, 1.5f, 0);
+                //TODO Put out warning message
+                try {
+                    GameStorage gameStorage = new GameStorage();
+                    gameStorage.save(GameState.getInstance());
+                } catch (IOException | URISyntaxException e) {
+                    e.printStackTrace();
+                }
                 game.setScreen(new MainMenuScreen(game));
             }
         });

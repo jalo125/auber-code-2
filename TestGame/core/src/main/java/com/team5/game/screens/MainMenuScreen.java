@@ -15,8 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.team5.game.MainGame;
-import com.team5.game.tools.Constants;
-import com.team5.game.tools.CustomCamera;
+import com.team5.game.tools.*;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class MainMenuScreen implements Screen {
 
@@ -133,7 +135,7 @@ public class MainMenuScreen implements Screen {
         camera.update();
     }
 
-    void setupButtons(){
+    void setupButtons() {
         stage = new Stage(camera.port);
         Gdx.input.setInputProcessor(stage);
 
@@ -160,17 +162,17 @@ public class MainMenuScreen implements Screen {
         playButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
                 click.play(0.5f, 1.5f, 0);
+                GameState.initialise();
                 game.setScreen(new DifficultyScreen(game));
             }
         });
 
         // CHANGE FUNCTION OF LOAD BUTTON
-        loadButton.addListener(new ClickListener(){
-            public void clicked(InputEvent event, float x, float y){
-                click.play(0.5f, 1.5f, 0);
-                game.setScreen(new DifficultyScreen(game));
-            }
-        });
+        try {
+            loadButton.addListener(new LoadButtonClickListener(game, new GameStorage(), click));
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
 
         quitButton.addListener(new ClickListener(){
             public void clicked(InputEvent event, float x, float y){
