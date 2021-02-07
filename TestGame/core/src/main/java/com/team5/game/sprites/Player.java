@@ -1,5 +1,6 @@
 package com.team5.game.sprites;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -13,6 +14,7 @@ import com.team5.game.sprites.animation.Animator;
 import com.team5.game.sprites.collisions.CharacterCollider;
 import com.team5.game.sprites.health.Health;
 import com.team5.game.tools.Constants;
+import com.team5.game.tools.GameState;
 
 public class Player extends Sprite {
 
@@ -43,14 +45,17 @@ public class Player extends Sprite {
     //Movement
     float speed = 150;
 
-    public float x = 50 * Constants.TILE_SIZE;
-    public float y = 95 * Constants.TILE_SIZE;
+    public float x;
+    public float y;
 
     //Health
     Health health;
 
     public Player(MainGame game, World world) {
         this.world = world;
+
+        this.x = GameState.getInstance().getPlayerX();
+        this.y = GameState.getInstance().getPlayerY();
 
         health = new Health(game, this);
         b2body = charCollider.defineCollider(world, new Vector2(x, y), size);
@@ -107,6 +112,8 @@ public class Player extends Sprite {
 
         x = b2body.getPosition().x;
         y = b2body.getPosition().y;
+        GameState.getInstance().setPlayerX(this.x);
+        GameState.getInstance().setPlayerY(this.y);
 
         currentSprite = anim.getSprite();
 
@@ -124,6 +131,8 @@ public class Player extends Sprite {
         b2body.setTransform(target, 0);
         x = b2body.getPosition().x;
         y = b2body.getPosition().y;
+        GameState.getInstance().setPlayerX(this.x);
+        GameState.getInstance().setPlayerY(this.y);
     }
 
     public int getHealth() {
