@@ -9,6 +9,7 @@ import com.team5.game.screens.LoseScreen;
 import com.team5.game.sprites.Player;
 import com.team5.game.sprites.animation.Animator;
 import com.team5.game.tools.Constants;
+import com.team5.game.tools.GameState;
 
 public class Health {
 
@@ -21,7 +22,7 @@ public class Health {
     Player player;
 
     //Health integers
-    int maxHealth;
+    int maxHealth = Constants.MAX_HEALTH;
     int currentHealth;
 
     //Regaining health
@@ -41,8 +42,7 @@ public class Health {
         this.game = game;
         this.player = player;
 
-        maxHealth = Constants.MAX_HEALTH;
-        currentHealth = maxHealth;
+        currentHealth = GameState.getInstance().getHealth();
 
         anim = new Animator("idle", "Player/HealEffect");
         anim.play("idle");
@@ -75,10 +75,12 @@ public class Health {
 
     public void increaseHealth() {
         currentHealth++;
+        GameState.getInstance().setCurrentHealth(currentHealth);
     }
 
     public void decreaseHealth() {
         currentHealth--;
+        GameState.getInstance().setCurrentHealth(currentHealth);
 
         if (currentHealth <= 0) {
             game.setScreen(new LoseScreen(game));
