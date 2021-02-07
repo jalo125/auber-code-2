@@ -2,7 +2,6 @@ package com.team5.game.tools;
 
 public class Difficulty {
 
-
     //0 = easy, 1 = normal, 2 = hard
     public static int difficulty = 1;
 
@@ -11,6 +10,9 @@ public class Difficulty {
     public static int noInfiltrators = 6;
 
     public static void setDifficulty(int difficulty){
+
+        GameState.getInstance().setDifficulty(difficulty);
+
         Difficulty.difficulty = difficulty;
         switch(difficulty){
             case 0:
@@ -42,4 +44,5 @@ public class Difficulty {
     public static int getNoInfiltrators() {
         return noInfiltrators;
     }
+
 }
