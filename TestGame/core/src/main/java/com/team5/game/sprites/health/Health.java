@@ -52,8 +52,8 @@ public class Health {
     //Called every frame, if the player is in the infirmary it's healed every timeToHeal seconds.
     public void update() {
         healEffect = anim.getSprite();
-        if (player.x >= lowerBounds.x && player.x <= upperBounds.x &&
-                player.y >= lowerBounds.y && player.y <= upperBounds.y && currentHealth < maxHealth) {
+        if (player.getX() >= lowerBounds.x && player.getX() <= upperBounds.x &&
+                player.getY() >= lowerBounds.y && player.getY() <= upperBounds.y && currentHealth < maxHealth) {
             if (!healing) {
                 timer = 0;
                 healing = true;
@@ -75,12 +75,10 @@ public class Health {
 
     public void increaseHealth() {
         currentHealth++;
-        GameState.getInstance().setCurrentHealth(currentHealth);
     }
 
     public void decreaseHealth() {
         currentHealth--;
-        GameState.getInstance().setCurrentHealth(currentHealth);
 
         if (currentHealth <= 0) {
             game.setScreen(new LoseScreen(game));

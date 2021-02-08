@@ -1,11 +1,12 @@
 package com.team5.game.tools;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.team5.game.MainGame;
 import com.team5.game.environment.Brig;
 import com.team5.game.environment.SystemChecker;
+import com.team5.game.factories.*;
 import com.team5.game.screens.LoseScreen;
 import com.team5.game.screens.PlayScreen;
 import com.team5.game.sprites.Infiltrator;
@@ -15,6 +16,8 @@ import com.team5.game.sprites.Teleporters;
 import com.team5.game.sprites.pathfinding.Node;
 import com.team5.game.sprites.pathfinding.NodeGraph;
 import com.team5.game.sprites.pathfinding.System;
+
+import java.util.List;
 
 public class GameController {
 
@@ -33,35 +36,34 @@ public class GameController {
     int noNPCs = Difficulty.getNoNPCs();
     int noInfiltrators = Difficulty.getNoInfiltrators();
 
-    public GameController(MainGame game, PlayScreen screen) {
+    public GameController(MainGame game, PlayScreen screen, PlayerFactory playerFactory, TeleportersFactory teleportersFactory, BrigFactory brigFactory, SystemCheckerFactory systemCheckerFactory, NodeGraphFactory nodeGraphFactory, InfiltratorFactory infiltratorFactory, NPCFactory npcFactory) {
+
         this.game = game;
 
         //Player
-        player = new Player(game, screen.getWorld());
+        player = playerFactory.create();
 
         //Teleporters
-        teleporters = new Teleporters(screen);
+        teleporters = teleportersFactory.create();
 
         //Checkers
-        brig = new Brig();
-        systemChecker = new SystemChecker();
+        brig = brigFactory.create();
+        systemChecker = systemCheckerFactory.create();
 
         //NPCs
-        graph = new NodeGraph();
+        graph = nodeGraphFactory.create();
         npcs = new Array<>();
         infiltrators = new Array<>();
 
         for (int i = 0; i < noNPCs; i++) {
             Node node = graph.getRandomRoom();
-            NPC npc = new NPC(screen, screen.getWorld(), graph,
-                    node, new Vector2(node.getX(), node.getY()));
+            NPC npc = npcFactory.create(graph, this, node, node.getX(), node.getY());
             npcs.add(npc);
         }
         for (int i = 0; i < noInfiltrators; i++) {
             System node = graph.getRandomSystem();
-            Infiltrator npc = new Infiltrator(game, screen, this, screen.getWorld(), graph,
-                    node, new Vector2(node.getX(), node.getY()));
-            infiltrators.add(npc);
+            Infiltrator newInfiltrator = infiltratorFactory.create(graph, this, node, node.getX(), node.getY(), false);
+            infiltrators.add(newInfiltrator);
         }
     }
 
@@ -118,6 +120,14 @@ public class GameController {
         return brig;
     }
 
+    public Array<NPC> getNpcs() {
+        return npcs;
+    }
+
+    public Array<Infiltrator> getInfiltrators() {
+        return infiltrators;
+    }
+
     public void dispose() {
         for (NPC npc : npcs) {
             npc.dispose();
@@ -126,5 +136,4 @@ public class GameController {
             bad.dispose();
         }
     }
-
 }

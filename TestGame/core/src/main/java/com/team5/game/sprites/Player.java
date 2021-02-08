@@ -1,6 +1,5 @@
 package com.team5.game.sprites;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -36,17 +35,8 @@ public class Player extends Sprite {
 
     boolean facingRight;
 
-    //Inputs
-    private int yInput;
-    private int xInput;
-    private Vector2 direction;
-
-
     //Movement
     float speed = 150;
-
-    public float x;
-    public float y;
 
     //Health
     Health health;
@@ -54,11 +44,11 @@ public class Player extends Sprite {
     public Player(MainGame game, World world) {
         this.world = world;
 
-        this.x = GameState.getInstance().getPlayerX();
-        this.y = GameState.getInstance().getPlayerY();
+        setX(GameState.getInstance().getPlayerX());
+        setY(GameState.getInstance().getPlayerY());
 
         health = new Health(game, this);
-        b2body = charCollider.defineCollider(world, new Vector2(x, y), size);
+        b2body = charCollider.defineCollider(world, new Vector2(getX(), getY()), size);
         setupAnimations();
     }
 
@@ -78,8 +68,9 @@ public class Player extends Sprite {
 
     //Checks the keyboard inputs and produces a Vector2 accordingly
     Vector2 checkInputs() {
-        xInput = 0;
-        yInput = 0;
+        int xInput = 0;
+        //Inputs
+        int yInput = 0;
 
         if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
             yInput++;
@@ -110,10 +101,8 @@ public class Player extends Sprite {
             anim.play("run");
         }
 
-        x = b2body.getPosition().x;
-        y = b2body.getPosition().y;
-        GameState.getInstance().setPlayerX(this.x);
-        GameState.getInstance().setPlayerY(this.y);
+        setX(b2body.getPosition().x);
+        setY(b2body.getPosition().y);
 
         currentSprite = anim.getSprite();
 
@@ -129,10 +118,8 @@ public class Player extends Sprite {
     //Used to teleport the player across the map
     public void updatePosition(Vector2 target) {
         b2body.setTransform(target, 0);
-        x = b2body.getPosition().x;
-        y = b2body.getPosition().y;
-        GameState.getInstance().setPlayerX(this.x);
-        GameState.getInstance().setPlayerY(this.y);
+        setX(b2body.getPosition().x);
+        setY(b2body.getPosition().y);
     }
 
     public int getHealth() {
@@ -140,9 +127,9 @@ public class Player extends Sprite {
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(currentSprite, x, y);
+        batch.draw(currentSprite, getX(), getY());
         if (health.getHealing()) {
-            health.draw(batch, x - 2, y - 2);
+            health.draw(batch, getX() - 2, getY() - 2);
         }
     }
 

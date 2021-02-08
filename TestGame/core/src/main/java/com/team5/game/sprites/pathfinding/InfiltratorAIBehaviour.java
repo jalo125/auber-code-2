@@ -77,7 +77,7 @@ public class InfiltratorAIBehaviour extends NPCAIBehaviour {
         //But only if it's away from the player.
         timer -= delta;
         if (timer <= 0) {
-            if (Vector2.dst(player.x, player.y, npc.x, npc.y) > distance) {
+            if (Vector2.dst(player.getX(), player.getY(), npc.x, npc.y) > distance) {
                 npc.changeSkin();
                 timer = changeCooldown;
             }

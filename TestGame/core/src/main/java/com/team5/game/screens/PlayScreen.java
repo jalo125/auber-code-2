@@ -14,8 +14,10 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.team5.game.MainGame;
 import com.team5.game.environment.Walls;
+import com.team5.game.factories.*;
 import com.team5.game.tools.CustomCamera;
 import com.team5.game.tools.GameController;
+import com.team5.game.tools.GameStateUtils;
 import com.team5.game.ui.Hud;
 import com.team5.game.ui.PauseMenu;
 import com.team5.game.ui.minimap.Minimap;
@@ -38,27 +40,22 @@ public class PlayScreen implements Screen {
     //Colliders
     private final World world;
     private final Box2DDebugRenderer b2dr;
-
+    //References
+    private final Walls walls;
     //Stage
     public Stage stage;
-
-    //HUD
-    private Hud hud;
-    private PauseMenu pauseMenu;
-    private Minimap minimap;
-
     public boolean paused;
     public boolean mapVisible;
-
+    public CustomCamera camera;
+    public GameController gameController;
     //Audio
     Music music = Gdx.audio.newMusic(Gdx.files.internal("Audio/Music/song.wav"));
 
     float volume = 0.01f;
-
-    //References
-    private final Walls walls;
-    public CustomCamera camera;
-    public GameController gameController;
+    //HUD
+    private Hud hud;
+    private PauseMenu pauseMenu;
+    private Minimap minimap;
 
     public PlayScreen(MainGame game) {
         this.game = game;
@@ -80,7 +77,15 @@ public class PlayScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         //Game Controller
-        gameController = new GameController(game, this);
+        PlayerFactory playerFactory = new PlayerFactory(game, this);
+        TeleportersFactory teleportersFactory = new TeleportersFactory(this);
+        BrigFactory brigFactory = new BrigFactory();
+        SystemCheckerFactory systemCheckerFactory = new SystemCheckerFactory();
+        NodeGraphFactory nodeGraphFactory = new NodeGraphFactory();
+        InfiltratorFactory infiltratorFactory = new InfiltratorFactory(game, this);
+        NPCFactory npcFactory = new NPCFactory(game, this);
+
+        gameController = new GameController(game, this, playerFactory, teleportersFactory, brigFactory, systemCheckerFactory, nodeGraphFactory, infiltratorFactory, npcFactory);
         camera.follow(gameController.getPlayer());
 
         //Collisions for TileMap
@@ -201,6 +206,7 @@ public class PlayScreen implements Screen {
 
     void checkPause() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            GameStateUtils.createGameState(gameController.getPlayer());
             if (mapVisible) {
                 minimapOff();
             } else if (paused) {

@@ -51,7 +51,7 @@ public class Infiltrator extends NPC {
     Sound pass = Gdx.audio.newSound(Gdx.files.internal("Audio/Sound Effects/pass.wav"));
 
     public Infiltrator(MainGame game, PlayScreen screen, GameController gameController, World world,
-                       NodeGraph graph, Node node, Vector2 position) {
+                       NodeGraph graph, Node node, Vector2 position, boolean imprisoned) {
         super(screen, world, graph, node, position);
         this.game = game;
 
@@ -60,6 +60,8 @@ public class Infiltrator extends NPC {
         systemChecker = gameController.getSystemChecker();
 
         ai = new InfiltratorAIBehaviour(gameController, this, graph, node);
+
+        this.imprisoned = imprisoned;
     }
 
     //To be called every frame to move and animate the infiltrator.
@@ -164,4 +166,9 @@ public class Infiltrator extends NPC {
         pass.dispose();
         ai.dispose();
     }
+
+    public boolean isImprisoned() {
+        return imprisoned;
+    }
+
 }

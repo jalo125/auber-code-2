@@ -1,6 +1,8 @@
 package com.team5.game.tools;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameState implements Serializable {
 
@@ -22,6 +24,7 @@ public class GameState implements Serializable {
     }
 
     public static void initialise(GameState loadedGameState) {
+
         instance = loadedGameState;
     }
 
