@@ -21,7 +21,7 @@ Deep Space Y is space station on the outskirts of the galaxy, inhabited by human
 4. Neo Metcalfe
 5. Mohammad Abdullah
 
-## Original Deliverables
+## Original Deliverables (Updated with Assessment 2 Edits where Applicable)
 1. [The Link for FinalGame Repo](https://github.com/muhidinmo/Eng1_Boolean_Bobcats/tree/FinalGame/TestGame)
 2. [The Link for the Architecture](https://github.com/muhidinmo/Eng1_Boolean_Bobcats/blob/FinalGame/deliverables/Arch1.pdf)
 3. [The Link for the Implementation](https://github.com/muhidinmo/Eng1_Boolean_Bobcats/blob/FinalGame/deliverables/Impl1.pdf)
